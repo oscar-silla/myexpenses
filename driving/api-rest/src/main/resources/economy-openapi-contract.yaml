@@ -1,0 +1,270 @@
+openapi: 3.0.0
+info:
+  title: Economy API
+  description: Economy API from my personal book
+  version: 1.0.0
+tags:
+  - name: Expenses
+paths:
+  /expenses:
+    post:
+      summary: Create a new expense.
+      operationId: postExpense
+      tags:
+        - Expenses
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExpenseRequestBodyType"
+      responses:
+        '201':
+          description: CREATED SUCCESSFULLY
+        '400':
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
+        '500':
+          description: INTERNAL SERVER ERROR
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
+    get:
+      summary: Get all expenses.
+      operationId: getExpenses
+      tags:
+        - Expenses
+      parameters:
+        - $ref: "#/components/parameters/pageSizeQueryParam"
+        - $ref: "#/components/parameters/pageNumberQueryParam"
+        - $ref: "#/components/parameters/startDateQueryParam"
+        - $ref: "#/components/parameters/endDateQueryParam"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExpensesResponseType"
+        '400':
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
+        '500':
+          description: INTERNAL SERVER ERROR
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
+  /expenses/{id}:
+    get:
+      summary: Get expense
+      operationId: getExpense
+      tags:
+        - Expenses
+      parameters:
+        - $ref: "#/components/parameters/idPathParam"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExpenseResponseType"
+        '404':
+          description: NOT FOUND
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
+        '500':
+          description: INTERNAL SERVER ERROR
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
+    patch:
+      summary: Modify expense
+      operationId: patchExpense
+      tags:
+        - Expenses
+      parameters:
+        - $ref: "#/components/parameters/idPathParam"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExpenseRequestBodyType"
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
+        '404':
+          description: NOT FOUND
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
+        '500':
+          description: INTERNAL SERVER ERROR
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
+    delete:
+      summary: Delete expense
+      operationId: deleteExpense
+      tags:
+        - Expenses
+      parameters:
+        - $ref: "#/components/parameters/idPathParam"
+      responses:
+        '204':
+          description: NO CONTENT
+        '500':
+          description: INTERNAL SERVER ERROR
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
+components:
+  schemas:
+    ExpenseRequestBodyType:
+      type: object
+      properties:
+        amount:
+          type: number
+          format: float
+          example: 2.55
+        category:
+          type: string
+          format: string
+          example: Food
+        description:
+          type: string
+          format: string
+          example: Hot dog
+        date:
+          type: string
+          format: date
+          example: 2024-01-01
+    ExpensesResponseType:
+      type: object
+      required:
+        - results
+        - pagination
+      properties:
+        results:
+          type: object
+          $ref: "#/components/schemas/ExpenseResponseType"
+        pagination:
+          type: object
+          $ref: "#/components/schemas/PaginationResponseType"
+    ExpenseResponseType:
+      type: object
+      required:
+        - id
+        - amount
+        - category
+        - description
+        - date
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        amount:
+          type: number
+          format: float
+          example: 2.55
+        category:
+          type: string
+          format: string
+          example: Food
+        description:
+          type: string
+          format: string
+          example: Hot dog
+        date:
+          type: string
+          format: date
+          example: 2024-01-01
+    PaginationResponseType:
+      type: object
+      required:
+        - pageNumber
+        - pageSize
+        - totalResults
+      properties:
+        pageNumber:
+          type: integer
+          format: int32
+          example: 1
+        pageSize:
+          type: integer
+          format: int32
+          example: 10
+        totalResults:
+          type: integer
+          format: int32
+          example: 100
+    ErrorResponseType:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 500
+        message:
+          type: string
+          format: string
+          example: Internal Server Error
+  parameters:
+    pageSizeQueryParam:
+      in: query
+      name: pageSize
+      schema:
+        type: integer
+        default: 10
+      required: false
+    pageNumberQueryParam:
+      in: query
+      name: pageNumber
+      schema:
+        type: integer
+        default: 1
+      required: false
+    startDateQueryParam:
+      in: query
+      name: startDate
+      schema:
+        type: string
+        format: date
+      required: false
+    endDateQueryParam:
+      in: query
+      name: endDate
+      schema:
+        type: string
+        format: date
+      required: false
+    idPathParam:
+      in: path
+      name: id
+      schema:
+        type: integer
+        format: int64
+      required: true

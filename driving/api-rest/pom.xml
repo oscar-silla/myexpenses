@@ -53,6 +53,18 @@
             <artifactId>jackson-databind-nullable</artifactId>
             <version>0.2.6</version>
         </dependency>
+        <!-- MapStruct -->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>1.6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>1.6.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -81,10 +93,10 @@
                                 <useBeanValidation>true</useBeanValidation>
                                 <useClassLevelBeanValidation>false</useClassLevelBeanValidation>
                                 <useTags>true</useTags>
-                                <java17>true</java17>
+                                <java8>true</java8>
                                 <useOptional>false</useOptional>
                                 <hideGenerationTimestamp>true</hideGenerationTimestamp>
-                                <dateLibrary>java17</dateLibrary>
+                                <dateLibrary>java8</dateLibrary>
                                 <bigDecimalAsString>true</bigDecimalAsString>
                                 <useBeanValidation>true</useBeanValidation>
                                 <apiPackage>openapi.economy.api</apiPackage>

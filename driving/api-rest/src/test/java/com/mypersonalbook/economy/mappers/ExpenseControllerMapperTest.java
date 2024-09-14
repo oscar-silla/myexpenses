@@ -26,7 +26,7 @@ public class ExpenseControllerMapperTest {
     final Expense RESULT = this.expenseControllerMapper.toExpense(EXPENSE_REQUEST_BODY_TYPE());
     assertEquals(EXPENSE_AMOUNT, RESULT.amount());
     assertEquals(EXPENSE_DESCRIPTION, RESULT.description());
-    assertEquals(EXPENSE_CATEGORY, RESULT.category());
+    assertEquals(CATEGORY_NAME, RESULT.category().name());
     assertEquals(EXPENSE_DATE, RESULT.date());
   }
 }

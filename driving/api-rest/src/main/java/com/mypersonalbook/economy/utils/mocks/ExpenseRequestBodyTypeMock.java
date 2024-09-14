@@ -9,7 +9,7 @@ public class ExpenseRequestBodyTypeMock {
         ExpenseRequestBodyType expenseRequestBodyType = new ExpenseRequestBodyType();
         expenseRequestBodyType.setDate(EXPENSE_DATE);
         expenseRequestBodyType.setAmount(EXPENSE_AMOUNT);
-        expenseRequestBodyType.setCategory(EXPENSE_CATEGORY);
+        expenseRequestBodyType.setCategory(CATEGORY_NAME);
         expenseRequestBodyType.setDescription(EXPENSE_DESCRIPTION);
         return expenseRequestBodyType;
     }

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
+import static com.mypersonalbook.economy.utils.AppConstants.EXPENSE_TYPE;
+
 @Service
 public class SaveExpenseUseCase implements SaveExpenseUseCasePort {
   private final ExpenseService expenseService;
@@ -24,10 +26,12 @@ public class SaveExpenseUseCase implements SaveExpenseUseCasePort {
 
   private void validate(Expense expense) {
     if (expense.amount() == null
-        || !StringUtils.hasText(expense.category())
+        || expense.category() == null
+        || !StringUtils.hasText(expense.category().name())
         || (expense.description() != null && expense.description().isBlank())
         || expense.date() == null) {
       throw new BadRequestException();
     }
+    expense.category().setType(EXPENSE_TYPE);
   }
 }

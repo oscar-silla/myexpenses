@@ -1,6 +1,7 @@
 package com.mypersonalbook.economy.usecases;
 
 import com.mypersonalbook.economy.domain.Expense;
+import com.mypersonalbook.economy.exceptions.BadRequestException;
 import com.mypersonalbook.economy.ports.in.SaveExpenseUseCasePort;
 import com.mypersonalbook.economy.services.ExpenseService;
 import org.springframework.stereotype.Service;
@@ -18,12 +19,15 @@ public class SaveExpenseUseCase implements SaveExpenseUseCasePort {
   @Override
   public void execute(Expense expense) {
     this.validate(expense);
+    this.expenseService.save(expense);
   }
 
   private void validate(Expense expense) {
     if (expense.amount() == null
         || !StringUtils.hasText(expense.category())
         || (expense.description() != null && expense.description().isBlank())
-        || expense.date() == null) {}
+        || expense.date() == null) {
+      throw new BadRequestException();
+    }
   }
 }

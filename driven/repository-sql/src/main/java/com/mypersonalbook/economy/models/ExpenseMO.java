@@ -10,7 +10,8 @@ import java.util.Objects;
 public class ExpenseMO {
   @Id
   @Column(name = "id")
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "o_expenses_seq")
+  @SequenceGenerator(name = "o_expenses_seq", sequenceName = "O_EXPENSES_SEQ", allocationSize = 1)
   private Long id;
 
   @Column(name = "amount")

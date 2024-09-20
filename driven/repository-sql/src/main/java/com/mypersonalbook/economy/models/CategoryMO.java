@@ -5,18 +5,18 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "o_category")
+@Table(name = "o_categories")
 public class CategoryMO {
   @Id
-  @Column(name = "id")
+  @Column(name = "category_id")
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "o_categories_seq")
   @SequenceGenerator(name = "o_categories_seq", sequenceName = "O_CATEGORIES_SEQ", allocationSize = 1)
   private Long id;
 
-  @Column(name = "name")
+  @Column(name = "category_name")
   private String name;
 
-  @Column(name = "type")
+  @Column(name = "category_type")
   private String type;
 
   public CategoryMO() {}

@@ -7,8 +7,6 @@ import com.mypersonalbook.economy.services.ExpenseService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import static com.mypersonalbook.economy.utils.AppConstants.EXPENSE_TYPE;
-
 @Service
 public class SaveExpenseUseCase implements SaveExpenseUseCasePort {
   private final ExpenseService expenseService;
@@ -31,6 +29,5 @@ public class SaveExpenseUseCase implements SaveExpenseUseCasePort {
         || expense.date() == null) {
       throw new BadRequestException();
     }
-    expense.category().setType(EXPENSE_TYPE);
   }
 }

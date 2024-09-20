@@ -1,8 +1,8 @@
 package com.mypersonalbook.economy.handlers;
 
 import com.mypersonalbook.economy.exceptions.BadRequestException;
+import com.mypersonalbook.economy.exceptions.NotFoundException;
 import openapi.economy.model.ErrorResponseType;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,6 +15,14 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
     ErrorResponseType errorResponseType = new ErrorResponseType();
     errorResponseType.setCode(exception.getStatusCode().value());
     errorResponseType.setMessage(exception.getStatusText());
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponseType);
+    return ResponseEntity.status(exception.getStatusCode()).body(errorResponseType);
+  }
+
+  @ExceptionHandler(value = NotFoundException.class)
+  protected ResponseEntity<ErrorResponseType> handleNotFound(NotFoundException exception) {
+    ErrorResponseType errorResponseType = new ErrorResponseType();
+    errorResponseType.setCode(exception.getStatusCode().value());
+    errorResponseType.setMessage(exception.getStatusText());
+    return ResponseEntity.status(exception.getStatusCode()).body(errorResponseType);
   }
 }

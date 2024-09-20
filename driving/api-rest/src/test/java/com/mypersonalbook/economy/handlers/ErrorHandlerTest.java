@@ -1,6 +1,7 @@
 package com.mypersonalbook.economy.handlers;
 
 import com.mypersonalbook.economy.exceptions.BadRequestException;
+import com.mypersonalbook.economy.exceptions.NotFoundException;
 import openapi.economy.model.ErrorResponseType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -31,4 +32,14 @@ public class ErrorHandlerTest {
         assertEquals(HttpStatus.BAD_REQUEST.value(), Objects.requireNonNull(RESULT.getBody()).getCode());
         assertEquals(HttpStatus.BAD_REQUEST.getReasonPhrase(), Objects.requireNonNull(RESULT.getBody()).getMessage());
     }
+
+    @Test
+    @DisplayName("Should return not found error type")
+    void shouldNotFoundErrorType() {
+        final NotFoundException EXCEPTION = new NotFoundException();
+        final ResponseEntity<ErrorResponseType> RESULT = this.errorHandler.handleNotFound(EXCEPTION);
+        assertEquals(HttpStatus.NOT_FOUND.value(), Objects.requireNonNull(RESULT.getBody()).getCode());
+        assertEquals(HttpStatus.NOT_FOUND.getReasonPhrase(), Objects.requireNonNull(RESULT.getBody()).getMessage());
+    }
+
 }

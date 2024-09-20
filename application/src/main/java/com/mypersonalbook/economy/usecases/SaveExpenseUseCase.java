@@ -5,7 +5,6 @@ import com.mypersonalbook.economy.exceptions.BadRequestException;
 import com.mypersonalbook.economy.ports.in.SaveExpenseUseCasePort;
 import com.mypersonalbook.economy.services.ExpenseService;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import static com.mypersonalbook.economy.utils.AppConstants.EXPENSE_TYPE;

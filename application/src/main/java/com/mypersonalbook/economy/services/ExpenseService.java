@@ -39,4 +39,8 @@ public class ExpenseService {
     Expense expenseToSave = expense.setCategory(category);
     this.expenseRepository.save(expenseToSave);
   }
+
+  public void deleteById(Long id) {
+      this.expenseRepository.deleteById(id);
+  }
 }

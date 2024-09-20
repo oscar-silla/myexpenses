@@ -21,4 +21,9 @@ public class ExpenseRepositoryAdapter implements ExpenseRepositoryPort {
   public void save(Expense expense) {
     this.expenseJpaRepository.save(this.expenseRepositoryMapper.toExpenseMO(expense));
   }
+
+  @Override
+  public void deleteById(Long id) {
+    this.expenseJpaRepository.deleteById(id);
+  }
 }

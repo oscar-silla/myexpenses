@@ -11,11 +11,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static com.mypersonalbook.economy.utils.test.TestConstants.EXPENSE_ID;
 import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMOMock.EXPENSE_MO;
 import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMock.EXPENSE;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class ExpenseRepositoryAdapterTest {
@@ -36,5 +36,13 @@ public class ExpenseRepositoryAdapterTest {
     when(this.expenseJpaRepository.save(any(ExpenseMO.class))).thenReturn(EXPENSE_MO);
     this.expenseRepositoryAdapter.save(EXPENSE);
     verify(this.expenseJpaRepository).save(any(ExpenseMO.class));
+  }
+
+  @Test
+  @DisplayName("Should delete expense by id")
+  void shouldDeleteExpenseById() {
+    doNothing().when(this.expenseJpaRepository).deleteById(anyLong());
+    this.expenseRepositoryAdapter.deleteById(EXPENSE_ID);
+    verify(this.expenseJpaRepository).deleteById(anyLong());
   }
 }

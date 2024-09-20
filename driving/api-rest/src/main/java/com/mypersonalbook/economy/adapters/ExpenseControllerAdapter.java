@@ -1,6 +1,7 @@
 package com.mypersonalbook.economy.adapters;
 
 import com.mypersonalbook.economy.mappers.ExpenseControllerMapper;
+import com.mypersonalbook.economy.ports.in.DeleteExpenseUseCasePort;
 import com.mypersonalbook.economy.ports.in.SaveExpenseUseCasePort;
 import openapi.economy.api.ExpensesApi;
 import openapi.economy.model.ExpenseRequestBodyType;
@@ -22,16 +23,22 @@ public class ExpenseControllerAdapter implements ExpensesApi {
   private final ExpenseControllerMapper mapper;
 
   private final SaveExpenseUseCasePort saveExpenseUseCase;
+  private final DeleteExpenseUseCasePort deleteExpenseUseCase;
 
   public ExpenseControllerAdapter(
-      ExpenseControllerMapper mapper, SaveExpenseUseCasePort saveExpenseUseCase) {
+      ExpenseControllerMapper mapper,
+      SaveExpenseUseCasePort saveExpenseUseCase,
+      DeleteExpenseUseCasePort deleteExpenseUseCase) {
     this.mapper = mapper;
     this.saveExpenseUseCase = saveExpenseUseCase;
+    this.deleteExpenseUseCase = deleteExpenseUseCase;
   }
 
   @Override
   public ResponseEntity<Void> deleteExpense(Long id) {
-    return null;
+    logger.info("DELETE /economy/v1/expenses with id: {}", id);
+    this.deleteExpenseUseCase.execute(id);
+    return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
   }
 
   @Override

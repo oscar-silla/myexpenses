@@ -15,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
+import static com.mypersonalbook.economy.utils.test.TestConstants.EXPENSE_ID;
 import static com.mypersonalbook.economy.utils.test.mocks.CategoryMock.EXPENSE_CATEGORY;
 import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMock.EXPENSE;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -48,5 +49,13 @@ public class ExpenseServiceTest {
     doNothing().when(this.expenseRepository).save(any(Expense.class));
     this.expenseService.save(EXPENSE);
     verify(this.expenseRepository).save(any(Expense.class));
+  }
+
+  @Test
+  @DisplayName("Should delete expense by id")
+  void shouldDeleteExpenseById() {
+    doNothing().when(this.expenseRepository).deleteById(anyLong());
+    this.expenseService.deleteById(EXPENSE_ID);
+    verify(this.expenseRepository).deleteById(anyLong());
   }
 }

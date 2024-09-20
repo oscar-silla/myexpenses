@@ -1,7 +1,9 @@
 package com.mypersonalbook.economy.adapters;
 
+import com.mypersonalbook.economy.domain.Expense;
 import com.mypersonalbook.economy.mappers.ExpenseControllerMapper;
 import com.mypersonalbook.economy.ports.in.DeleteExpenseUseCasePort;
+import com.mypersonalbook.economy.ports.in.GetExpenseUseCasePort;
 import com.mypersonalbook.economy.ports.in.SaveExpenseUseCasePort;
 import openapi.economy.api.ExpensesApi;
 import openapi.economy.model.ExpenseRequestBodyType;
@@ -20,18 +22,21 @@ import java.time.LocalDate;
 @RequestMapping(value = "/economy/v1")
 public class ExpenseControllerAdapter implements ExpensesApi {
   private final Logger logger = LoggerFactory.getLogger(ExpenseControllerAdapter.class);
-  private final ExpenseControllerMapper mapper;
+  private final ExpenseControllerMapper expenseControllerMapper;
 
   private final SaveExpenseUseCasePort saveExpenseUseCase;
   private final DeleteExpenseUseCasePort deleteExpenseUseCase;
+  private final GetExpenseUseCasePort getExpenseUseCase;
 
   public ExpenseControllerAdapter(
-      ExpenseControllerMapper mapper,
+      ExpenseControllerMapper expenseControllerMapper,
       SaveExpenseUseCasePort saveExpenseUseCase,
-      DeleteExpenseUseCasePort deleteExpenseUseCase) {
-    this.mapper = mapper;
+      DeleteExpenseUseCasePort deleteExpenseUseCase,
+      GetExpenseUseCasePort getExpenseUseCase) {
+    this.expenseControllerMapper = expenseControllerMapper;
     this.saveExpenseUseCase = saveExpenseUseCase;
     this.deleteExpenseUseCase = deleteExpenseUseCase;
+    this.getExpenseUseCase = getExpenseUseCase;
   }
 
   @Override
@@ -43,7 +48,11 @@ public class ExpenseControllerAdapter implements ExpensesApi {
 
   @Override
   public ResponseEntity<ExpenseResponseType> getExpense(Long id) {
-    return null;
+    logger.info("GET /economy/v1/expenses with id: {}", id);
+    Expense expense = this.getExpenseUseCase.execute(id);
+    ExpenseResponseType expenseResponseType =
+        this.expenseControllerMapper.toExpenseResponseType(expense);
+    return ResponseEntity.status(HttpStatus.OK).body(expenseResponseType);
   }
 
   @Override
@@ -60,7 +69,7 @@ public class ExpenseControllerAdapter implements ExpensesApi {
   @Override
   public ResponseEntity<Void> postExpense(ExpenseRequestBodyType expenseRequestBodyType) {
     logger.info("POST /economy/v1/expenses with body: {}", expenseRequestBodyType.toString());
-    this.saveExpenseUseCase.execute(this.mapper.toExpense(expenseRequestBodyType));
+    this.saveExpenseUseCase.execute(this.expenseControllerMapper.toExpense(expenseRequestBodyType));
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 }

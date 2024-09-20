@@ -11,9 +11,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 import static com.mypersonalbook.economy.utils.test.TestConstants.EXPENSE_ID;
 import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMOMock.EXPENSE_MO;
 import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMock.EXPENSE;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -44,5 +47,14 @@ public class ExpenseRepositoryAdapterTest {
     doNothing().when(this.expenseJpaRepository).deleteById(anyLong());
     this.expenseRepositoryAdapter.deleteById(EXPENSE_ID);
     verify(this.expenseJpaRepository).deleteById(anyLong());
+  }
+
+  @Test
+  @DisplayName("Should return expense when find by id")
+  void shouldReturnExpense_WhenFindById() {
+    when(this.expenseJpaRepository.findById(anyLong())).thenReturn(Optional.of(EXPENSE_MO));
+    when(this.expenseRepositoryMapper.toExpense(any(ExpenseMO.class))).thenReturn(EXPENSE);
+    final Optional<Expense> RESULT = this.expenseRepositoryAdapter.findById(EXPENSE_ID);
+    assertTrue(RESULT.isPresent());
   }
 }

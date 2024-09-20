@@ -41,6 +41,16 @@ public class ExpenseService {
   }
 
   public void deleteById(Long id) {
-      this.expenseRepository.deleteById(id);
+    this.expenseRepository.deleteById(id);
+  }
+
+  public Expense findById(Long id) {
+    return this.expenseRepository
+        .findById(id)
+        .orElseThrow(
+            () -> {
+              logger.error("Expense with id: {} not found.", id);
+              return new NotFoundException();
+            });
   }
 }

@@ -18,7 +18,7 @@ import java.util.Optional;
 import static com.mypersonalbook.economy.utils.test.TestConstants.EXPENSE_ID;
 import static com.mypersonalbook.economy.utils.test.mocks.CategoryMock.EXPENSE_CATEGORY;
 import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMock.EXPENSE;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -57,5 +57,21 @@ public class ExpenseServiceTest {
     doNothing().when(this.expenseRepository).deleteById(anyLong());
     this.expenseService.deleteById(EXPENSE_ID);
     verify(this.expenseRepository).deleteById(anyLong());
+  }
+
+  @Test
+  @DisplayName("Should throw not found exception when find expense by id")
+  void shouldThrowNotFoundException_WhenFindExpenseById() {
+    when(this.expenseRepository.findById(anyLong())).thenReturn(Optional.empty());
+    Executable executable = () -> this.expenseService.findById(EXPENSE_ID);
+    assertThrows(NotFoundException.class, executable);
+  }
+
+  @Test
+  @DisplayName("Should return expense when find by id")
+  void shouldReturnExpense_WhenFindById() {
+    when(this.expenseRepository.findById(anyLong())).thenReturn(Optional.of(EXPENSE));
+    Expense expense = this.expenseService.findById(EXPENSE_ID);
+    assertNotNull(expense);
   }
 }

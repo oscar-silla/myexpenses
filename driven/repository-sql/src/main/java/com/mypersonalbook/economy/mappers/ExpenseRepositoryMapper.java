@@ -11,4 +11,6 @@ import org.mapstruct.Mapper;
     injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface ExpenseRepositoryMapper {
   ExpenseMO toExpenseMO(Expense expense);
+
+  Expense toExpense(ExpenseMO expenseMO);
 }

@@ -6,6 +6,8 @@ import com.mypersonalbook.economy.ports.out.ExpenseRepositoryPort;
 import com.mypersonalbook.economy.repositories.ExpenseJpaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ExpenseRepositoryAdapter implements ExpenseRepositoryPort {
   private final ExpenseJpaRepository expenseJpaRepository;
@@ -25,5 +27,10 @@ public class ExpenseRepositoryAdapter implements ExpenseRepositoryPort {
   @Override
   public void deleteById(Long id) {
     this.expenseJpaRepository.deleteById(id);
+  }
+
+  @Override
+  public Optional<Expense> findById(Long id) {
+    return this.expenseJpaRepository.findById(id).map(this.expenseRepositoryMapper::toExpense);
   }
 }

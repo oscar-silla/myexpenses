@@ -1,5 +1,6 @@
 package com.mypersonalbook.economy.mappers;
 
+import com.mypersonalbook.economy.domain.Expense;
 import com.mypersonalbook.economy.models.ExpenseMO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static com.mypersonalbook.economy.utils.test.TestConstants.*;
+import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMOMock.EXPENSE_MO;
 import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMock.EXPENSE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -32,5 +34,18 @@ public class ExpenseRepositoryMapperTest {
     assertEquals(CATEGORY_EXPENSE_TYPE, RESULT.getCategory().getType());
     assertEquals(EXPENSE_DESCRIPTION, RESULT.getDescription());
     assertEquals(EXPENSE_DATE, RESULT.getDate());
+  }
+
+  @Test
+  @DisplayName("Should map to expense")
+  void shouldMapToExpense() {
+    final Expense RESULT = this.expenseRepositoryMapper.toExpense(EXPENSE_MO);
+    assertEquals(EXPENSE_ID, RESULT.id());
+    assertEquals(EXPENSE_AMOUNT, RESULT.amount());
+    assertEquals(CATEGORY_ID, RESULT.category().id());
+    assertEquals(CATEGORY_NAME, RESULT.category().name());
+    assertEquals(CATEGORY_EXPENSE_TYPE, RESULT.category().type());
+    assertEquals(EXPENSE_DESCRIPTION, RESULT.description());
+    assertEquals(EXPENSE_DATE, RESULT.date());
   }
 }

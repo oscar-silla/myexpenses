@@ -22,11 +22,11 @@ public class SaveExpenseUseCase implements SaveExpenseUseCasePort {
   }
 
   private void validate(Expense expense) {
-    if (expense.amount() == null
-        || expense.category() == null
-        || !StringUtils.hasText(expense.category().name())
-        || (expense.description() != null && expense.description().isBlank())
-        || expense.date() == null) {
+    if (expense.getAmount() == null
+        || expense.getCategory() == null
+        || !StringUtils.hasText(expense.getCategory().getName())
+        || (expense.getDescription() != null && expense.getDescription().isBlank())
+        || expense.getDate() == null) {
       throw new BadRequestException();
     }
   }

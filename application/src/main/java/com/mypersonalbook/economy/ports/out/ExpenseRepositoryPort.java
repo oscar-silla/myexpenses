@@ -15,4 +15,6 @@ public interface ExpenseRepositoryPort {
   Optional<Expense> findById(Long id);
 
   Page<Expense> find(ExpenseFilter expenseFilter, PaginationFilter paginationFilter);
+
+  void modify(Expense expense, Expense expenseToUpdate);
 }

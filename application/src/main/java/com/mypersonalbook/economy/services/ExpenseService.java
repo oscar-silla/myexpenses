@@ -28,19 +28,9 @@ public class ExpenseService {
   }
 
   public void save(Expense expense) {
-    Category category =
-        this.categoryRepository
-            .findOne(new CategoryFilter(expense.category().name(), EXPENSE_TYPE))
-            .orElseThrow(
-                () -> {
-                  logger.error(
-                      "Category with name: {}, type: {} not found.",
-                      expense.category().name(),
-                      EXPENSE_TYPE);
-                  return new NotFoundException();
-                });
-    Expense expenseToSave = expense.setCategory(category);
-    this.expenseRepository.save(expenseToSave);
+    Category category = this.findCategoryOrThrow(expense);
+    expense.setCategory(category);
+    this.expenseRepository.save(expense);
   }
 
   public void deleteById(Long id) {
@@ -59,5 +49,26 @@ public class ExpenseService {
 
   public Page<Expense> find(ExpenseFilter expenseFilter, PaginationFilter paginationFilter) {
     return this.expenseRepository.find(expenseFilter, paginationFilter);
+  }
+
+  public void modify(Expense expense) {
+    if (expense.getCategory() != null) {
+      expense.setCategory(this.findCategoryOrThrow(expense));
+    }
+    Expense expenseToUpdate = this.findById(expense.getId());
+    this.expenseRepository.modify(expense, expenseToUpdate);
+  }
+
+  private Category findCategoryOrThrow(Expense expense) {
+    return this.categoryRepository
+        .findOne(new CategoryFilter(expense.getCategory().getName(), EXPENSE_TYPE))
+        .orElseThrow(
+            () -> {
+              logger.error(
+                  "Category with name: {}, type: {} not found.",
+                  expense.getCategory().getName(),
+                  EXPENSE_TYPE);
+              return new NotFoundException();
+            });
   }
 }

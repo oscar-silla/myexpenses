@@ -22,8 +22,7 @@ import static com.mypersonalbook.economy.utils.test.TestConstants.EXPENSE_ID;
 import static com.mypersonalbook.economy.utils.test.mocks.ExpenseFilterMock.EXPENSE_FILTER;
 import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMOMock.EXPENSES_PAGE_MO;
 import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMOMock.EXPENSE_MO;
-import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMock.EXPENSE;
-import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMock.EXPENSES_PAGE;
+import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMock.*;
 import static com.mypersonalbook.economy.utils.test.mocks.PaginationFilterMock.PAGINATION_FILTER;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
@@ -81,5 +80,17 @@ public class ExpenseRepositoryAdapterTest {
     when(this.expenseRepositoryMapper.toExpense(any(ExpenseMO.class))).thenReturn(EXPENSE);
     this.expenseRepositoryAdapter.find(EXPENSE_FILTER, PAGINATION_FILTER);
     verify(this.expenseRepositoryMapper).toExpense(any(ExpenseMO.class));
+  }
+
+  @Test
+  @DisplayName("Should save expense when modify")
+  void shouldSaveExpense_WhenModify() {
+    doNothing()
+        .when(this.expenseRepositoryMapper)
+        .mapFromDtoToExpense(any(Expense.class), any(Expense.class));
+    when(this.expenseRepositoryMapper.toExpenseMO(any(Expense.class))).thenReturn(EXPENSE_MO);
+    when(this.expenseJpaRepository.save(any(ExpenseMO.class))).thenReturn(EXPENSE_MO);
+    this.expenseRepositoryAdapter.modify(EXPENSE, OTHER_EXPENSE);
+    verify(this.expenseJpaRepository).save(any(ExpenseMO.class));
   }
 }

@@ -165,8 +165,9 @@ components:
         - pagination
       properties:
         results:
-          type: object
-          $ref: "#/components/schemas/ExpenseResponseType"
+          type: array
+          items:
+            $ref: "#/components/schemas/ExpenseResponseType"
         pagination:
           type: object
           $ref: "#/components/schemas/PaginationResponseType"

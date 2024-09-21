@@ -1,6 +1,11 @@
 package com.mypersonalbook.economy.utils.test.mocks;
 
 import com.mypersonalbook.economy.domain.Expense;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 import static com.mypersonalbook.economy.utils.test.TestConstants.*;
 import static com.mypersonalbook.economy.utils.test.mocks.CategoryMock.EMPTY_CATEGORY;
@@ -19,4 +24,5 @@ public class ExpenseMock {
       new Expense(EXPENSE_ID, EXPENSE_AMOUNT, EXPENSE_CATEGORY, "  ", EXPENSE_DATE);
   public static final Expense EXPENSE_WITH_NULL_DATE =
       new Expense(EXPENSE_ID, EXPENSE_AMOUNT, EXPENSE_CATEGORY, EXPENSE_DESCRIPTION, null);
+  public static final Page<Expense> EXPENSES_PAGE = new PageImpl<>(List.of(EXPENSE));
 }

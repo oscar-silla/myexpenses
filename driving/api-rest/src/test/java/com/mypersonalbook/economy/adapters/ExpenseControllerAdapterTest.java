@@ -4,25 +4,31 @@ import com.mypersonalbook.economy.domain.Expense;
 import com.mypersonalbook.economy.mappers.ExpenseControllerMapper;
 import com.mypersonalbook.economy.ports.in.DeleteExpenseUseCasePort;
 import com.mypersonalbook.economy.ports.in.GetExpenseUseCasePort;
+import com.mypersonalbook.economy.ports.in.GetExpensesUseCasePort;
 import com.mypersonalbook.economy.ports.in.SaveExpenseUseCasePort;
 import openapi.economy.model.ExpenseRequestBodyType;
 import openapi.economy.model.ExpenseResponseType;
+import openapi.economy.model.ExpensesResponseType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.time.LocalDate;
+
 import static com.mypersonalbook.economy.utils.mocks.ExpenseRequestBodyTypeMock.EXPENSE_REQUEST_BODY_TYPE;
 import static com.mypersonalbook.economy.utils.mocks.ExpenseResponseTypeMock.EXPENSE_RESPONSE_TYPE;
-import static com.mypersonalbook.economy.utils.test.TestConstants.EXPENSE_ID;
+import static com.mypersonalbook.economy.utils.mocks.ExpensesResponseTypeMock.EXPENSES_RESPONSE_TYPE;
+import static com.mypersonalbook.economy.utils.test.TestConstants.*;
 import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMock.EXPENSE;
+import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMock.EXPENSES_PAGE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
@@ -34,6 +40,7 @@ public class ExpenseControllerAdapterTest {
   @Mock private SaveExpenseUseCasePort saveExpenseUseCase;
   @Mock private DeleteExpenseUseCasePort deleteExpenseUseCase;
   @Mock private GetExpenseUseCasePort getExpenseUseCase;
+  @Mock private GetExpensesUseCasePort getExpensesUseCase;
 
   @BeforeEach
   void setUp() {
@@ -42,7 +49,8 @@ public class ExpenseControllerAdapterTest {
             this.expenseControllerMapper,
             this.saveExpenseUseCase,
             this.deleteExpenseUseCase,
-            this.getExpenseUseCase);
+            this.getExpenseUseCase,
+            this.getExpensesUseCase);
   }
 
   @Test
@@ -72,6 +80,19 @@ public class ExpenseControllerAdapterTest {
         .thenReturn(EXPENSE_RESPONSE_TYPE());
     final ResponseEntity<ExpenseResponseType> RESULT =
         this.expenseControllerAdapter.getExpense(EXPENSE_ID);
+    assertEquals(HttpStatus.OK, RESULT.getStatusCode());
+  }
+
+  @Test
+  @DisplayName("Should return 200 status code when get expenses")
+  void shouldReturn200StatusCode_WhenGetExpenses() {
+    when(this.getExpensesUseCase.execute(
+            anyInt(), anyInt(), any(LocalDate.class), any(LocalDate.class)))
+        .thenReturn(EXPENSES_PAGE);
+    when(this.expenseControllerMapper.toExpensesResponseType(any(PageImpl.class)))
+        .thenReturn(EXPENSES_RESPONSE_TYPE());
+    final ResponseEntity<ExpensesResponseType> RESULT =
+        this.expenseControllerAdapter.getExpenses(PAGE_NUMBER, PAGE_SIZE, START_DATE, END_DATE);
     assertEquals(HttpStatus.OK, RESULT.getStatusCode());
   }
 }

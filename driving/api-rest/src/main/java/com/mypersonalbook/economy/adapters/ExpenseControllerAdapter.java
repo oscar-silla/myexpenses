@@ -4,6 +4,7 @@ import com.mypersonalbook.economy.domain.Expense;
 import com.mypersonalbook.economy.mappers.ExpenseControllerMapper;
 import com.mypersonalbook.economy.ports.in.DeleteExpenseUseCasePort;
 import com.mypersonalbook.economy.ports.in.GetExpenseUseCasePort;
+import com.mypersonalbook.economy.ports.in.GetExpensesUseCasePort;
 import com.mypersonalbook.economy.ports.in.SaveExpenseUseCasePort;
 import openapi.economy.api.ExpensesApi;
 import openapi.economy.model.ExpenseRequestBodyType;
@@ -11,6 +12,7 @@ import openapi.economy.model.ExpenseResponseType;
 import openapi.economy.model.ExpensesResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,16 +29,19 @@ public class ExpenseControllerAdapter implements ExpensesApi {
   private final SaveExpenseUseCasePort saveExpenseUseCase;
   private final DeleteExpenseUseCasePort deleteExpenseUseCase;
   private final GetExpenseUseCasePort getExpenseUseCase;
+  private final GetExpensesUseCasePort getExpensesUseCase;
 
   public ExpenseControllerAdapter(
       ExpenseControllerMapper expenseControllerMapper,
       SaveExpenseUseCasePort saveExpenseUseCase,
       DeleteExpenseUseCasePort deleteExpenseUseCase,
-      GetExpenseUseCasePort getExpenseUseCase) {
+      GetExpenseUseCasePort getExpenseUseCase,
+      GetExpensesUseCasePort getExpensesUseCase) {
     this.expenseControllerMapper = expenseControllerMapper;
     this.saveExpenseUseCase = saveExpenseUseCase;
     this.deleteExpenseUseCase = deleteExpenseUseCase;
     this.getExpenseUseCase = getExpenseUseCase;
+    this.getExpensesUseCase = getExpensesUseCase;
   }
 
   @Override
@@ -58,7 +63,17 @@ public class ExpenseControllerAdapter implements ExpensesApi {
   @Override
   public ResponseEntity<ExpensesResponseType> getExpenses(
       Integer pageSize, Integer pageNumber, LocalDate startDate, LocalDate endDate) {
-    return null;
+    logger.info(
+        "GET /economy/v1/expenses with pageSize: {}, pageNumber: {}, startDate: {}, endDate: {}",
+        pageSize,
+        pageNumber,
+        startDate,
+        endDate);
+    Page<Expense> expensesPage =
+        this.getExpensesUseCase.execute(pageSize, pageNumber, startDate, endDate);
+    ExpensesResponseType expensesResponseType =
+        this.expenseControllerMapper.toExpensesResponseType(expensesPage);
+    return ResponseEntity.status(HttpStatus.OK).body(expensesResponseType);
   }
 
   @Override

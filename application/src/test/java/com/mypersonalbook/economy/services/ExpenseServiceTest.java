@@ -3,6 +3,8 @@ package com.mypersonalbook.economy.services;
 import com.mypersonalbook.economy.domain.Expense;
 import com.mypersonalbook.economy.exceptions.NotFoundException;
 import com.mypersonalbook.economy.filters.CategoryFilter;
+import com.mypersonalbook.economy.filters.ExpenseFilter;
+import com.mypersonalbook.economy.filters.PaginationFilter;
 import com.mypersonalbook.economy.ports.out.CategoryRepositoryPort;
 import com.mypersonalbook.economy.ports.out.ExpenseRepositoryPort;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +19,10 @@ import java.util.Optional;
 
 import static com.mypersonalbook.economy.utils.test.TestConstants.EXPENSE_ID;
 import static com.mypersonalbook.economy.utils.test.mocks.CategoryMock.EXPENSE_CATEGORY;
+import static com.mypersonalbook.economy.utils.test.mocks.ExpenseFilterMock.EXPENSE_FILTER;
 import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMock.EXPENSE;
+import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMock.EXPENSES_PAGE;
+import static com.mypersonalbook.economy.utils.test.mocks.PaginationFilterMock.PAGINATION_FILTER;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -73,5 +78,14 @@ public class ExpenseServiceTest {
     when(this.expenseRepository.findById(anyLong())).thenReturn(Optional.of(EXPENSE));
     Expense expense = this.expenseService.findById(EXPENSE_ID);
     assertNotNull(expense);
+  }
+
+  @Test
+  @DisplayName("Should return expenses page when find")
+  void shouldReturnExpensesPage_WhenFind() {
+    when(this.expenseRepository.find(any(ExpenseFilter.class), any(PaginationFilter.class)))
+        .thenReturn(EXPENSES_PAGE);
+    this.expenseService.find(EXPENSE_FILTER, PAGINATION_FILTER);
+    verify(this.expenseRepository).find(any(ExpenseFilter.class), any(PaginationFilter.class));
   }
 }

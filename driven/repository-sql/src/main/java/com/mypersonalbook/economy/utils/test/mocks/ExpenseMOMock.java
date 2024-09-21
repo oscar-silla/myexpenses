@@ -1,6 +1,10 @@
 package com.mypersonalbook.economy.utils.test.mocks;
 
 import com.mypersonalbook.economy.models.ExpenseMO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+
+import java.util.List;
 
 import static com.mypersonalbook.economy.utils.test.TestConstants.*;
 import static com.mypersonalbook.economy.utils.test.mocks.CategoryMOMock.CATEGORY_MO;
@@ -8,4 +12,6 @@ import static com.mypersonalbook.economy.utils.test.mocks.CategoryMOMock.CATEGOR
 public class ExpenseMOMock {
   public static final ExpenseMO EXPENSE_MO =
       new ExpenseMO(EXPENSE_ID, EXPENSE_AMOUNT, EXPENSE_DESCRIPTION, EXPENSE_DATE, CATEGORY_MO);
+  public static final Page<ExpenseMO> EXPENSES_PAGE_MO =
+      new PageImpl<ExpenseMO>(List.of(EXPENSE_MO));
 }

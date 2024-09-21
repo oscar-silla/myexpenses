@@ -4,10 +4,13 @@ import com.mypersonalbook.economy.domain.Category;
 import com.mypersonalbook.economy.domain.Expense;
 import com.mypersonalbook.economy.exceptions.NotFoundException;
 import com.mypersonalbook.economy.filters.CategoryFilter;
+import com.mypersonalbook.economy.filters.ExpenseFilter;
+import com.mypersonalbook.economy.filters.PaginationFilter;
 import com.mypersonalbook.economy.ports.out.CategoryRepositoryPort;
 import com.mypersonalbook.economy.ports.out.ExpenseRepositoryPort;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import static com.mypersonalbook.economy.utils.AppConstants.EXPENSE_TYPE;
@@ -52,5 +55,9 @@ public class ExpenseService {
               logger.error("Expense with id: {} not found.", id);
               return new NotFoundException();
             });
+  }
+
+  public Page<Expense> find(ExpenseFilter expenseFilter, PaginationFilter paginationFilter) {
+    return this.expenseRepository.find(expenseFilter, paginationFilter);
   }
 }

@@ -8,8 +8,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 import static com.mypersonalbook.economy.utils.test.TestConstants.*;
-import static com.mypersonalbook.economy.utils.test.mocks.CategoryMock.EMPTY_CATEGORY;
-import static com.mypersonalbook.economy.utils.test.mocks.CategoryMock.EXPENSE_CATEGORY;
+import static com.mypersonalbook.economy.utils.test.mocks.CategoryMock.*;
 
 public class ExpenseMock {
   public static final Expense EXPENSE =
@@ -24,5 +23,12 @@ public class ExpenseMock {
       new Expense(EXPENSE_ID, EXPENSE_AMOUNT, EXPENSE_CATEGORY, "  ", EXPENSE_DATE);
   public static final Expense EXPENSE_WITH_NULL_DATE =
       new Expense(EXPENSE_ID, EXPENSE_AMOUNT, EXPENSE_CATEGORY, EXPENSE_DESCRIPTION, null);
+  public static final Expense OTHER_EXPENSE =
+      new Expense(
+          EXPENSE_ID_2,
+          EXPENSE_AMOUNT_2,
+          EXPENSE_CATEGORY_2,
+          EXPENSE_DESCRIPTION_2,
+          EXPENSE_DATE_2);
   public static final Page<Expense> EXPENSES_PAGE = new PageImpl<>(List.of(EXPENSE));
 }

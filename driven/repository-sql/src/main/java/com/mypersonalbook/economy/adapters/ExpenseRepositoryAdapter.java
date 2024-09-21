@@ -55,4 +55,11 @@ public class ExpenseRepositoryAdapter implements ExpenseRepositoryPort {
     Page<ExpenseMO> expensesMOPage = this.expenseJpaRepository.findAll(specifications, pageable);
     return expensesMOPage.map(this.expenseRepositoryMapper::toExpense);
   }
+
+  @Override
+  public void modify(Expense expense, Expense expenseToUpdate) {
+    this.expenseRepositoryMapper.mapFromDtoToExpense(expense, expenseToUpdate);
+    ExpenseMO expenseMO = this.expenseRepositoryMapper.toExpenseMO(expenseToUpdate);
+    this.expenseJpaRepository.save(expenseMO);
+  }
 }

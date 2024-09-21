@@ -2,10 +2,7 @@ package com.mypersonalbook.economy.adapters;
 
 import com.mypersonalbook.economy.domain.Expense;
 import com.mypersonalbook.economy.mappers.ExpenseControllerMapper;
-import com.mypersonalbook.economy.ports.in.DeleteExpenseUseCasePort;
-import com.mypersonalbook.economy.ports.in.GetExpenseUseCasePort;
-import com.mypersonalbook.economy.ports.in.GetExpensesUseCasePort;
-import com.mypersonalbook.economy.ports.in.SaveExpenseUseCasePort;
+import com.mypersonalbook.economy.ports.in.*;
 import openapi.economy.model.ExpenseRequestBodyType;
 import openapi.economy.model.ExpenseResponseType;
 import openapi.economy.model.ExpensesResponseType;
@@ -41,6 +38,7 @@ public class ExpenseControllerAdapterTest {
   @Mock private DeleteExpenseUseCasePort deleteExpenseUseCase;
   @Mock private GetExpenseUseCasePort getExpenseUseCase;
   @Mock private GetExpensesUseCasePort getExpensesUseCase;
+  @Mock private ModifyExpenseUseCasePort modifyExpenseUseCase;
 
   @BeforeEach
   void setUp() {
@@ -50,7 +48,8 @@ public class ExpenseControllerAdapterTest {
             this.saveExpenseUseCase,
             this.deleteExpenseUseCase,
             this.getExpenseUseCase,
-            this.getExpensesUseCase);
+            this.getExpensesUseCase,
+            this.modifyExpenseUseCase);
   }
 
   @Test
@@ -93,6 +92,17 @@ public class ExpenseControllerAdapterTest {
         .thenReturn(EXPENSES_RESPONSE_TYPE());
     final ResponseEntity<ExpensesResponseType> RESULT =
         this.expenseControllerAdapter.getExpenses(PAGE_NUMBER, PAGE_SIZE, START_DATE, END_DATE);
+    assertEquals(HttpStatus.OK, RESULT.getStatusCode());
+  }
+
+  @Test
+  @DisplayName("Should return 200 status code when patch expense")
+  void shouldReturn200StatusCode_WhenPatchExpense() {
+    when(this.expenseControllerMapper.toExpense(any(ExpenseRequestBodyType.class)))
+        .thenReturn(EXPENSE);
+    doNothing().when(this.modifyExpenseUseCase).execute(any(Expense.class));
+    final ResponseEntity<Void> RESULT =
+        this.expenseControllerAdapter.patchExpense(EXPENSE_ID, EXPENSE_REQUEST_BODY_TYPE());
     assertEquals(HttpStatus.OK, RESULT.getStatusCode());
   }
 }

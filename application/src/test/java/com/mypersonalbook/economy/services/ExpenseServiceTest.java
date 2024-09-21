@@ -88,4 +88,31 @@ public class ExpenseServiceTest {
     this.expenseService.find(EXPENSE_FILTER, PAGINATION_FILTER);
     verify(this.expenseRepository).find(any(ExpenseFilter.class), any(PaginationFilter.class));
   }
+
+  @Test
+  @DisplayName("Should throw not found exception when modify expense and category not exists")
+  void shouldThrowNotFoundException_WhenModifyExpense_AndCategoryNotExists() {
+    when(this.categoryRepository.findOne(any(CategoryFilter.class))).thenReturn(Optional.empty());
+    Executable executable = () -> this.expenseService.modify(EXPENSE);
+    assertThrows(NotFoundException.class, executable);
+  }
+
+  @Test
+  @DisplayName("Should throw not found exception when modify expense and expense to update not exists")
+  void shouldThrowNotFoundException_WhenModifyExpense_AndExpenseToUpdateNotExists() {
+    when(this.categoryRepository.findOne(any(CategoryFilter.class))).thenReturn(Optional.of(EXPENSE_CATEGORY));
+    when(this.expenseRepository.findById(anyLong())).thenReturn(Optional.empty());
+    Executable executable = () -> this.expenseService.modify(EXPENSE);
+    assertThrows(NotFoundException.class, executable);
+  }
+
+  @Test
+  @DisplayName("Should modify expense")
+  void shouldModifyExpense() {
+    when(this.categoryRepository.findOne(any(CategoryFilter.class))).thenReturn(Optional.of(EXPENSE_CATEGORY));
+    when(this.expenseRepository.findById(anyLong())).thenReturn(Optional.of(EXPENSE));
+    doNothing().when(this.expenseRepository).modify(any(Expense.class), any(Expense.class));
+    this.expenseService.modify(EXPENSE);
+    verify(this.expenseRepository).modify(any(Expense.class), any(Expense.class));
+  }
 }

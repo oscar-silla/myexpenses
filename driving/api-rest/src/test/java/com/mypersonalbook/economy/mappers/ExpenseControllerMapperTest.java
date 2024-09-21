@@ -28,10 +28,10 @@ public class ExpenseControllerMapperTest {
   @DisplayName("Should map to expense")
   void shouldMapToExpense() {
     final Expense RESULT = this.expenseControllerMapper.toExpense(EXPENSE_REQUEST_BODY_TYPE());
-    assertEquals(EXPENSE_AMOUNT, RESULT.amount());
-    assertEquals(EXPENSE_DESCRIPTION, RESULT.description());
-    assertEquals(CATEGORY_NAME, RESULT.category().name());
-    assertEquals(EXPENSE_DATE, RESULT.date());
+    assertEquals(EXPENSE_AMOUNT, RESULT.getAmount());
+    assertEquals(EXPENSE_DESCRIPTION, RESULT.getDescription());
+    assertEquals(CATEGORY_NAME, RESULT.getCategory().getName());
+    assertEquals(EXPENSE_DATE, RESULT.getDate());
   }
 
   @Test

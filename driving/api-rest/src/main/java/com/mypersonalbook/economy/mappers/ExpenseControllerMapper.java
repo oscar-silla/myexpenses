@@ -1,10 +1,8 @@
 package com.mypersonalbook.economy.mappers;
 
 import com.mypersonalbook.economy.domain.Expense;
-import openapi.economy.model.ExpenseRequestBodyType;
-import openapi.economy.model.ExpenseResponseType;
-import openapi.economy.model.ExpensesResponseType;
-import openapi.economy.model.PaginationResponseType;
+import com.mypersonalbook.economy.models.response.ExpenseDateResponse;
+import openapi.economy.model.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.data.domain.Page;
@@ -19,15 +17,20 @@ public interface ExpenseControllerMapper {
   @Mapping(target = "category", source = "category.name")
   ExpenseResponseType toExpenseResponseType(Expense expense);
 
-  List<ExpenseResponseType> toExpenseResponseTypes(List<Expense> expenses);
+  @Mapping(target = "category", source = "category.name")
+  ExpenseDetailResponseType toExpenseDateResponseType(Expense expense);
 
-  default ExpensesResponseType toExpensesResponseType(Page<Expense> expensesPage) {
+  List<ExpenseDetailResponseType> toExpenseDetailResponseTypes(List<Expense> expenses);
+
+  List<ExpenseDateResponseType> toExpenseResponseTypes(List<ExpenseDateResponse> expenseDateResponses);
+
+  default ExpensesResponseType toExpenseDateResponseType(Page<ExpenseDateResponse> expenseDateResponsePage) {
     ExpensesResponseType expensesResponseType = new ExpensesResponseType();
     PaginationResponseType paginationResponseType = new PaginationResponseType();
-    paginationResponseType.setPageNumber(expensesPage.getNumber());
-    paginationResponseType.setPageSize(expensesPage.getSize());
-    paginationResponseType.setTotalResults((int) expensesPage.getTotalElements());
-    expensesResponseType.setResults(this.toExpenseResponseTypes(expensesPage.getContent()));
+    paginationResponseType.setPageNumber(expenseDateResponsePage.getNumber());
+    paginationResponseType.setPageSize(expenseDateResponsePage.getSize());
+    paginationResponseType.setTotalResults((int) expenseDateResponsePage.getTotalElements());
+    expensesResponseType.setResults(this.toExpenseResponseTypes(expenseDateResponsePage.getContent()));
     expensesResponseType.setPagination(paginationResponseType);
     return expensesResponseType;
   }

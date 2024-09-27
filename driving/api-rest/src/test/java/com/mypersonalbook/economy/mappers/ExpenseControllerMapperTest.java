@@ -13,6 +13,7 @@ import static com.mypersonalbook.economy.utils.mocks.ExpenseRequestBodyTypeMock.
 import static com.mypersonalbook.economy.utils.test.TestConstants.*;
 import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMock.EXPENSE;
 import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMock.EXPENSES_PAGE;
+import static com.mypersonalbook.economy.utils.test.mocks.models.response.ExpenseDateResponseMock.EXPENSE_DATE_RESPONSE_PAGE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
@@ -48,14 +49,14 @@ public class ExpenseControllerMapperTest {
   @DisplayName("Should map to expenses response type")
   void shouldMapToExpensesResponseType() {
     final ExpensesResponseType RESULT =
-        this.expenseControllerMapper.toExpensesResponseType(EXPENSES_PAGE);
+        this.expenseControllerMapper.toExpenseDateResponseType(EXPENSE_DATE_RESPONSE_PAGE);
     assertEquals(0, RESULT.getPagination().getPageNumber());
     assertEquals(1, RESULT.getPagination().getPageSize());
     assertEquals(1, RESULT.getPagination().getTotalResults());
-    assertEquals(EXPENSE_ID, RESULT.getResults().get(0).getId());
-    assertEquals(EXPENSE_AMOUNT, RESULT.getResults().get(0).getAmount());
-    assertEquals(CATEGORY_NAME, RESULT.getResults().get(0).getCategory());
-    assertEquals(EXPENSE_DESCRIPTION, RESULT.getResults().get(0).getDescription());
     assertEquals(EXPENSE_DATE, RESULT.getResults().get(0).getDate());
+    assertEquals(EXPENSE_ID, RESULT.getResults().get(0).getExpenses().get(0).getId());
+    assertEquals(EXPENSE_AMOUNT, RESULT.getResults().get(0).getExpenses().get(0).getAmount());
+    assertEquals(CATEGORY_NAME, RESULT.getResults().get(0).getExpenses().get(0).getCategory());
+    assertEquals(EXPENSE_DESCRIPTION, RESULT.getResults().get(0).getExpenses().get(0).getDescription());
   }
 }

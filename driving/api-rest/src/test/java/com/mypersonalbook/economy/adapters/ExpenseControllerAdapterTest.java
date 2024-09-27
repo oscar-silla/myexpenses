@@ -24,6 +24,7 @@ import static com.mypersonalbook.economy.utils.mocks.ExpensesResponseTypeMock.EX
 import static com.mypersonalbook.economy.utils.test.TestConstants.*;
 import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMock.EXPENSE;
 import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMock.EXPENSES_PAGE;
+import static com.mypersonalbook.economy.utils.test.mocks.models.response.ExpenseDateResponseMock.EXPENSE_DATE_RESPONSE_PAGE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.doNothing;
@@ -87,8 +88,8 @@ public class ExpenseControllerAdapterTest {
   void shouldReturn200StatusCode_WhenGetExpenses() {
     when(this.getExpensesUseCase.execute(
             anyInt(), anyInt(), any(LocalDate.class), any(LocalDate.class)))
-        .thenReturn(EXPENSES_PAGE);
-    when(this.expenseControllerMapper.toExpensesResponseType(any(PageImpl.class)))
+        .thenReturn(EXPENSE_DATE_RESPONSE_PAGE);
+    when(this.expenseControllerMapper.toExpenseDateResponseType(any(PageImpl.class)))
         .thenReturn(EXPENSES_RESPONSE_TYPE());
     final ResponseEntity<ExpensesResponseType> RESULT =
         this.expenseControllerAdapter.getExpenses(PAGE_NUMBER, PAGE_SIZE, START_DATE, END_DATE);

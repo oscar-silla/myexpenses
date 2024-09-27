@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: Economy API
   description: Economy API from my personal book
-  version: 1.0.0
+  version: 1.0.1
 tags:
   - name: Expenses
 paths:
@@ -167,18 +167,31 @@ components:
         results:
           type: array
           items:
-            $ref: "#/components/schemas/ExpenseResponseType"
+            $ref: "#/components/schemas/ExpenseDateResponseType"
         pagination:
           type: object
           $ref: "#/components/schemas/PaginationResponseType"
-    ExpenseResponseType:
+    ExpenseDateResponseType:
+      type: object
+      required:
+        - date
+        - expenses
+      properties:
+        date:
+          type: string
+          format: date
+          example: 2024-01-01
+        expenses:
+          type: array
+          items:
+            $ref: "#/components/schemas/ExpenseDetailResponseType"
+    ExpenseDetailResponseType:
       type: object
       required:
         - id
         - amount
         - category
         - description
-        - date
       properties:
         id:
           type: integer
@@ -196,10 +209,35 @@ components:
           type: string
           format: string
           example: Hot dog
+    ExpenseResponseType:
+      type: object
+      required:
+        - id
+        - date
+        - amount
+        - category
+        - description
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
         date:
           type: string
           format: date
           example: 2024-01-01
+        amount:
+          type: number
+          format: float
+          example: 2.55
+        category:
+          type: string
+          format: string
+          example: Food
+        description:
+          type: string
+          format: string
+          example: Hot dog
     PaginationResponseType:
       type: object
       required:

@@ -2,6 +2,7 @@ package com.mypersonalbook.economy.adapters;
 
 import com.mypersonalbook.economy.domain.Expense;
 import com.mypersonalbook.economy.mappers.ExpenseControllerMapper;
+import com.mypersonalbook.economy.models.response.ExpenseDateResponse;
 import com.mypersonalbook.economy.ports.in.*;
 import openapi.economy.api.ExpensesApi;
 import openapi.economy.model.ExpenseRequestBodyType;
@@ -69,10 +70,10 @@ public class ExpenseControllerAdapter implements ExpensesApi {
         pageNumber,
         startDate,
         endDate);
-    Page<Expense> expensesPage =
+    Page<ExpenseDateResponse> expenseDateResponsePage =
         this.getExpensesUseCase.execute(pageSize, pageNumber, startDate, endDate);
     ExpensesResponseType expensesResponseType =
-        this.expenseControllerMapper.toExpensesResponseType(expensesPage);
+        this.expenseControllerMapper.toExpenseDateResponseType(expenseDateResponsePage);
     return ResponseEntity.status(HttpStatus.OK).body(expensesResponseType);
   }
 

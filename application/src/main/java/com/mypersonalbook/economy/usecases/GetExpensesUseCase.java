@@ -13,10 +13,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.mypersonalbook.economy.utils.Utils.validateAndThrowDateRange;
 import static com.mypersonalbook.economy.utils.Utils.validateAndThrowPagination;
@@ -52,18 +49,29 @@ public class GetExpensesUseCase implements GetExpensesUseCasePort {
     expensePage
         .getContent()
         .forEach(
-            expense -> {
-              expenseDateResponseMap
-                  .computeIfAbsent(
-                      expense.getDate(),
-                      date -> new ExpenseDateResponse(expense.getDate(), new ArrayList<>()))
-                  .getExpenses()
-                  .add(expense);
-            });
-    return new PageImpl<>(expenseDateResponseMap.values().stream().toList());
+            expense ->
+                expenseDateResponseMap
+                    .computeIfAbsent(
+                        expense.getDate(),
+                        date -> new ExpenseDateResponse(expense.getDate(), new ArrayList<>()))
+                    .getExpenses()
+                    .add(expense));
+    return new PageImpl<>(getSortExpenseDateResponseList(expenseDateResponseMap));
   }
 
-  private ExpenseDateResponse buildExpenseDateResponse(Expense expense) {
-    return new ExpenseDateResponse(expense.getDate(), List.of(expense));
+  private List<ExpenseDateResponse> getSortExpenseDateResponseList(
+      Map<LocalDate, ExpenseDateResponse> expenseDateResponseMap) {
+    return expenseDateResponseMap.values().stream()
+        .sorted(Comparator.comparing(ExpenseDateResponse::getDate).reversed())
+        .map(this::sortExpenseDateResponseById)
+        .toList();
+  }
+
+  private ExpenseDateResponse sortExpenseDateResponseById(ExpenseDateResponse expenseDateResponse) {
+    List<Expense> sortExpenses =
+        expenseDateResponse.getExpenses().stream()
+            .sorted(Comparator.comparing(Expense::getId).reversed())
+            .toList();
+    return new ExpenseDateResponse(expenseDateResponse.getDate(), sortExpenses);
   }
 }

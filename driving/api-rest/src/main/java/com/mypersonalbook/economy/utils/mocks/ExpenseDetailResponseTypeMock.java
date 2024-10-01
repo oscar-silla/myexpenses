@@ -7,7 +7,7 @@ import static com.mypersonalbook.economy.utils.test.TestConstants.*;
 public class ExpenseDetailResponseTypeMock {
   public static ExpenseDetailResponseType EXPENSE_DETAIL_RESPONSE_TYPE() {
     ExpenseDetailResponseType expenseDetailResponseType = new ExpenseDetailResponseType();
-    expenseDetailResponseType.setId(EXPENSE_ID);
+    expenseDetailResponseType.setId(EXPENSE_ID_1);
     expenseDetailResponseType.setAmount(EXPENSE_AMOUNT);
     expenseDetailResponseType.setCategory(CATEGORY_EXPENSE_TYPE);
     expenseDetailResponseType.setDescription(EXPENSE_DESCRIPTION);

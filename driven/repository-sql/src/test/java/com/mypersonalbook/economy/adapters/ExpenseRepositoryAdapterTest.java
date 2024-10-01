@@ -15,10 +15,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 
-import java.awt.print.Pageable;
 import java.util.Optional;
 
-import static com.mypersonalbook.economy.utils.test.TestConstants.EXPENSE_ID;
+import static com.mypersonalbook.economy.utils.test.TestConstants.EXPENSE_ID_1;
 import static com.mypersonalbook.economy.utils.test.mocks.ExpenseFilterMock.EXPENSE_FILTER;
 import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMOMock.EXPENSES_PAGE_MO;
 import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMOMock.EXPENSE_MO;
@@ -47,7 +46,7 @@ public class ExpenseRepositoryAdapterTest {
   void shouldSave_WithJPA_WhenSave() {
     when(this.expenseRepositoryMapper.toExpenseMO(any(Expense.class))).thenReturn(EXPENSE_MO);
     when(this.expenseJpaRepository.save(any(ExpenseMO.class))).thenReturn(EXPENSE_MO);
-    this.expenseRepositoryAdapter.save(EXPENSE);
+    this.expenseRepositoryAdapter.save(EXPENSE_1);
     verify(this.expenseJpaRepository).save(any(ExpenseMO.class));
   }
 
@@ -55,7 +54,7 @@ public class ExpenseRepositoryAdapterTest {
   @DisplayName("Should delete expense by id")
   void shouldDeleteExpenseById() {
     doNothing().when(this.expenseJpaRepository).deleteById(anyLong());
-    this.expenseRepositoryAdapter.deleteById(EXPENSE_ID);
+    this.expenseRepositoryAdapter.deleteById(EXPENSE_ID_1);
     verify(this.expenseJpaRepository).deleteById(anyLong());
   }
 
@@ -63,8 +62,8 @@ public class ExpenseRepositoryAdapterTest {
   @DisplayName("Should return expense when find by id")
   void shouldReturnExpense_WhenFindById() {
     when(this.expenseJpaRepository.findById(anyLong())).thenReturn(Optional.of(EXPENSE_MO));
-    when(this.expenseRepositoryMapper.toExpense(any(ExpenseMO.class))).thenReturn(EXPENSE);
-    final Optional<Expense> RESULT = this.expenseRepositoryAdapter.findById(EXPENSE_ID);
+    when(this.expenseRepositoryMapper.toExpense(any(ExpenseMO.class))).thenReturn(EXPENSE_1);
+    final Optional<Expense> RESULT = this.expenseRepositoryAdapter.findById(EXPENSE_ID_1);
     assertTrue(RESULT.isPresent());
   }
 
@@ -77,7 +76,7 @@ public class ExpenseRepositoryAdapterTest {
         .thenReturn(specifications);
     when(this.expenseJpaRepository.findAll(any(Specification.class), any(PageRequest.class)))
         .thenReturn(EXPENSES_PAGE_MO);
-    when(this.expenseRepositoryMapper.toExpense(any(ExpenseMO.class))).thenReturn(EXPENSE);
+    when(this.expenseRepositoryMapper.toExpense(any(ExpenseMO.class))).thenReturn(EXPENSE_1);
     this.expenseRepositoryAdapter.find(EXPENSE_FILTER, PAGINATION_FILTER);
     verify(this.expenseRepositoryMapper).toExpense(any(ExpenseMO.class));
   }
@@ -90,7 +89,7 @@ public class ExpenseRepositoryAdapterTest {
         .mapFromDtoToExpense(any(Expense.class), any(Expense.class));
     when(this.expenseRepositoryMapper.toExpenseMO(any(Expense.class))).thenReturn(EXPENSE_MO);
     when(this.expenseJpaRepository.save(any(ExpenseMO.class))).thenReturn(EXPENSE_MO);
-    this.expenseRepositoryAdapter.modify(EXPENSE, OTHER_EXPENSE);
+    this.expenseRepositoryAdapter.modify(EXPENSE_1, OTHER_EXPENSE);
     verify(this.expenseJpaRepository).save(any(ExpenseMO.class));
   }
 }

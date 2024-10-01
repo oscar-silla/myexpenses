@@ -68,7 +68,7 @@ public class SaveExpenseUseCaseTest {
   @DisplayName("Should save expense when execute")
   void shouldSaveExpense_WhenExecute() {
     doNothing().when(this.expenseService).save(any(Expense.class));
-    this.saveExpenseUseCase.execute(EXPENSE);
+    this.saveExpenseUseCase.execute(EXPENSE_1);
     verify(this.expenseService).save(any(Expense.class));
   }
 }

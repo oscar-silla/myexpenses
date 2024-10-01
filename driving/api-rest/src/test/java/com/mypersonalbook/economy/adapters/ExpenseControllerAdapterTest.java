@@ -22,8 +22,7 @@ import static com.mypersonalbook.economy.utils.mocks.ExpenseRequestBodyTypeMock.
 import static com.mypersonalbook.economy.utils.mocks.ExpenseResponseTypeMock.EXPENSE_RESPONSE_TYPE;
 import static com.mypersonalbook.economy.utils.mocks.ExpensesResponseTypeMock.EXPENSES_RESPONSE_TYPE;
 import static com.mypersonalbook.economy.utils.test.TestConstants.*;
-import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMock.EXPENSE;
-import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMock.EXPENSES_PAGE;
+import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMock.EXPENSE_1;
 import static com.mypersonalbook.economy.utils.test.mocks.models.response.ExpenseDateResponseMock.EXPENSE_DATE_RESPONSE_PAGE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
@@ -57,7 +56,7 @@ public class ExpenseControllerAdapterTest {
   @DisplayName("Should return 200 status code when post expense")
   void shouldReturn200StatusCode_WhenPostExpense() {
     when(this.expenseControllerMapper.toExpense(any(ExpenseRequestBodyType.class)))
-        .thenReturn(EXPENSE);
+        .thenReturn(EXPENSE_1);
     doNothing().when(this.saveExpenseUseCase).execute(any(Expense.class));
     final ResponseEntity<Void> RESULT =
         this.expenseControllerAdapter.postExpense(EXPENSE_REQUEST_BODY_TYPE());
@@ -68,18 +67,18 @@ public class ExpenseControllerAdapterTest {
   @DisplayName("Should return 204 status code when delete expense")
   void shouldReturn204StatusCode_WhenDeleteExpense() {
     doNothing().when(this.deleteExpenseUseCase).execute(anyLong());
-    final ResponseEntity<Void> RESULT = this.expenseControllerAdapter.deleteExpense(EXPENSE_ID);
+    final ResponseEntity<Void> RESULT = this.expenseControllerAdapter.deleteExpense(EXPENSE_ID_1);
     assertEquals(HttpStatus.NO_CONTENT, RESULT.getStatusCode());
   }
 
   @Test
   @DisplayName("Should return 200 status code when get expense")
   void shouldReturn200StatusCode_WhenGetExpense() {
-    when(this.getExpenseUseCase.execute(anyLong())).thenReturn(EXPENSE);
+    when(this.getExpenseUseCase.execute(anyLong())).thenReturn(EXPENSE_1);
     when(this.expenseControllerMapper.toExpenseResponseType(any(Expense.class)))
         .thenReturn(EXPENSE_RESPONSE_TYPE());
     final ResponseEntity<ExpenseResponseType> RESULT =
-        this.expenseControllerAdapter.getExpense(EXPENSE_ID);
+        this.expenseControllerAdapter.getExpense(EXPENSE_ID_1);
     assertEquals(HttpStatus.OK, RESULT.getStatusCode());
   }
 
@@ -100,10 +99,10 @@ public class ExpenseControllerAdapterTest {
   @DisplayName("Should return 200 status code when patch expense")
   void shouldReturn200StatusCode_WhenPatchExpense() {
     when(this.expenseControllerMapper.toExpense(any(ExpenseRequestBodyType.class)))
-        .thenReturn(EXPENSE);
+        .thenReturn(EXPENSE_1);
     doNothing().when(this.modifyExpenseUseCase).execute(any(Expense.class));
     final ResponseEntity<Void> RESULT =
-        this.expenseControllerAdapter.patchExpense(EXPENSE_ID, EXPENSE_REQUEST_BODY_TYPE());
+        this.expenseControllerAdapter.patchExpense(EXPENSE_ID_1, EXPENSE_REQUEST_BODY_TYPE());
     assertEquals(HttpStatus.OK, RESULT.getStatusCode());
   }
 }

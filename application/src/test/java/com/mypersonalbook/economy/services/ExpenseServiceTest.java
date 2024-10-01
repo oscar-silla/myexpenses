@@ -17,10 +17,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static com.mypersonalbook.economy.utils.test.TestConstants.EXPENSE_ID;
+import static com.mypersonalbook.economy.utils.test.TestConstants.EXPENSE_ID_1;
 import static com.mypersonalbook.economy.utils.test.mocks.CategoryMock.EXPENSE_CATEGORY;
 import static com.mypersonalbook.economy.utils.test.mocks.ExpenseFilterMock.EXPENSE_FILTER;
-import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMock.EXPENSE;
+import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMock.EXPENSE_1;
 import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMock.EXPENSES_PAGE;
 import static com.mypersonalbook.economy.utils.test.mocks.PaginationFilterMock.PAGINATION_FILTER;
 import static org.junit.jupiter.api.Assertions.*;
@@ -42,7 +42,7 @@ public class ExpenseServiceTest {
   @DisplayName("Should throw not found exception when save")
   void shouldThrowNotFoundException_WhenSave() {
     when(this.categoryRepository.findOne(any(CategoryFilter.class))).thenReturn(Optional.empty());
-    Executable executable = () -> this.expenseService.save(EXPENSE);
+    Executable executable = () -> this.expenseService.save(EXPENSE_1);
     assertThrows(NotFoundException.class, executable);
   }
 
@@ -52,7 +52,7 @@ public class ExpenseServiceTest {
     when(this.categoryRepository.findOne(any(CategoryFilter.class)))
         .thenReturn(Optional.of(EXPENSE_CATEGORY));
     doNothing().when(this.expenseRepository).save(any(Expense.class));
-    this.expenseService.save(EXPENSE);
+    this.expenseService.save(EXPENSE_1);
     verify(this.expenseRepository).save(any(Expense.class));
   }
 
@@ -60,7 +60,7 @@ public class ExpenseServiceTest {
   @DisplayName("Should delete expense by id")
   void shouldDeleteExpenseById() {
     doNothing().when(this.expenseRepository).deleteById(anyLong());
-    this.expenseService.deleteById(EXPENSE_ID);
+    this.expenseService.deleteById(EXPENSE_ID_1);
     verify(this.expenseRepository).deleteById(anyLong());
   }
 
@@ -68,15 +68,15 @@ public class ExpenseServiceTest {
   @DisplayName("Should throw not found exception when find expense by id")
   void shouldThrowNotFoundException_WhenFindExpenseById() {
     when(this.expenseRepository.findById(anyLong())).thenReturn(Optional.empty());
-    Executable executable = () -> this.expenseService.findById(EXPENSE_ID);
+    Executable executable = () -> this.expenseService.findById(EXPENSE_ID_1);
     assertThrows(NotFoundException.class, executable);
   }
 
   @Test
   @DisplayName("Should return expense when find by id")
   void shouldReturnExpense_WhenFindById() {
-    when(this.expenseRepository.findById(anyLong())).thenReturn(Optional.of(EXPENSE));
-    Expense expense = this.expenseService.findById(EXPENSE_ID);
+    when(this.expenseRepository.findById(anyLong())).thenReturn(Optional.of(EXPENSE_1));
+    Expense expense = this.expenseService.findById(EXPENSE_ID_1);
     assertNotNull(expense);
   }
 
@@ -93,7 +93,7 @@ public class ExpenseServiceTest {
   @DisplayName("Should throw not found exception when modify expense and category not exists")
   void shouldThrowNotFoundException_WhenModifyExpense_AndCategoryNotExists() {
     when(this.categoryRepository.findOne(any(CategoryFilter.class))).thenReturn(Optional.empty());
-    Executable executable = () -> this.expenseService.modify(EXPENSE);
+    Executable executable = () -> this.expenseService.modify(EXPENSE_1);
     assertThrows(NotFoundException.class, executable);
   }
 
@@ -102,7 +102,7 @@ public class ExpenseServiceTest {
   void shouldThrowNotFoundException_WhenModifyExpense_AndExpenseToUpdateNotExists() {
     when(this.categoryRepository.findOne(any(CategoryFilter.class))).thenReturn(Optional.of(EXPENSE_CATEGORY));
     when(this.expenseRepository.findById(anyLong())).thenReturn(Optional.empty());
-    Executable executable = () -> this.expenseService.modify(EXPENSE);
+    Executable executable = () -> this.expenseService.modify(EXPENSE_1);
     assertThrows(NotFoundException.class, executable);
   }
 
@@ -110,9 +110,9 @@ public class ExpenseServiceTest {
   @DisplayName("Should modify expense")
   void shouldModifyExpense() {
     when(this.categoryRepository.findOne(any(CategoryFilter.class))).thenReturn(Optional.of(EXPENSE_CATEGORY));
-    when(this.expenseRepository.findById(anyLong())).thenReturn(Optional.of(EXPENSE));
+    when(this.expenseRepository.findById(anyLong())).thenReturn(Optional.of(EXPENSE_1));
     doNothing().when(this.expenseRepository).modify(any(Expense.class), any(Expense.class));
-    this.expenseService.modify(EXPENSE);
+    this.expenseService.modify(EXPENSE_1);
     verify(this.expenseRepository).modify(any(Expense.class), any(Expense.class));
   }
 }

@@ -14,7 +14,7 @@ import java.time.LocalDate;
 import static com.mypersonalbook.economy.utils.test.TestConstants.*;
 import static com.mypersonalbook.economy.utils.test.mocks.CategoryMock.EXPENSE_CATEGORY;
 import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMOMock.EXPENSE_MO;
-import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMock.EXPENSE;
+import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMock.EXPENSE_1;
 import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMock.OTHER_EXPENSE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -32,41 +32,41 @@ public class ExpenseRepositoryMapperTest {
   @Test
   @DisplayName("Should map to expenseMO")
   void shouldMapToExpenseMO() {
-    final ExpenseMO RESULT = this.expenseRepositoryMapper.toExpenseMO(EXPENSE);
-    assertEquals(EXPENSE_ID, RESULT.getId());
+    final ExpenseMO RESULT = this.expenseRepositoryMapper.toExpenseMO(EXPENSE_1);
+    assertEquals(EXPENSE_ID_1, RESULT.getId());
     assertEquals(EXPENSE_AMOUNT, RESULT.getAmount());
     assertEquals(CATEGORY_ID, RESULT.getCategory().getId());
     assertEquals(CATEGORY_NAME, RESULT.getCategory().getName());
     assertEquals(CATEGORY_EXPENSE_TYPE, RESULT.getCategory().getType());
     assertEquals(EXPENSE_DESCRIPTION, RESULT.getDescription());
-    assertEquals(EXPENSE_DATE, RESULT.getDate());
+    assertEquals(EXPENSE_DATE_1, RESULT.getDate());
   }
 
   @Test
   @DisplayName("Should map to expense")
   void shouldMapToExpense() {
     final Expense RESULT = this.expenseRepositoryMapper.toExpense(EXPENSE_MO);
-    assertEquals(EXPENSE_ID, RESULT.getId());
+    assertEquals(EXPENSE_ID_1, RESULT.getId());
     assertEquals(EXPENSE_AMOUNT, RESULT.getAmount());
     assertEquals(CATEGORY_ID, RESULT.getCategory().getId());
     assertEquals(CATEGORY_NAME, RESULT.getCategory().getName());
     assertEquals(CATEGORY_EXPENSE_TYPE, RESULT.getCategory().getType());
     assertEquals(EXPENSE_DESCRIPTION, RESULT.getDescription());
-    assertEquals(EXPENSE_DATE, RESULT.getDate());
+    assertEquals(EXPENSE_DATE_1, RESULT.getDate());
   }
 
   @Test
   @DisplayName("Should map from dto to expense with expense null properties")
   void shouldMapFromDtoToExpense_WithExpenseNullProperties() {
     Expense expenseToUpdate = new Expense(null, null, null, null, null);
-    this.expenseRepositoryMapper.mapFromDtoToExpense(EXPENSE, expenseToUpdate);
-    assertEquals(EXPENSE_ID, expenseToUpdate.getId());
+    this.expenseRepositoryMapper.mapFromDtoToExpense(EXPENSE_1, expenseToUpdate);
+    assertEquals(EXPENSE_ID_1, expenseToUpdate.getId());
     assertEquals(EXPENSE_AMOUNT, expenseToUpdate.getAmount());
     assertEquals(CATEGORY_ID, expenseToUpdate.getCategory().getId());
     assertEquals(CATEGORY_NAME, expenseToUpdate.getCategory().getName());
     assertEquals(CATEGORY_EXPENSE_TYPE, expenseToUpdate.getCategory().getType());
     assertEquals(EXPENSE_DESCRIPTION, expenseToUpdate.getDescription());
-    assertEquals(EXPENSE_DATE, expenseToUpdate.getDate());
+    assertEquals(EXPENSE_DATE_1, expenseToUpdate.getDate());
   }
 
   @Test
@@ -92,7 +92,7 @@ public class ExpenseRepositoryMapperTest {
     Expense dto = new Expense(null, null, null, null, null);
     Expense expenseToUpdate =
             new Expense(
-                    EXPENSE_ID, EXPENSE_AMOUNT, EXPENSE_CATEGORY, EXPENSE_DESCRIPTION, EXPENSE_DATE);
+                    EXPENSE_ID_1, EXPENSE_AMOUNT, EXPENSE_CATEGORY, EXPENSE_DESCRIPTION, EXPENSE_DATE_1);
     this.expenseRepositoryMapper.mapFromDtoToExpense(dto, expenseToUpdate);
     assertNotNull(expenseToUpdate.getId());
     assertNotNull(expenseToUpdate.getAmount());

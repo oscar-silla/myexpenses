@@ -9,7 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMock.EXPENSE;
+import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMock.EXPENSE_1;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -27,7 +27,7 @@ public class ModifyExpenseUseCaseTest {
   @DisplayName("Should modify expense when execute use case")
   void shouldModifyExpense_WhenExecuteUseCase() {
     doNothing().when(this.expenseService).modify(any(Expense.class));
-    this.modifyExpenseUseCase.execute(EXPENSE);
+    this.modifyExpenseUseCase.execute(EXPENSE_1);
     verify(this.expenseService).modify(any(Expense.class));
   }
 }

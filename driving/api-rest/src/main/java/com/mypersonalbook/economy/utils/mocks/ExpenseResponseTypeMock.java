@@ -7,11 +7,11 @@ import static com.mypersonalbook.economy.utils.test.TestConstants.*;
 public class ExpenseResponseTypeMock {
   public static ExpenseResponseType EXPENSE_RESPONSE_TYPE() {
     ExpenseResponseType expenseResponseType = new ExpenseResponseType();
-    expenseResponseType.setId(EXPENSE_ID);
+    expenseResponseType.setId(EXPENSE_ID_1);
     expenseResponseType.setAmount(EXPENSE_AMOUNT);
     expenseResponseType.setCategory(CATEGORY_EXPENSE_TYPE);
     expenseResponseType.setDescription(EXPENSE_DESCRIPTION);
-    expenseResponseType.setDate(EXPENSE_DATE);
+    expenseResponseType.setDate(EXPENSE_DATE_1);
     return expenseResponseType;
   }
 }

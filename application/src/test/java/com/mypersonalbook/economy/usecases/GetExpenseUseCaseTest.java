@@ -9,8 +9,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static com.mypersonalbook.economy.utils.test.TestConstants.EXPENSE_ID;
-import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMock.EXPENSE;
+import static com.mypersonalbook.economy.utils.test.TestConstants.EXPENSE_ID_1;
+import static com.mypersonalbook.economy.utils.test.mocks.ExpenseMock.EXPENSE_1;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -28,8 +28,8 @@ public class GetExpenseUseCaseTest {
   @Test
   @DisplayName("Should return expense when find by id")
   void shouldReturnExpenseWhenFindById() {
-    when(this.expenseService.findById(anyLong())).thenReturn(EXPENSE);
-    this.getExpenseUseCase.execute(EXPENSE_ID);
+    when(this.expenseService.findById(anyLong())).thenReturn(EXPENSE_1);
+    this.getExpenseUseCase.execute(EXPENSE_ID_1);
     verify(this.expenseService).findById(anyLong());
   }
 }

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static com.mypersonalbook.economy.utils.test.TestConstants.EXPENSE_ID;
+import static com.mypersonalbook.economy.utils.test.TestConstants.EXPENSE_ID_1;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
@@ -27,7 +27,7 @@ public class DeleteExpenseUseCaseTest {
   @DisplayName("Should delete expense by id")
   void shouldDeleteExpenseById() {
     doNothing().when(this.expenseService).deleteById(anyLong());
-    this.deleteExpenseUseCase.execute(EXPENSE_ID);
+    this.deleteExpenseUseCase.execute(EXPENSE_ID_1);
     verify(this.expenseService).deleteById(anyLong());
   }
 }

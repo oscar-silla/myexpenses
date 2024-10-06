@@ -21,7 +21,7 @@ import static com.mypersonalbook.economy.utils.Utils.validateAndThrowPagination;
 @Service
 public class GetExpensesUseCase implements GetExpensesUseCasePort {
   private final ExpenseService expenseService;
-  private final Logger logger = LoggerFactory.getLogger(GetExpenseUseCase.class);
+  private final Logger logger = LoggerFactory.getLogger(GetExpensesUseCase.class);
 
   public GetExpensesUseCase(ExpenseService expenseService) {
     this.expenseService = expenseService;

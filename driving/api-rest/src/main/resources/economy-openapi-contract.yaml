@@ -2,21 +2,21 @@ openapi: 3.0.0
 info:
   title: Economy API
   description: Economy API from my personal book
-  version: 1.0.1
+  version: 2.0.0
 tags:
-  - name: Expenses
+  - name: Transactions
 paths:
-  /expenses:
+  /transactions:
     post:
-      summary: Create a new expense.
-      operationId: postExpense
+      summary: Create a new transaction.
+      operationId: postTransaction
       tags:
-        - Expenses
+        - Transactions
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ExpenseRequestBodyType"
+              $ref: "#/components/schemas/TransactionRequestBodyType"
       responses:
         '201':
           description: CREATED SUCCESSFULLY
@@ -33,10 +33,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponseType"
     get:
-      summary: Get all expenses.
-      operationId: getExpenses
+      summary: Get all transactions.
+      operationId: getTransactions
       tags:
-        - Expenses
+        - Transactions
       parameters:
         - $ref: "#/components/parameters/pageSizeQueryParam"
         - $ref: "#/components/parameters/pageNumberQueryParam"
@@ -48,7 +48,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ExpensesResponseType"
+                $ref: "#/components/schemas/TransactionsResponseType"
         '400':
           description: BAD REQUEST
           content:
@@ -61,12 +61,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponseType"
-  /expenses/{id}:
+  /transactions/{id}:
     get:
-      summary: Get expense
-      operationId: getExpense
+      summary: Get transaction
+      operationId: getTransaction
       tags:
-        - Expenses
+        - Transactions
       parameters:
         - $ref: "#/components/parameters/idPathParam"
       responses:
@@ -75,7 +75,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ExpenseResponseType"
+                $ref: "#/components/schemas/TransactionResponseType"
         '404':
           description: NOT FOUND
           content:
@@ -89,17 +89,17 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponseType"
     patch:
-      summary: Modify expense
-      operationId: patchExpense
+      summary: Modify transaction
+      operationId: patchTransaction
       tags:
-        - Expenses
+        - Transactions
       parameters:
         - $ref: "#/components/parameters/idPathParam"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ExpenseRequestBodyType"
+              $ref: "#/components/schemas/TransactionRequestBodyPatchType"
       responses:
         '200':
           description: OK
@@ -122,10 +122,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponseType"
     delete:
-      summary: Delete expense
-      operationId: deleteExpense
+      summary: Delete transaction
+      operationId: deleteTransaction
       tags:
-        - Expenses
+        - Transactions
       parameters:
         - $ref: "#/components/parameters/idPathParam"
       responses:
@@ -139,7 +139,7 @@ paths:
                 $ref: "#/components/schemas/ErrorResponseType"
 components:
   schemas:
-    ExpenseRequestBodyType:
+    TransactionRequestBodyType:
       type: object
       properties:
         amount:
@@ -158,7 +158,30 @@ components:
           type: string
           format: date
           example: 2024-01-01
-    ExpensesResponseType:
+        type:
+          type: string
+          format: string
+          example: expense
+    TransactionRequestBodyPatchType:
+      type: object
+      properties:
+        amount:
+          type: number
+          format: float
+          example: 2.55
+        category:
+          type: string
+          format: string
+          example: Food
+        description:
+          type: string
+          format: string
+          example: Hot dog
+        date:
+          type: string
+          format: date
+          example: 2024-01-01
+    TransactionsResponseType:
       type: object
       required:
         - results
@@ -167,15 +190,16 @@ components:
         results:
           type: array
           items:
-            $ref: "#/components/schemas/ExpenseDateResponseType"
+            $ref: "#/components/schemas/TransactionDateResponseType"
         pagination:
           type: object
           $ref: "#/components/schemas/PaginationResponseType"
-    ExpenseDateResponseType:
+    TransactionDateResponseType:
       type: object
       required:
         - date
         - expenses
+        - revenues
       properties:
         date:
           type: string
@@ -184,8 +208,12 @@ components:
         expenses:
           type: array
           items:
-            $ref: "#/components/schemas/ExpenseDetailResponseType"
-    ExpenseDetailResponseType:
+            $ref: "#/components/schemas/TransactionDetailResponseType"
+        revenues:
+          type: array
+          items:
+            $ref: "#/components/schemas/TransactionDetailResponseType"
+    TransactionDetailResponseType:
       type: object
       required:
         - id
@@ -209,7 +237,7 @@ components:
           type: string
           format: string
           example: Hot dog
-    ExpenseResponseType:
+    TransactionResponseType:
       type: object
       required:
         - id

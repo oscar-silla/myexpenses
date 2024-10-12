@@ -10,18 +10,22 @@ public class CategoryMO {
   @Id
   @Column(name = "category_id")
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "o_categories_seq")
-  @SequenceGenerator(name = "o_categories_seq", sequenceName = "O_CATEGORIES_SEQ", allocationSize = 1)
+  @SequenceGenerator(
+      name = "o_categories_seq",
+      sequenceName = "O_CATEGORIES_SEQ",
+      allocationSize = 1)
   private Long id;
 
   @Column(name = "category_name")
   private String name;
 
-  @Column(name = "category_type")
-  private String type;
+  @OneToOne
+  @JoinColumn(name = "transaction_type_id")
+  private TransactionTypeMO type;
 
   public CategoryMO() {}
 
-  public CategoryMO(Long id, String name, String type) {
+  public CategoryMO(Long id, String name, TransactionTypeMO type) {
     this.id = id;
     this.name = name;
     this.type = type;
@@ -43,11 +47,11 @@ public class CategoryMO {
     this.name = name;
   }
 
-  public String getType() {
+  public TransactionTypeMO getType() {
     return type;
   }
 
-  public void setType(String type) {
+  public void setType(TransactionTypeMO type) {
     this.type = type;
   }
 

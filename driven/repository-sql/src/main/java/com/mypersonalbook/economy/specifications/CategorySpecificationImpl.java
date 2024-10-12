@@ -3,6 +3,7 @@ package com.mypersonalbook.economy.specifications;
 import com.mypersonalbook.economy.filters.CategoryFilter;
 import com.mypersonalbook.economy.models.CategoryMO;
 import com.mypersonalbook.economy.models.CategoryMO_;
+import com.mypersonalbook.economy.models.TransactionTypeMO_;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,7 @@ public class CategorySpecificationImpl implements CategorySpecification {
   }
 
   private Specification<CategoryMO> equalsType(String type) {
-      return (root,query,cb) -> cb.equal(root.get(CategoryMO_.TYPE), type);
+    return (root, query, cb) ->
+        cb.equal(root.get(CategoryMO_.TYPE).get(TransactionTypeMO_.ID), type);
   }
 }

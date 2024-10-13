@@ -42,6 +42,14 @@ public class TransactionMock {
           TRANSACTION_DESCRIPTION,
           TRANSACTION_DATE_2,
           CATEGORY_TRANSACTION_TYPE);
+  public static final Transaction TRANSACTION_5 =
+          new Transaction(
+                  TRANSACTION_ID_1,
+                  TRANSACTION_AMOUNT,
+                  EXPENSE_CATEGORY,
+                  TRANSACTION_DESCRIPTION,
+                  TRANSACTION_DATE_1,
+                  CATEGORY_TRANSACTION_TYPE_2);
   public static final Transaction TRANSACTION_WITH_NULL_AMOUNT =
       new Transaction(
           TRANSACTION_ID_1,
@@ -86,12 +94,14 @@ public class TransactionMock {
       new Transaction(
           TRANSACTION_ID_2,
           TRANSACTION_AMOUNT_2,
-          EXPENSE_CATEGORY_2,
+              REVENUE_CATEGORY,
           TRANSACTION_DESCRIPTION_2,
           TRANSACTION_DATE_2,
           CATEGORY_TRANSACTION_TYPE);
   public static final Page<Transaction> EXPENSE_TRANSACTIONS_PAGE =
       new PageImpl<>(List.of(TRANSACTION_1));
+  public static final Page<Transaction> REVENUE_TRANSACTIONS_PAGE =
+          new PageImpl<>(List.of(TRANSACTION_5));
   public static final Page<Transaction> DISORDERED_EXPENSE_TRANSASCTIONS_PAGE =
       new PageImpl<>(List.of(TRANSACTION_1, TRANSACTION_2, TRANSACTION_3, TRANSACTION_4));
 }

@@ -18,7 +18,7 @@ public class TestConstants {
   public static final String CATEGORY_NAME = "FOOD";
   public static final String CATEGORY_NAME_2 = "FINANCES";
   public static final String CATEGORY_TRANSACTION_TYPE = "EXPENSE";
-  public static final String CATEGORY_TRANSACTION_TYPE_2 = "EARN";
+  public static final String CATEGORY_TRANSACTION_TYPE_2 = "REVENUE";
   public static final Integer PAGE_NUMBER = 1;
   public static final Integer PAGE_SIZE = 10;
   public static final Integer PAGE_TOTAL_RESULTS = 100;

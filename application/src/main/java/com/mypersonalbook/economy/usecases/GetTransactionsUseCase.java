@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.*;
 
+import static com.mypersonalbook.economy.utils.AppConstants.EXPENSE_TYPE;
 import static com.mypersonalbook.economy.utils.Utils.validateAndThrowDateRange;
 import static com.mypersonalbook.economy.utils.Utils.validateAndThrowPagination;
 
@@ -52,31 +53,44 @@ public class GetTransactionsUseCase implements GetTransactionsUseCasePort {
     transactionsPage
         .getContent()
         .forEach(
-            transaction ->
-                transactionDateResponseMap
-                    .computeIfAbsent(
-                        transaction.getDate(),
-                        date ->
-                            new TransactionDateResponse(transaction.getDate(), new ArrayList<>()))
-                    .getExpenses()
-                    .add(transaction));
+            transaction -> {
+              TransactionDateResponse transactionDateResponse =
+                  transactionDateResponseMap.computeIfAbsent(
+                      transaction.getDate(),
+                      date ->
+                          new TransactionDateResponse(
+                              transaction.getDate(), new ArrayList<>(), new ArrayList<>()));
+              if (this.isExpenseType(transaction)) {
+                transactionDateResponse.expenses().add(transaction);
+              } else {
+                transactionDateResponse.revenues().add(transaction);
+              }
+            });
     return new PageImpl<>(getSortTransactionDateResponseList(transactionDateResponseMap));
   }
 
   private List<TransactionDateResponse> getSortTransactionDateResponseList(
       Map<LocalDate, TransactionDateResponse> transactionDateResponseMap) {
     return transactionDateResponseMap.values().stream()
-        .sorted(Comparator.comparing(TransactionDateResponse::getDate).reversed())
-        .map(this::sortExpensesById)
+        .sorted(Comparator.comparing(TransactionDateResponse::date).reversed())
+        .map(this::sortTransactionsById)
         .toList();
   }
 
-  private TransactionDateResponse sortExpensesById(
+  private TransactionDateResponse sortTransactionsById(
       TransactionDateResponse transactionDateResponse) {
     List<Transaction> expenses =
-        transactionDateResponse.getExpenses().stream()
+        transactionDateResponse.expenses().stream()
             .sorted(Comparator.comparing(Transaction::getId).reversed())
             .toList();
-    return new TransactionDateResponse(transactionDateResponse.getDate(), expenses);
+    List<Transaction> revenues =
+        transactionDateResponse.revenues().stream()
+            .sorted(Comparator.comparing(Transaction::getId).reversed())
+            .toList();
+    return new TransactionDateResponse(transactionDateResponse.date(), expenses, revenues);
+  }
+
+  private boolean isExpenseType(Transaction transaction) {
+    return transaction.getType().equals(EXPENSE_TYPE);
   }
 }

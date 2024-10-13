@@ -3,7 +3,6 @@ package com.mypersonalbook.economy.models;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 @Entity
 @Table(name = "o_transactions")
@@ -97,22 +96,5 @@ public class TransactionMO {
 
   public void setCategory(CategoryMO category) {
     this.category = category;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    TransactionMO transactionMO = (TransactionMO) o;
-    return Objects.equals(id, transactionMO.id)
-        && Objects.equals(amount, transactionMO.amount)
-        && Objects.equals(description, transactionMO.description)
-        && Objects.equals(date, transactionMO.date)
-        && Objects.equals(category, transactionMO.category);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, amount, description, date, category);
   }
 }

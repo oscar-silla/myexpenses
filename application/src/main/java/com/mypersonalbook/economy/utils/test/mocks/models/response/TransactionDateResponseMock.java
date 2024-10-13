@@ -11,7 +11,8 @@ import static com.mypersonalbook.economy.utils.test.mocks.TransactionMock.TRANSA
 
 public class TransactionDateResponseMock {
   public static final TransactionDateResponse TRANSACTION_DATE_RESPONSE =
-      new TransactionDateResponse(TRANSACTION_DATE_1, List.of(TRANSACTION_1));
+      new TransactionDateResponse(
+          TRANSACTION_DATE_1, List.of(TRANSACTION_1), List.of(TRANSACTION_1));
   public static final Page<TransactionDateResponse> TRANSACTION_DATE_RESPONSE_PAGE =
       new PageImpl<>(List.of(TRANSACTION_DATE_RESPONSE));
 }

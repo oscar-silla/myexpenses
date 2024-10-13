@@ -18,11 +18,11 @@ import org.springframework.data.jpa.domain.Specification;
 import java.util.Optional;
 
 import static com.mypersonalbook.economy.utils.test.TestConstants.TRANSACTION_ID_1;
-import static com.mypersonalbook.economy.utils.test.mocks.TransactionFilterMock.TRANSACTION_FILTER;
+import static com.mypersonalbook.economy.utils.test.mocks.filters.TransactionFilterMock.TRANSACTION_FILTER;
 import static com.mypersonalbook.economy.utils.test.mocks.TransactionMOMock.EXPENSES_PAGE_MO;
 import static com.mypersonalbook.economy.utils.test.mocks.TransactionMOMock.TRANSACTION_MO;
 import static com.mypersonalbook.economy.utils.test.mocks.TransactionMock.*;
-import static com.mypersonalbook.economy.utils.test.mocks.PaginationFilterMock.PAGINATION_FILTER;
+import static com.mypersonalbook.economy.utils.test.mocks.filters.PaginationFilterMock.PAGINATION_FILTER;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;

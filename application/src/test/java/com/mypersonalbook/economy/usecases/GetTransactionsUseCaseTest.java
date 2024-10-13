@@ -56,7 +56,17 @@ public class GetTransactionsUseCaseTest {
         .thenReturn(DISORDERED_EXPENSE_TRANSASCTIONS_PAGE);
     final Page<TransactionDateResponse> RESULT =
         this.getTransactionsUseCase.execute(PAGE_NUMBER, PAGE_SIZE, START_DATE, END_DATE);
-    assertEquals(TRANSACTION_DATE_2, RESULT.getContent().get(0).getDate());
-    assertEquals(TRANSACTION_ID_4, RESULT.getContent().get(0).getExpenses().get(0).getId());
+    assertEquals(TRANSACTION_DATE_2, RESULT.getContent().get(0).date());
+    assertEquals(TRANSACTION_ID_4, RESULT.getContent().get(0).expenses().get(0).getId());
+  }
+
+  @Test
+  @DisplayName("Should add revenues when build transaction date response")
+  void shouldAddRevenues_WhenBuildTransactionDateResponse() {
+    when(this.transactionService.find(any(TransactionFilter.class), any(PaginationFilter.class)))
+        .thenReturn(REVENUE_TRANSACTIONS_PAGE);
+    final Page<TransactionDateResponse> RESULT =
+        this.getTransactionsUseCase.execute(PAGE_NUMBER, PAGE_SIZE, START_DATE, END_DATE);
+    assertEquals(1, RESULT.getContent().get(0).revenues().size());
   }
 }

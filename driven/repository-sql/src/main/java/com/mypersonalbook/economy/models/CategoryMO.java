@@ -2,8 +2,6 @@ package com.mypersonalbook.economy.models;
 
 import jakarta.persistence.*;
 
-import java.util.Objects;
-
 @Entity
 @Table(name = "o_categories")
 public class CategoryMO {
@@ -53,20 +51,5 @@ public class CategoryMO {
 
   public void setType(TransactionTypeMO type) {
     this.type = type;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    CategoryMO that = (CategoryMO) o;
-    return Objects.equals(id, that.id)
-        && Objects.equals(name, that.name)
-        && Objects.equals(type, that.type);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, name, type);
   }
 }

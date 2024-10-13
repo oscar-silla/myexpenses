@@ -19,10 +19,10 @@ import java.util.Optional;
 
 import static com.mypersonalbook.economy.utils.test.TestConstants.TRANSACTION_ID_1;
 import static com.mypersonalbook.economy.utils.test.mocks.CategoryMock.EXPENSE_CATEGORY;
-import static com.mypersonalbook.economy.utils.test.mocks.TransactionFilterMock.TRANSACTION_FILTER;
+import static com.mypersonalbook.economy.utils.test.mocks.filters.TransactionFilterMock.TRANSACTION_FILTER;
 import static com.mypersonalbook.economy.utils.test.mocks.TransactionMock.TRANSACTION_1;
 import static com.mypersonalbook.economy.utils.test.mocks.TransactionMock.EXPENSE_TRANSACTIONS_PAGE;
-import static com.mypersonalbook.economy.utils.test.mocks.PaginationFilterMock.PAGINATION_FILTER;
+import static com.mypersonalbook.economy.utils.test.mocks.filters.PaginationFilterMock.PAGINATION_FILTER;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;

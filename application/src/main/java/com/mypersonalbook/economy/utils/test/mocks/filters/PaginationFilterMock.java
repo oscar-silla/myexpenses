@@ -1,4 +1,4 @@
-package com.mypersonalbook.economy.utils.test.mocks;
+package com.mypersonalbook.economy.utils.test.mocks.filters;
 
 import com.mypersonalbook.economy.filters.PaginationFilter;
 

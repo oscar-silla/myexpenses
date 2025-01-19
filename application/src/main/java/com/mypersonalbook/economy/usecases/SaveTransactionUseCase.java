@@ -6,10 +6,6 @@ import com.mypersonalbook.economy.ports.in.SaveTransactionUseCasePort;
 import com.mypersonalbook.economy.services.TransactionService;
 import com.mypersonalbook.economy.services.TransactionTypeService;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-
-import static com.mypersonalbook.economy.utils.AppConstants.EXPENSE_TYPE;
-import static com.mypersonalbook.economy.utils.AppConstants.REVENUE_TYPE;
 
 @Service
 public class SaveTransactionUseCase implements SaveTransactionUseCasePort {

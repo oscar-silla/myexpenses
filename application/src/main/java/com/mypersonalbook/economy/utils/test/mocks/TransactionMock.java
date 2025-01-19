@@ -17,7 +17,7 @@ public class TransactionMock {
           EXPENSE_CATEGORY,
           TRANSACTION_DESCRIPTION,
           TRANSACTION_DATE_1,
-          CATEGORY_TRANSACTION_TYPE);
+          CATEGORY_TRANSACTION_TYPE_UPPER_CASE);
   public static final Transaction TRANSACTION_2 =
       new Transaction(
           TRANSACTION_ID_2,
@@ -25,7 +25,7 @@ public class TransactionMock {
           EXPENSE_CATEGORY,
           TRANSACTION_DESCRIPTION,
           TRANSACTION_DATE_1,
-          CATEGORY_TRANSACTION_TYPE);
+          CATEGORY_TRANSACTION_TYPE_UPPER_CASE);
   public static final Transaction TRANSACTION_3 =
       new Transaction(
           TRANSACTION_ID_3,
@@ -33,7 +33,7 @@ public class TransactionMock {
           EXPENSE_CATEGORY,
           TRANSACTION_DESCRIPTION,
           TRANSACTION_DATE_2,
-          CATEGORY_TRANSACTION_TYPE);
+          CATEGORY_TRANSACTION_TYPE_UPPER_CASE);
   public static final Transaction TRANSACTION_4 =
       new Transaction(
           TRANSACTION_ID_4,
@@ -41,7 +41,7 @@ public class TransactionMock {
           EXPENSE_CATEGORY,
           TRANSACTION_DESCRIPTION,
           TRANSACTION_DATE_2,
-          CATEGORY_TRANSACTION_TYPE);
+          CATEGORY_TRANSACTION_TYPE_UPPER_CASE);
   public static final Transaction TRANSACTION_5 =
           new Transaction(
                   TRANSACTION_ID_1,
@@ -57,7 +57,7 @@ public class TransactionMock {
           EXPENSE_CATEGORY,
           TRANSACTION_DESCRIPTION,
           TRANSACTION_DATE_1,
-          CATEGORY_TRANSACTION_TYPE);
+          CATEGORY_TRANSACTION_TYPE_UPPER_CASE);
   public static final Transaction TRANSACTION_WITH_NULL_CATEGORY =
       new Transaction(
           TRANSACTION_ID_1,
@@ -65,7 +65,7 @@ public class TransactionMock {
           null,
           TRANSACTION_DESCRIPTION,
           TRANSACTION_DATE_1,
-          CATEGORY_TRANSACTION_TYPE);
+          CATEGORY_TRANSACTION_TYPE_UPPER_CASE);
   public static final Transaction TRANSACTION_WITH_EMPTY_CATEGORY =
       new Transaction(
           TRANSACTION_ID_1,
@@ -73,7 +73,7 @@ public class TransactionMock {
           EMPTY_CATEGORY,
           TRANSACTION_DESCRIPTION,
           TRANSACTION_DATE_1,
-          CATEGORY_TRANSACTION_TYPE);
+          CATEGORY_TRANSACTION_TYPE_UPPER_CASE);
   public static final Transaction TRANSACTION_WITH_EMPTY_DESCRIPTION =
       new Transaction(
           TRANSACTION_ID_1,
@@ -81,7 +81,7 @@ public class TransactionMock {
           EXPENSE_CATEGORY,
           "  ",
           TRANSACTION_DATE_1,
-          CATEGORY_TRANSACTION_TYPE);
+          CATEGORY_TRANSACTION_TYPE_UPPER_CASE);
   public static final Transaction TRANSACTION_WITH_NULL_DATE =
       new Transaction(
           TRANSACTION_ID_1,
@@ -89,7 +89,7 @@ public class TransactionMock {
           EXPENSE_CATEGORY,
           TRANSACTION_DESCRIPTION,
           null,
-          CATEGORY_TRANSACTION_TYPE);
+          CATEGORY_TRANSACTION_TYPE_UPPER_CASE);
   public static final Transaction OTHER_TRANSACTION =
       new Transaction(
           TRANSACTION_ID_2,
@@ -97,7 +97,7 @@ public class TransactionMock {
               REVENUE_CATEGORY,
           TRANSACTION_DESCRIPTION_2,
           TRANSACTION_DATE_2,
-          CATEGORY_TRANSACTION_TYPE);
+          CATEGORY_TRANSACTION_TYPE_UPPER_CASE);
   public static final Page<Transaction> EXPENSE_TRANSACTIONS_PAGE =
       new PageImpl<>(List.of(TRANSACTION_1));
   public static final Page<Transaction> REVENUE_TRANSACTIONS_PAGE =

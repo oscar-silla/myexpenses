@@ -10,7 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static com.mypersonalbook.economy.utils.test.TestConstants.CATEGORY_TRANSACTION_TYPE;
+import static com.mypersonalbook.economy.utils.test.TestConstants.CATEGORY_TRANSACTION_TYPE_UPPER_CASE;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -31,7 +31,7 @@ public class TransactionTypeRepositoryAdapterTest {
   @DisplayName("Should execute jpa method when find by id")
   void shouldExecuteJpaMethod_WhenFindById() {
     when(this.transactionTypeJpaRepository.findIdById(anyString())).thenReturn(Optional.empty());
-    this.transactionTypeRepositoryAdapter.findById(CATEGORY_TRANSACTION_TYPE);
+    this.transactionTypeRepositoryAdapter.findById(CATEGORY_TRANSACTION_TYPE_UPPER_CASE);
     verify(this.transactionTypeJpaRepository).findIdById(anyString());
   }
 }

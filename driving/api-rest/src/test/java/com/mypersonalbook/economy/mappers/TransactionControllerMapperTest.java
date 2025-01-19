@@ -32,9 +32,9 @@ public class TransactionControllerMapperTest {
         this.transactionControllerMapper.toExpense(TRANSACTION_REQUEST_BODY_TYPE());
     assertEquals(TRANSACTION_AMOUNT, RESULT.getAmount());
     assertEquals(TRANSACTION_DESCRIPTION, RESULT.getDescription());
-    assertEquals(CATEGORY_NAME, RESULT.getCategory().getName());
+    assertEquals(CATEGORY_NAME_UPPER_CASE, RESULT.getCategory().getName());
     assertEquals(TRANSACTION_DATE_1, RESULT.getDate());
-    assertEquals(CATEGORY_TRANSACTION_TYPE, RESULT.getType());
+    assertEquals(CATEGORY_TRANSACTION_TYPE_UPPER_CASE, RESULT.getType());
   }
 
   @Test
@@ -44,7 +44,7 @@ public class TransactionControllerMapperTest {
         this.transactionControllerMapper.toExpenseResponseType(TRANSACTION_1);
     assertEquals(TRANSACTION_AMOUNT, RESULT.getAmount());
     assertEquals(TRANSACTION_DESCRIPTION, RESULT.getDescription());
-    assertEquals(CATEGORY_NAME, RESULT.getCategory());
+    assertEquals(CATEGORY_NAME_UPPER_CASE, RESULT.getCategory());
     assertEquals(TRANSACTION_DATE_1, RESULT.getDate());
   }
 
@@ -60,7 +60,7 @@ public class TransactionControllerMapperTest {
     assertEquals(TRANSACTION_DATE_1, RESULT.getResults().get(0).getDate());
     assertEquals(TRANSACTION_ID_1, RESULT.getResults().get(0).getExpenses().get(0).getId());
     assertEquals(TRANSACTION_AMOUNT, RESULT.getResults().get(0).getExpenses().get(0).getAmount());
-    assertEquals(CATEGORY_NAME, RESULT.getResults().get(0).getExpenses().get(0).getCategory());
+    assertEquals(CATEGORY_NAME_UPPER_CASE, RESULT.getResults().get(0).getExpenses().get(0).getCategory());
     assertEquals(
         TRANSACTION_DESCRIPTION, RESULT.getResults().get(0).getExpenses().get(0).getDescription());
   }

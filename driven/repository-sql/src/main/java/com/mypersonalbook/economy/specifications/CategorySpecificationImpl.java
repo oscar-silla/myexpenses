@@ -25,11 +25,11 @@ public class CategorySpecificationImpl implements CategorySpecification {
   }
 
   private Specification<CategoryMO> equalsName(String name) {
-    return (root, query, cb) -> cb.equal(root.get(CategoryMO_.NAME), name);
+    return (root, query, cb) -> cb.equal(cb.upper(root.get(CategoryMO_.NAME)), name);
   }
 
   private Specification<CategoryMO> equalsType(String type) {
     return (root, query, cb) ->
-        cb.equal(root.get(CategoryMO_.TYPE).get(TransactionTypeMO_.ID), type);
+        cb.equal(cb.upper(root.get(CategoryMO_.TYPE).get(TransactionTypeMO_.ID)), type);
   }
 }

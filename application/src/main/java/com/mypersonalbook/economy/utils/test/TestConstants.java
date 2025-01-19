@@ -15,9 +15,11 @@ public class TestConstants {
   public static final LocalDate TRANSACTION_DATE_2 = LocalDate.now().plusDays(1);
   public static final Long CATEGORY_ID = 2L;
   public static final Long CATEGORY_ID_2 = 3L;
-  public static final String CATEGORY_NAME = "FOOD";
+  public static final String CATEGORY_NAME_UPPER_CASE = "FOOD";
+  public static final String CATEGORY_NAME_LOWER_CASE = "Food";
   public static final String CATEGORY_NAME_2 = "FINANCES";
-  public static final String CATEGORY_TRANSACTION_TYPE = "EXPENSE";
+  public static final String CATEGORY_TRANSACTION_TYPE_UPPER_CASE = "EXPENSE";
+  public static final String CATEGORY_TRANSACTION_TYPE_LOWER_CASE = "Expense";
   public static final String CATEGORY_TRANSACTION_TYPE_2 = "REVENUE";
   public static final Integer PAGE_NUMBER = 1;
   public static final Integer PAGE_SIZE = 10;

@@ -37,8 +37,8 @@ public class TransactionRepositoryMapperTest {
     assertEquals(TRANSACTION_ID_1, RESULT.getId());
     assertEquals(TRANSACTION_AMOUNT, RESULT.getAmount());
     assertEquals(CATEGORY_ID, RESULT.getCategory().getId());
-    assertEquals(CATEGORY_NAME, RESULT.getCategory().getName());
-    assertEquals(CATEGORY_TRANSACTION_TYPE, RESULT.getCategory().getType().getId());
+    assertEquals(CATEGORY_NAME_UPPER_CASE, RESULT.getCategory().getName());
+    assertEquals(CATEGORY_TRANSACTION_TYPE_UPPER_CASE, RESULT.getCategory().getType().getId());
     assertEquals(TRANSACTION_DESCRIPTION, RESULT.getDescription());
     assertEquals(TRANSACTION_DATE_1, RESULT.getDate());
   }
@@ -50,8 +50,8 @@ public class TransactionRepositoryMapperTest {
     assertEquals(TRANSACTION_ID_1, RESULT.getId());
     assertEquals(TRANSACTION_AMOUNT, RESULT.getAmount());
     assertEquals(CATEGORY_ID, RESULT.getCategory().getId());
-    assertEquals(CATEGORY_NAME, RESULT.getCategory().getName());
-    assertEquals(CATEGORY_TRANSACTION_TYPE, RESULT.getCategory().getType());
+    assertEquals(CATEGORY_NAME_UPPER_CASE, RESULT.getCategory().getName());
+    assertEquals(CATEGORY_TRANSACTION_TYPE_UPPER_CASE, RESULT.getCategory().getType());
     assertEquals(TRANSACTION_DESCRIPTION, RESULT.getDescription());
     assertEquals(TRANSACTION_DATE_1, RESULT.getDate());
   }
@@ -64,8 +64,8 @@ public class TransactionRepositoryMapperTest {
     assertEquals(TRANSACTION_ID_1, transactionToUpdate.getId());
     assertEquals(TRANSACTION_AMOUNT, transactionToUpdate.getAmount());
     assertEquals(CATEGORY_ID, transactionToUpdate.getCategory().getId());
-    assertEquals(CATEGORY_NAME, transactionToUpdate.getCategory().getName());
-    assertEquals(CATEGORY_TRANSACTION_TYPE, transactionToUpdate.getCategory().getType());
+    assertEquals(CATEGORY_NAME_UPPER_CASE, transactionToUpdate.getCategory().getName());
+    assertEquals(CATEGORY_TRANSACTION_TYPE_UPPER_CASE, transactionToUpdate.getCategory().getType());
     assertEquals(TRANSACTION_DESCRIPTION, transactionToUpdate.getDescription());
     assertEquals(TRANSACTION_DATE_1, transactionToUpdate.getDate());
   }
@@ -81,7 +81,7 @@ public class TransactionRepositoryMapperTest {
             category,
             "TRANSACTION_DESCRIPTION",
             LocalDate.now(),
-            CATEGORY_TRANSACTION_TYPE);
+            CATEGORY_TRANSACTION_TYPE_UPPER_CASE);
     this.transactionRepositoryMapper.mapFromDtoToTransaction(
         OTHER_TRANSACTION, transactionToUpdate);
     assertEquals(TRANSACTION_ID_2, transactionToUpdate.getId());
@@ -104,7 +104,7 @@ public class TransactionRepositoryMapperTest {
             EXPENSE_CATEGORY,
             TRANSACTION_DESCRIPTION,
             TRANSACTION_DATE_1,
-            CATEGORY_TRANSACTION_TYPE);
+            CATEGORY_TRANSACTION_TYPE_UPPER_CASE);
     this.transactionRepositoryMapper.mapFromDtoToTransaction(dto, transactionToUpdate);
     assertNotNull(transactionToUpdate.getId());
     assertNotNull(transactionToUpdate.getAmount());

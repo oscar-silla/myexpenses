@@ -11,7 +11,7 @@ public class TransactionRequestBodyPatchTypeMock {
         new TransactionRequestBodyPatchType();
     transactionRequestBodyPatchType.setDate(TRANSACTION_DATE_1);
     transactionRequestBodyPatchType.setAmount(TRANSACTION_AMOUNT);
-    transactionRequestBodyPatchType.setCategory(CATEGORY_NAME);
+    transactionRequestBodyPatchType.setCategory(CATEGORY_NAME_UPPER_CASE);
     transactionRequestBodyPatchType.setDescription(TRANSACTION_DESCRIPTION);
     return transactionRequestBodyPatchType;
   }

@@ -110,6 +110,6 @@ public class Transaction {
 
   public boolean hasType() {
     return this.getType() != null
-        && (this.getType().equals(EXPENSE_TYPE) || this.getType().equals(REVENUE_TYPE));
+        && (this.getType().toUpperCase().equals(EXPENSE_TYPE) || this.getType().toUpperCase().equals(REVENUE_TYPE));
   }
 }

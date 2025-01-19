@@ -12,7 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static com.mypersonalbook.economy.utils.test.TestConstants.CATEGORY_TRANSACTION_TYPE;
+import static com.mypersonalbook.economy.utils.test.TestConstants.CATEGORY_TRANSACTION_TYPE_UPPER_CASE;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -33,9 +33,9 @@ public class TransactionTypeServiceTest {
   @DisplayName("Should not throw exception when find or throw not found exception")
   void shouldNotThrowException_WhenFindOrThrowNotFoundException() {
     when(this.transactionTypeRepository.findById(anyString()))
-        .thenReturn(Optional.of(CATEGORY_TRANSACTION_TYPE));
+        .thenReturn(Optional.of(CATEGORY_TRANSACTION_TYPE_UPPER_CASE));
     final Executable EXECUTABLE =
-        () -> this.transactionTypeService.findOrThrowNotFoundException(CATEGORY_TRANSACTION_TYPE);
+        () -> this.transactionTypeService.findOrThrowNotFoundException(CATEGORY_TRANSACTION_TYPE_UPPER_CASE);
     assertDoesNotThrow(EXECUTABLE);
   }
 
@@ -44,7 +44,7 @@ public class TransactionTypeServiceTest {
   void shouldThrowException_WhenFindOrThrowNotFoundException() {
     when(this.transactionTypeRepository.findById(anyString())).thenReturn(Optional.empty());
     final Executable EXECUTABLE =
-        () -> this.transactionTypeService.findOrThrowNotFoundException(CATEGORY_TRANSACTION_TYPE);
+        () -> this.transactionTypeService.findOrThrowNotFoundException(CATEGORY_TRANSACTION_TYPE_UPPER_CASE);
     assertThrows(NotFoundException.class, EXECUTABLE);
   }
 }

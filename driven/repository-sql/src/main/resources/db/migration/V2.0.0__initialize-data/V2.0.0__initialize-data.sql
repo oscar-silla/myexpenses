@@ -13,4 +13,10 @@ VALUES
 ('FINANCES',     'EXPENSE'),
 ('WORK',         'EXPENSE'),
 ('ENTERTAINMENT','EXPENSE'),
-('OTHER',        'EXPENSE');
+('OTHER',        'EXPENSE'),
+('FOOD',         'REVENUE'),
+('HOME',         'REVENUE'),
+('FINANCES',     'REVENUE'),
+('WORK',         'REVENUE'),
+('ENTERTAINMENT','REVENUE'),
+('OTHER',        'REVENUE');

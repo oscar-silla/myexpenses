@@ -81,13 +81,15 @@ public class TransactionControllerAdapter implements TransactionsApi {
 
   @Override
   public ResponseEntity<Void> patchTransaction(
-      Long id, TransactionRequestBodyPatchType expenseRequestBodyType) {
+      Long id, String type, TransactionRequestBodyPatchType expenseRequestBodyType) {
     logger.info(
         "PATCH /economy/v1/expenses/{id} with id: {}, body: {}",
         id,
         expenseRequestBodyType.toString());
     Transaction transaction = this.transactionControllerMapper.toExpense(expenseRequestBodyType);
     transaction.setId(id);
+    transaction.getCategory().setType(type);
+    transaction.setType(type);
     this.modifyExpenseUseCase.execute(transaction);
     return ResponseEntity.status(HttpStatus.OK).build();
   }

@@ -107,7 +107,7 @@ public class TransactionControllerAdapterTest {
     doNothing().when(this.modifyExpenseUseCase).execute(any(Transaction.class));
     final ResponseEntity<Void> RESULT =
         this.transactionControllerAdapter.patchTransaction(
-            TRANSACTION_ID_1, TRANSACTION_REQUEST_BODY_PATCH_TYPE());
+            TRANSACTION_ID_1, CATEGORY_TRANSACTION_TYPE_LOWER_CASE, TRANSACTION_REQUEST_BODY_PATCH_TYPE());
     assertEquals(HttpStatus.OK, RESULT.getStatusCode());
   }
 }

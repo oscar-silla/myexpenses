@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: Economy API
   description: Economy API from my personal book
-  version: 2.0.1
+  version: 2.1.0
 tags:
   - name: Transactions
 paths:
@@ -201,6 +201,7 @@ components:
         - date
         - expenses
         - revenues
+        - amount
       properties:
         date:
           type: string
@@ -214,6 +215,9 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/TransactionDetailResponseType"
+        amount:
+          type: object
+          $ref: "#/components/schemas/TransactionDateAmountResponseType"
     TransactionDetailResponseType:
       type: object
       required:
@@ -267,6 +271,20 @@ components:
           type: string
           format: string
           example: Hot dog
+    TransactionDateAmountResponseType:
+      type: object
+      required:
+        - expense
+        - revenue
+      properties:
+        expense:
+          type: number
+          format: float
+          example: 2.55
+        revenue:
+          type: number
+          format: float
+          example: 2.55
     PaginationResponseType:
       type: object
       required:

@@ -1,5 +1,6 @@
 package com.mypersonalbook.economy.usecases;
 
+import com.mypersonalbook.economy.domain.AmountSummary;
 import com.mypersonalbook.economy.domain.Transaction;
 import com.mypersonalbook.economy.filters.TransactionFilter;
 import com.mypersonalbook.economy.filters.PaginationFilter;
@@ -35,8 +36,7 @@ public class GetTransactionsUseCase implements GetTransactionsUseCasePort {
     validateAndThrowDateRange(startDate, endDate, logger);
     TransactionFilter transactionFilter = new TransactionFilter(startDate, endDate);
     PaginationFilter paginationFilter = new PaginationFilter(pageNumber, pageSize);
-    Page<Transaction> transactionsPage =
-        this.transactionService.find(transactionFilter, paginationFilter);
+    Page<Transaction> transactionsPage = this.transactionService.find(transactionFilter, paginationFilter);
     return this.buildTransactionDateResponsePage(transactionsPage, startDate, endDate);
   }
 
@@ -54,16 +54,18 @@ public class GetTransactionsUseCase implements GetTransactionsUseCasePort {
         .getContent()
         .forEach(
             transaction -> {
-              TransactionDateResponse transactionDateResponse =
-                  transactionDateResponseMap.computeIfAbsent(
-                      transaction.getDate(),
-                      date ->
-                          new TransactionDateResponse(
-                              transaction.getDate(), new ArrayList<>(), new ArrayList<>()));
+              TransactionDateResponse transactionDateResponse = transactionDateResponseMap.computeIfAbsent(
+                  transaction.getDate(),
+                  date -> new TransactionDateResponse(
+                      transaction.getDate(), new ArrayList<>(), new ArrayList<>(), new AmountSummary()));
               if (this.isExpenseType(transaction)) {
                 transactionDateResponse.expenses().add(transaction);
+                transactionDateResponse.amount()
+                    .setExpense(transactionDateResponse.amount().getExpense() + transaction.getAmount());
               } else {
                 transactionDateResponse.revenues().add(transaction);
+                transactionDateResponse.amount()
+                    .setRevenue(transactionDateResponse.amount().getRevenue() + transaction.getAmount());
               }
             });
     return new PageImpl<>(getSortTransactionDateResponseList(transactionDateResponseMap));
@@ -79,15 +81,14 @@ public class GetTransactionsUseCase implements GetTransactionsUseCasePort {
 
   private TransactionDateResponse sortTransactionsById(
       TransactionDateResponse transactionDateResponse) {
-    List<Transaction> expenses =
-        transactionDateResponse.expenses().stream()
-            .sorted(Comparator.comparing(Transaction::getId).reversed())
-            .toList();
-    List<Transaction> revenues =
-        transactionDateResponse.revenues().stream()
-            .sorted(Comparator.comparing(Transaction::getId).reversed())
-            .toList();
-    return new TransactionDateResponse(transactionDateResponse.date(), expenses, revenues);
+    List<Transaction> expenses = transactionDateResponse.expenses().stream()
+        .sorted(Comparator.comparing(Transaction::getId).reversed())
+        .toList();
+    List<Transaction> revenues = transactionDateResponse.revenues().stream()
+        .sorted(Comparator.comparing(Transaction::getId).reversed())
+        .toList();
+    return new TransactionDateResponse(transactionDateResponse.date(), expenses, revenues,
+        transactionDateResponse.amount());
   }
 
   private boolean isExpenseType(Transaction transaction) {

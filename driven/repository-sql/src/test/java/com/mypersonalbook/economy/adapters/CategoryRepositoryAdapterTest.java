@@ -26,34 +26,34 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class CategoryRepositoryAdapterTest {
-  CategoryRepositoryAdapter categoryRepositoryAdapter;
-  @Mock private CategoryJpaRepository categoryJpaRepository;
-  @Mock private CategorySpecification categorySpecification;
-  @Mock private CategoryRepositoryMapper categoryRepositoryMapper;
+    CategoryRepositoryAdapter categoryRepositoryAdapter;
+    @Mock
+    private CategoryJpaRepository categoryJpaRepository;
+    @Mock
+    private CategorySpecification categorySpecification;
+    @Mock
+    private CategoryRepositoryMapper categoryRepositoryMapper;
 
-  @BeforeEach
-  void setUp() {
-    this.categoryRepositoryAdapter =
-        new CategoryRepositoryAdapter(
-            this.categoryJpaRepository, this.categorySpecification, this.categoryRepositoryMapper);
-  }
+    @BeforeEach
+    void setUp() {
+        this.categoryRepositoryAdapter = new CategoryRepositoryAdapter(
+                this.categoryJpaRepository, this.categorySpecification, this.categoryRepositoryMapper);
+    }
 
-  Specification<CategoryMO> mockSpecification =
-      (root, query, criteriaBuilder) -> criteriaBuilder.conjunction();
+    Specification<CategoryMO> mockSpecification = (root, query, criteriaBuilder) -> criteriaBuilder.conjunction();
 
-  @Test
-  @DisplayName("Should return category when find one")
-  void shouldReturnCategory_WhenFindOne() {
-    when(this.categorySpecification.getSpecification(any(CategoryFilter.class)))
-        .thenReturn(mockSpecification);
-    when(this.categoryJpaRepository.findOne(any(Specification.class)))
-        .thenReturn(Optional.of(CATEGORY_MO));
-    when(this.categoryRepositoryMapper.toCategory(any(CategoryMO.class)))
-        .thenReturn(EXPENSE_CATEGORY);
-    final Optional<Category> RESULT =
-        this.categoryRepositoryAdapter.findOne(
-            new CategoryFilter(CATEGORY_NAME_UPPER_CASE, CATEGORY_TRANSACTION_TYPE_UPPER_CASE));
-    assertTrue(RESULT.isPresent());
-    assertEquals(CATEGORY_ID, RESULT.get().getId());
-  }
+    @Test
+    @DisplayName("Should return category when find one")
+    void shouldReturnCategory_WhenFindOne() {
+        when(this.categorySpecification.getSpecification(any(CategoryFilter.class)))
+                .thenReturn(mockSpecification);
+        when(this.categoryJpaRepository.findOne(any(Specification.class)))
+                .thenReturn(Optional.of(CATEGORY_MO));
+        when(this.categoryRepositoryMapper.toCategory(any(CategoryMO.class)))
+                .thenReturn(EXPENSE_CATEGORY);
+        final Optional<Category> RESULT = this.categoryRepositoryAdapter.findOne(
+                new CategoryFilter(CATEGORY_NAME_UPPER_CASE, CATEGORY_EXPENSE_TRANSACTION_TYPE_UPPER_CASE));
+        assertTrue(RESULT.isPresent());
+        assertEquals(CATEGORY_ID, RESULT.get().getId());
+    }
 }

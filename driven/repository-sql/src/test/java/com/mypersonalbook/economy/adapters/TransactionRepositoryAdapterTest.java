@@ -30,17 +30,19 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class TransactionRepositoryAdapterTest {
   TransactionRepositoryAdapter transactionRepositoryAdapter;
-  @Mock private TransactionJpaRepository transactionJpaRepository;
-  @Mock private TransactionSpecification transactionSpecification;
-  @Mock private TransactionRepositoryMapper transactionRepositoryMapper;
+  @Mock
+  private TransactionJpaRepository transactionJpaRepository;
+  @Mock
+  private TransactionSpecification transactionSpecification;
+  @Mock
+  private TransactionRepositoryMapper transactionRepositoryMapper;
 
   @BeforeEach
   void setUp() {
-    this.transactionRepositoryAdapter =
-        new TransactionRepositoryAdapter(
-            this.transactionJpaRepository,
-            this.transactionSpecification,
-            this.transactionRepositoryMapper);
+    this.transactionRepositoryAdapter = new TransactionRepositoryAdapter(
+        this.transactionJpaRepository,
+        this.transactionSpecification,
+        this.transactionRepositoryMapper);
   }
 
   @Test
@@ -49,7 +51,7 @@ public class TransactionRepositoryAdapterTest {
     when(this.transactionRepositoryMapper.toTransactionMO(any(Transaction.class)))
         .thenReturn(TRANSACTION_MO);
     when(this.transactionJpaRepository.save(any(TransactionMO.class))).thenReturn(TRANSACTION_MO);
-    this.transactionRepositoryAdapter.save(TRANSACTION_1);
+    this.transactionRepositoryAdapter.save(EXPENSE_TRANSACTION_1);
     verify(this.transactionJpaRepository).save(any(TransactionMO.class));
   }
 
@@ -66,23 +68,21 @@ public class TransactionRepositoryAdapterTest {
   void shouldReturnTransaction_WhenFindById() {
     when(this.transactionJpaRepository.findById(anyLong())).thenReturn(Optional.of(TRANSACTION_MO));
     when(this.transactionRepositoryMapper.toTransaction(any(TransactionMO.class)))
-        .thenReturn(TRANSACTION_1);
-    final Optional<Transaction> RESULT =
-        this.transactionRepositoryAdapter.findById(TRANSACTION_ID_1);
+        .thenReturn(EXPENSE_TRANSACTION_1);
+    final Optional<Transaction> RESULT = this.transactionRepositoryAdapter.findById(TRANSACTION_ID_1);
     assertTrue(RESULT.isPresent());
   }
 
   @Test
   @DisplayName("Should return transactions page when find")
   void shouldReturnTransactionsPage_WhenFind() {
-    Specification<TransactionMO> specifications =
-        (root, query, criteriaBuilder) -> criteriaBuilder.conjunction();
+    Specification<TransactionMO> specifications = (root, query, criteriaBuilder) -> criteriaBuilder.conjunction();
     when(this.transactionSpecification.getSpecification(any(TransactionFilter.class)))
         .thenReturn(specifications);
     when(this.transactionJpaRepository.findAll(any(Specification.class), any(PageRequest.class)))
         .thenReturn(EXPENSES_PAGE_MO);
     when(this.transactionRepositoryMapper.toTransaction(any(TransactionMO.class)))
-        .thenReturn(TRANSACTION_1);
+        .thenReturn(EXPENSE_TRANSACTION_1);
     this.transactionRepositoryAdapter.find(TRANSACTION_FILTER, PAGINATION_FILTER);
     verify(this.transactionRepositoryMapper).toTransaction(any(TransactionMO.class));
   }
@@ -96,7 +96,7 @@ public class TransactionRepositoryAdapterTest {
     when(this.transactionRepositoryMapper.toTransactionMO(any(Transaction.class)))
         .thenReturn(TRANSACTION_MO);
     when(this.transactionJpaRepository.save(any(TransactionMO.class))).thenReturn(TRANSACTION_MO);
-    this.transactionRepositoryAdapter.modify(TRANSACTION_1, OTHER_TRANSACTION);
+    this.transactionRepositoryAdapter.modify(EXPENSE_TRANSACTION_1, OTHER_EXPENSE_TRANSACTION);
     verify(this.transactionJpaRepository).save(any(TransactionMO.class));
   }
 }

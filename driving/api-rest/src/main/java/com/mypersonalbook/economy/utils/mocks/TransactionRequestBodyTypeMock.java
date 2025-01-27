@@ -11,7 +11,7 @@ public class TransactionRequestBodyTypeMock {
     expenseRequestBodyType.setAmount(TRANSACTION_AMOUNT);
     expenseRequestBodyType.setCategory(CATEGORY_NAME_LOWER_CASE);
     expenseRequestBodyType.setDescription(TRANSACTION_DESCRIPTION);
-    expenseRequestBodyType.setType(CATEGORY_TRANSACTION_TYPE_LOWER_CASE);
+    expenseRequestBodyType.setType(CATEGORY_EXPENSE_TRANSACTION_TYPE_LOWER_CASE);
     return expenseRequestBodyType;
   }
 }

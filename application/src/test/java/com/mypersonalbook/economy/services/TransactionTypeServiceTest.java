@@ -12,7 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static com.mypersonalbook.economy.utils.test.TestConstants.CATEGORY_TRANSACTION_TYPE_UPPER_CASE;
+import static com.mypersonalbook.economy.utils.test.TestConstants.CATEGORY_EXPENSE_TRANSACTION_TYPE_UPPER_CASE;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -22,7 +22,8 @@ import static org.mockito.Mockito.when;
 public class TransactionTypeServiceTest {
   TransactionTypeService transactionTypeService;
 
-  @Mock private TransactionTypeRepositoryPort transactionTypeRepository;
+  @Mock
+  private TransactionTypeRepositoryPort transactionTypeRepository;
 
   @BeforeEach
   void setUp() {
@@ -33,9 +34,9 @@ public class TransactionTypeServiceTest {
   @DisplayName("Should not throw exception when find or throw not found exception")
   void shouldNotThrowException_WhenFindOrThrowNotFoundException() {
     when(this.transactionTypeRepository.findById(anyString()))
-        .thenReturn(Optional.of(CATEGORY_TRANSACTION_TYPE_UPPER_CASE));
-    final Executable EXECUTABLE =
-        () -> this.transactionTypeService.findOrThrowNotFoundException(CATEGORY_TRANSACTION_TYPE_UPPER_CASE);
+        .thenReturn(Optional.of(CATEGORY_EXPENSE_TRANSACTION_TYPE_UPPER_CASE));
+    final Executable EXECUTABLE = () -> this.transactionTypeService
+        .findOrThrowNotFoundException(CATEGORY_EXPENSE_TRANSACTION_TYPE_UPPER_CASE);
     assertDoesNotThrow(EXECUTABLE);
   }
 
@@ -43,8 +44,8 @@ public class TransactionTypeServiceTest {
   @DisplayName("Should throw exception when find or throw not found exception")
   void shouldThrowException_WhenFindOrThrowNotFoundException() {
     when(this.transactionTypeRepository.findById(anyString())).thenReturn(Optional.empty());
-    final Executable EXECUTABLE =
-        () -> this.transactionTypeService.findOrThrowNotFoundException(CATEGORY_TRANSACTION_TYPE_UPPER_CASE);
+    final Executable EXECUTABLE = () -> this.transactionTypeService
+        .findOrThrowNotFoundException(CATEGORY_EXPENSE_TRANSACTION_TYPE_UPPER_CASE);
     assertThrows(NotFoundException.class, EXECUTABLE);
   }
 }

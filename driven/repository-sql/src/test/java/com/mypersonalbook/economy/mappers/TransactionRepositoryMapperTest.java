@@ -14,8 +14,8 @@ import java.time.LocalDate;
 import static com.mypersonalbook.economy.utils.test.TestConstants.*;
 import static com.mypersonalbook.economy.utils.test.mocks.CategoryMock.EXPENSE_CATEGORY;
 import static com.mypersonalbook.economy.utils.test.mocks.TransactionMOMock.TRANSACTION_MO;
-import static com.mypersonalbook.economy.utils.test.mocks.TransactionMock.TRANSACTION_1;
-import static com.mypersonalbook.economy.utils.test.mocks.TransactionMock.OTHER_TRANSACTION;
+import static com.mypersonalbook.economy.utils.test.mocks.TransactionMock.EXPENSE_TRANSACTION_1;
+import static com.mypersonalbook.economy.utils.test.mocks.TransactionMock.OTHER_EXPENSE_TRANSACTION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -26,19 +26,18 @@ public class TransactionRepositoryMapperTest {
   @BeforeEach
   void setUp() {
     CategoryRepositoryMapper categoryRepositoryMapper = new CategoryRepositoryMapperImpl();
-    this.transactionRepositoryMapper =
-        new TransactionRepositoryMapperImpl(categoryRepositoryMapper);
+    this.transactionRepositoryMapper = new TransactionRepositoryMapperImpl(categoryRepositoryMapper);
   }
 
   @Test
   @DisplayName("Should map to transactionMO")
   void shouldMapToTransactionMO() {
-    final TransactionMO RESULT = this.transactionRepositoryMapper.toTransactionMO(TRANSACTION_1);
+    final TransactionMO RESULT = this.transactionRepositoryMapper.toTransactionMO(EXPENSE_TRANSACTION_1);
     assertEquals(TRANSACTION_ID_1, RESULT.getId());
     assertEquals(TRANSACTION_AMOUNT, RESULT.getAmount());
     assertEquals(CATEGORY_ID, RESULT.getCategory().getId());
     assertEquals(CATEGORY_NAME_UPPER_CASE, RESULT.getCategory().getName());
-    assertEquals(CATEGORY_TRANSACTION_TYPE_UPPER_CASE, RESULT.getCategory().getType().getId());
+    assertEquals(CATEGORY_EXPENSE_TRANSACTION_TYPE_UPPER_CASE, RESULT.getCategory().getType().getId());
     assertEquals(TRANSACTION_DESCRIPTION, RESULT.getDescription());
     assertEquals(TRANSACTION_DATE_1, RESULT.getDate());
   }
@@ -51,7 +50,7 @@ public class TransactionRepositoryMapperTest {
     assertEquals(TRANSACTION_AMOUNT, RESULT.getAmount());
     assertEquals(CATEGORY_ID, RESULT.getCategory().getId());
     assertEquals(CATEGORY_NAME_UPPER_CASE, RESULT.getCategory().getName());
-    assertEquals(CATEGORY_TRANSACTION_TYPE_UPPER_CASE, RESULT.getCategory().getType());
+    assertEquals(CATEGORY_EXPENSE_TRANSACTION_TYPE_UPPER_CASE, RESULT.getCategory().getType());
     assertEquals(TRANSACTION_DESCRIPTION, RESULT.getDescription());
     assertEquals(TRANSACTION_DATE_1, RESULT.getDate());
   }
@@ -60,12 +59,12 @@ public class TransactionRepositoryMapperTest {
   @DisplayName("Should map from dto to transaction with transaction null properties")
   void shouldMapFromDtoToTransaction_WithTransactionNullProperties() {
     Transaction transactionToUpdate = new Transaction(null, null, null, null, null, null);
-    this.transactionRepositoryMapper.mapFromDtoToTransaction(TRANSACTION_1, transactionToUpdate);
+    this.transactionRepositoryMapper.mapFromDtoToTransaction(EXPENSE_TRANSACTION_1, transactionToUpdate);
     assertEquals(TRANSACTION_ID_1, transactionToUpdate.getId());
     assertEquals(TRANSACTION_AMOUNT, transactionToUpdate.getAmount());
     assertEquals(CATEGORY_ID, transactionToUpdate.getCategory().getId());
     assertEquals(CATEGORY_NAME_UPPER_CASE, transactionToUpdate.getCategory().getName());
-    assertEquals(CATEGORY_TRANSACTION_TYPE_UPPER_CASE, transactionToUpdate.getCategory().getType());
+    assertEquals(CATEGORY_EXPENSE_TRANSACTION_TYPE_UPPER_CASE, transactionToUpdate.getCategory().getType());
     assertEquals(TRANSACTION_DESCRIPTION, transactionToUpdate.getDescription());
     assertEquals(TRANSACTION_DATE_1, transactionToUpdate.getDate());
   }
@@ -74,16 +73,15 @@ public class TransactionRepositoryMapperTest {
   @DisplayName("Should map from dto to transaction with transaction")
   void shouldMapFromDtoToTransaction_WithTransaction() {
     Category category = new Category(1L, "CATEGORY", "EXPENSE");
-    Transaction transactionToUpdate =
-        new Transaction(
-            1L,
-            2.5F,
-            category,
-            "TRANSACTION_DESCRIPTION",
-            LocalDate.now(),
-            CATEGORY_TRANSACTION_TYPE_UPPER_CASE);
+    Transaction transactionToUpdate = new Transaction(
+        1L,
+        2.5F,
+        category,
+        "TRANSACTION_DESCRIPTION",
+        LocalDate.now(),
+        CATEGORY_EXPENSE_TRANSACTION_TYPE_UPPER_CASE);
     this.transactionRepositoryMapper.mapFromDtoToTransaction(
-        OTHER_TRANSACTION, transactionToUpdate);
+        OTHER_EXPENSE_TRANSACTION, transactionToUpdate);
     assertEquals(TRANSACTION_ID_2, transactionToUpdate.getId());
     assertEquals(TRANSACTION_AMOUNT_2, transactionToUpdate.getAmount());
     assertEquals(CATEGORY_ID_2, transactionToUpdate.getCategory().getId());
@@ -97,14 +95,13 @@ public class TransactionRepositoryMapperTest {
   @DisplayName("Should map from dto to transaction with dto null properties")
   void shouldMapFromDtoToTransaction_WithNullDtoProperties() {
     Transaction dto = new Transaction(null, null, null, null, null, null);
-    Transaction transactionToUpdate =
-        new Transaction(
-            TRANSACTION_ID_1,
-            TRANSACTION_AMOUNT,
-            EXPENSE_CATEGORY,
-            TRANSACTION_DESCRIPTION,
-            TRANSACTION_DATE_1,
-            CATEGORY_TRANSACTION_TYPE_UPPER_CASE);
+    Transaction transactionToUpdate = new Transaction(
+        TRANSACTION_ID_1,
+        TRANSACTION_AMOUNT,
+        EXPENSE_CATEGORY,
+        TRANSACTION_DESCRIPTION,
+        TRANSACTION_DATE_1,
+        CATEGORY_EXPENSE_TRANSACTION_TYPE_UPPER_CASE);
     this.transactionRepositoryMapper.mapFromDtoToTransaction(dto, transactionToUpdate);
     assertNotNull(transactionToUpdate.getId());
     assertNotNull(transactionToUpdate.getAmount());

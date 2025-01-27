@@ -18,8 +18,9 @@ public class TestConstants {
   public static final String CATEGORY_NAME_UPPER_CASE = "FOOD";
   public static final String CATEGORY_NAME_LOWER_CASE = "Food";
   public static final String CATEGORY_NAME_2 = "FINANCES";
-  public static final String CATEGORY_TRANSACTION_TYPE_UPPER_CASE = "EXPENSE";
-  public static final String CATEGORY_TRANSACTION_TYPE_LOWER_CASE = "Expense";
+  public static final String CATEGORY_EXPENSE_TRANSACTION_TYPE_UPPER_CASE = "EXPENSE";
+  public static final String CATEGORY_REVENUE_TRANSACTION_TYPE_UPPER_CASE = "REVENUE";
+  public static final String CATEGORY_EXPENSE_TRANSACTION_TYPE_LOWER_CASE = "Expense";
   public static final String CATEGORY_TRANSACTION_TYPE_2 = "REVENUE";
   public static final Integer PAGE_NUMBER = 1;
   public static final Integer PAGE_SIZE = 10;

@@ -10,7 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static com.mypersonalbook.economy.utils.test.TestConstants.TRANSACTION_ID_1;
-import static com.mypersonalbook.economy.utils.test.mocks.TransactionMock.TRANSACTION_1;
+import static com.mypersonalbook.economy.utils.test.mocks.TransactionMock.EXPENSE_TRANSACTION_1;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -18,7 +18,8 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class GetTransactionUseCaseTest {
   GetTransactionUseCasePort getTransactionUseCase;
-  @Mock private TransactionService transactionService;
+  @Mock
+  private TransactionService transactionService;
 
   @BeforeEach
   void setUp() {
@@ -28,7 +29,7 @@ public class GetTransactionUseCaseTest {
   @Test
   @DisplayName("Should return transaction when find by id")
   void shouldReturnTransactionWhenFindById() {
-    when(this.transactionService.findById(anyLong())).thenReturn(TRANSACTION_1);
+    when(this.transactionService.findById(anyLong())).thenReturn(EXPENSE_TRANSACTION_1);
     this.getTransactionUseCase.execute(TRANSACTION_ID_1);
     verify(this.transactionService).findById(anyLong());
   }

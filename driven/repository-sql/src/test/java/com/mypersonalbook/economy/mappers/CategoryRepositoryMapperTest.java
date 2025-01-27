@@ -26,6 +26,6 @@ public class CategoryRepositoryMapperTest {
     final CategoryMO RESULT = this.categoryRepositoryMapper.toCategoryMO(EXPENSE_CATEGORY);
     assertEquals(CATEGORY_ID, RESULT.getId());
     assertEquals(CATEGORY_NAME_UPPER_CASE, RESULT.getName());
-    assertEquals(CATEGORY_TRANSACTION_TYPE_UPPER_CASE, RESULT.getType().getId());
+    assertEquals(CATEGORY_EXPENSE_TRANSACTION_TYPE_UPPER_CASE, RESULT.getType().getId());
   }
 }

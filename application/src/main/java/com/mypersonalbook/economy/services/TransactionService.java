@@ -8,6 +8,7 @@ import com.mypersonalbook.economy.filters.TransactionFilter;
 import com.mypersonalbook.economy.filters.PaginationFilter;
 import com.mypersonalbook.economy.ports.out.CategoryRepositoryPort;
 import com.mypersonalbook.economy.ports.out.TransactionRepositoryPort;
+import com.mypersonalbook.economy.queryparams.GetTransactionsQueryParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -47,9 +48,8 @@ public class TransactionService {
             });
   }
 
-  public Page<Transaction> find(
-      TransactionFilter transactionFilter, PaginationFilter paginationFilter) {
-    return this.transactionRepository.find(transactionFilter, paginationFilter);
+  public Page<Transaction> find(TransactionFilter transactionFilter) {
+    return this.transactionRepository.find(transactionFilter);
   }
 
   public void modify(Transaction transaction) {

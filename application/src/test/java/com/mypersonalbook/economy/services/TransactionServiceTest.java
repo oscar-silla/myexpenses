@@ -19,10 +19,10 @@ import java.util.Optional;
 
 import static com.mypersonalbook.economy.utils.test.TestConstants.TRANSACTION_ID_1;
 import static com.mypersonalbook.economy.utils.test.mocks.CategoryMock.EXPENSE_CATEGORY;
-import static com.mypersonalbook.economy.utils.test.mocks.filters.TransactionFilterMock.TRANSACTION_FILTER;
 import static com.mypersonalbook.economy.utils.test.mocks.TransactionMock.EXPENSE_TRANSACTION_1;
 import static com.mypersonalbook.economy.utils.test.mocks.TransactionMock.EXPENSE_TRANSACTIONS_PAGE;
-import static com.mypersonalbook.economy.utils.test.mocks.filters.PaginationFilterMock.PAGINATION_FILTER;
+import static com.mypersonalbook.economy.utils.test.mocks.filters.TransactionFilterMock.TRANSACTION_FILTER;
+import static com.mypersonalbook.economy.utils.test.mocks.queryparams.GetTransactionQueryParamsMock.GET_TRANSACTIONS_QUERY_PARAMS;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -30,14 +30,13 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class TransactionServiceTest {
   TransactionService transactionService;
-  @Mock
-  private TransactionRepositoryPort transactionRepository;
-  @Mock
-  private CategoryRepositoryPort categoryRepository;
+  @Mock private TransactionRepositoryPort transactionRepository;
+  @Mock private CategoryRepositoryPort categoryRepository;
 
   @BeforeEach
   void setUp() {
-    this.transactionService = new TransactionService(this.transactionRepository, this.categoryRepository);
+    this.transactionService =
+        new TransactionService(this.transactionRepository, this.categoryRepository);
   }
 
   @Test
@@ -77,7 +76,8 @@ public class TransactionServiceTest {
   @Test
   @DisplayName("Should return transaction when find by id")
   void shouldReturnTransaction_WhenFindById() {
-    when(this.transactionRepository.findById(anyLong())).thenReturn(Optional.of(EXPENSE_TRANSACTION_1));
+    when(this.transactionRepository.findById(anyLong()))
+        .thenReturn(Optional.of(EXPENSE_TRANSACTION_1));
     Transaction transaction = this.transactionService.findById(TRANSACTION_ID_1);
     assertNotNull(transaction);
   }
@@ -85,11 +85,10 @@ public class TransactionServiceTest {
   @Test
   @DisplayName("Should return transactions page when find")
   void shouldReturnTransactionsPage_WhenFind() {
-    when(this.transactionRepository.find(any(TransactionFilter.class), any(PaginationFilter.class)))
+    when(this.transactionRepository.find(any(TransactionFilter.class)))
         .thenReturn(EXPENSE_TRANSACTIONS_PAGE);
-    this.transactionService.find(TRANSACTION_FILTER, PAGINATION_FILTER);
-    verify(this.transactionRepository)
-        .find(any(TransactionFilter.class), any(PaginationFilter.class));
+    this.transactionService.find(TRANSACTION_FILTER);
+    verify(this.transactionRepository).find(any(TransactionFilter.class));
   }
 
   @Test
@@ -101,7 +100,8 @@ public class TransactionServiceTest {
   }
 
   @Test
-  @DisplayName("Should throw not found exception when modify transaction and transaction to update not exists")
+  @DisplayName(
+      "Should throw not found exception when modify transaction and transaction to update not exists")
   void shouldThrowNotFoundException_WhenModifyTransaction_AndTransactionToUpdateNotExists() {
     when(this.categoryRepository.findOne(any(CategoryFilter.class)))
         .thenReturn(Optional.of(EXPENSE_CATEGORY));
@@ -115,7 +115,8 @@ public class TransactionServiceTest {
   void shouldModifyTransaction() {
     when(this.categoryRepository.findOne(any(CategoryFilter.class)))
         .thenReturn(Optional.of(EXPENSE_CATEGORY));
-    when(this.transactionRepository.findById(anyLong())).thenReturn(Optional.of(EXPENSE_TRANSACTION_1));
+    when(this.transactionRepository.findById(anyLong()))
+        .thenReturn(Optional.of(EXPENSE_TRANSACTION_1));
     doNothing()
         .when(this.transactionRepository)
         .modify(any(Transaction.class), any(Transaction.class));

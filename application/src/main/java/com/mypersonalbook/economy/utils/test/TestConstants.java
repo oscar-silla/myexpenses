@@ -27,4 +27,7 @@ public class TestConstants {
   public static final Integer PAGE_TOTAL_RESULTS = 100;
   public static final LocalDate START_DATE = LocalDate.now();
   public static final LocalDate END_DATE = LocalDate.now().plusDays(1);
+  public static final Float TOTAL_REVENUE = 2.5F;
+  public static final Float TOTAL_EXPENSE = 2.5F;
+  public static final Float TOTAL_MONEY = 0F;
 }

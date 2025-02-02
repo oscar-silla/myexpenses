@@ -2,9 +2,10 @@ package com.mypersonalbook.economy.adapters;
 
 import com.mypersonalbook.economy.domain.Transaction;
 import com.mypersonalbook.economy.mappers.TransactionControllerMapper;
-import com.mypersonalbook.economy.models.response.TransactionDateResponse;
+import com.mypersonalbook.economy.models.response.transaction.TransactionsResponse;
 import com.mypersonalbook.economy.ports.in.*;
 
+import com.mypersonalbook.economy.queryparams.GetTransactionsQueryParams;
 import openapi.economy.api.TransactionsApi;
 import openapi.economy.model.TransactionRequestBodyPatchType;
 import openapi.economy.model.TransactionRequestBodyType;
@@ -12,7 +13,6 @@ import openapi.economy.model.TransactionResponseType;
 import openapi.economy.model.TransactionsResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -72,10 +72,11 @@ public class TransactionControllerAdapter implements TransactionsApi {
         pageNumber,
         startDate,
         endDate);
-    Page<TransactionDateResponse> expenseDateResponsePage =
-        this.getExpensesUseCase.execute(pageSize, pageNumber, startDate, endDate);
+    TransactionsResponse transactionsResponse =
+        this.getExpensesUseCase.execute(
+            new GetTransactionsQueryParams(pageSize, pageNumber, startDate, endDate));
     TransactionsResponseType expensesResponseType =
-        this.transactionControllerMapper.toTransactionDetailResponseType(expenseDateResponsePage);
+        this.transactionControllerMapper.toTransactionsResponseType(transactionsResponse);
     return ResponseEntity.status(HttpStatus.OK).body(expensesResponseType);
   }
 

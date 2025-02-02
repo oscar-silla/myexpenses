@@ -1,4 +1,4 @@
-package com.mypersonalbook.economy.models.response;
+package com.mypersonalbook.economy.models.response.transaction;
 
 import com.mypersonalbook.economy.domain.AmountSummary;
 import com.mypersonalbook.economy.domain.Transaction;

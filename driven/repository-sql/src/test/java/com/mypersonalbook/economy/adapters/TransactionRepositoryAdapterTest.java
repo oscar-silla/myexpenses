@@ -22,7 +22,6 @@ import static com.mypersonalbook.economy.utils.test.mocks.filters.TransactionFil
 import static com.mypersonalbook.economy.utils.test.mocks.TransactionMOMock.EXPENSES_PAGE_MO;
 import static com.mypersonalbook.economy.utils.test.mocks.TransactionMOMock.TRANSACTION_MO;
 import static com.mypersonalbook.economy.utils.test.mocks.TransactionMock.*;
-import static com.mypersonalbook.economy.utils.test.mocks.filters.PaginationFilterMock.PAGINATION_FILTER;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -30,19 +29,17 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class TransactionRepositoryAdapterTest {
   TransactionRepositoryAdapter transactionRepositoryAdapter;
-  @Mock
-  private TransactionJpaRepository transactionJpaRepository;
-  @Mock
-  private TransactionSpecification transactionSpecification;
-  @Mock
-  private TransactionRepositoryMapper transactionRepositoryMapper;
+  @Mock private TransactionJpaRepository transactionJpaRepository;
+  @Mock private TransactionSpecification transactionSpecification;
+  @Mock private TransactionRepositoryMapper transactionRepositoryMapper;
 
   @BeforeEach
   void setUp() {
-    this.transactionRepositoryAdapter = new TransactionRepositoryAdapter(
-        this.transactionJpaRepository,
-        this.transactionSpecification,
-        this.transactionRepositoryMapper);
+    this.transactionRepositoryAdapter =
+        new TransactionRepositoryAdapter(
+            this.transactionJpaRepository,
+            this.transactionSpecification,
+            this.transactionRepositoryMapper);
   }
 
   @Test
@@ -69,21 +66,23 @@ public class TransactionRepositoryAdapterTest {
     when(this.transactionJpaRepository.findById(anyLong())).thenReturn(Optional.of(TRANSACTION_MO));
     when(this.transactionRepositoryMapper.toTransaction(any(TransactionMO.class)))
         .thenReturn(EXPENSE_TRANSACTION_1);
-    final Optional<Transaction> RESULT = this.transactionRepositoryAdapter.findById(TRANSACTION_ID_1);
+    final Optional<Transaction> RESULT =
+        this.transactionRepositoryAdapter.findById(TRANSACTION_ID_1);
     assertTrue(RESULT.isPresent());
   }
 
   @Test
   @DisplayName("Should return transactions page when find")
   void shouldReturnTransactionsPage_WhenFind() {
-    Specification<TransactionMO> specifications = (root, query, criteriaBuilder) -> criteriaBuilder.conjunction();
+    Specification<TransactionMO> specifications =
+        (root, query, criteriaBuilder) -> criteriaBuilder.conjunction();
     when(this.transactionSpecification.getSpecification(any(TransactionFilter.class)))
         .thenReturn(specifications);
     when(this.transactionJpaRepository.findAll(any(Specification.class), any(PageRequest.class)))
         .thenReturn(EXPENSES_PAGE_MO);
     when(this.transactionRepositoryMapper.toTransaction(any(TransactionMO.class)))
         .thenReturn(EXPENSE_TRANSACTION_1);
-    this.transactionRepositoryAdapter.find(TRANSACTION_FILTER, PAGINATION_FILTER);
+    this.transactionRepositoryAdapter.find(TRANSACTION_FILTER);
     verify(this.transactionRepositoryMapper).toTransaction(any(TransactionMO.class));
   }
 

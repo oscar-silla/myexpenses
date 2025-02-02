@@ -1,6 +1,6 @@
 package com.mypersonalbook.economy.utils.test.mocks.models.response;
 
-import com.mypersonalbook.economy.models.response.TransactionDateResponse;
+import com.mypersonalbook.economy.models.response.transaction.TransactionDateResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 

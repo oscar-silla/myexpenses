@@ -33,7 +33,8 @@ public class TransactionRepositoryAdapter implements TransactionRepositoryPort {
 
   @Override
   public void save(Transaction transaction) {
-    this.transactionJpaRepository.save(this.transactionRepositoryMapper.toTransactionMO(transaction));
+    this.transactionJpaRepository.save(
+        this.transactionRepositoryMapper.toTransactionMO(transaction));
   }
 
   @Override
@@ -43,23 +44,29 @@ public class TransactionRepositoryAdapter implements TransactionRepositoryPort {
 
   @Override
   public Optional<Transaction> findById(Long id) {
-    return this.transactionJpaRepository.findById(id).map(this.transactionRepositoryMapper::toTransaction);
+    return this.transactionJpaRepository
+        .findById(id)
+        .map(this.transactionRepositoryMapper::toTransaction);
   }
 
   @Override
-  public Page<Transaction> find(TransactionFilter transactionFilter, PaginationFilter paginationFilter) {
+  public Page<Transaction> find(TransactionFilter transactionFilter) {
     Specification<TransactionMO> specifications =
         this.transactionSpecification.getSpecification(transactionFilter);
     Pageable pageable =
-        PageRequest.of(paginationFilter.pageNumber() - 1, paginationFilter.pageSize());
-    Page<TransactionMO> expensesMOPage = this.transactionJpaRepository.findAll(specifications, pageable);
+        PageRequest.of(
+            transactionFilter.paginationFilter().pageNumber() - 1,
+            transactionFilter.paginationFilter().pageSize());
+    Page<TransactionMO> expensesMOPage =
+        this.transactionJpaRepository.findAll(specifications, pageable);
     return expensesMOPage.map(this.transactionRepositoryMapper::toTransaction);
   }
 
   @Override
   public void modify(Transaction transaction, Transaction transactionToUpdate) {
     this.transactionRepositoryMapper.mapFromDtoToTransaction(transaction, transactionToUpdate);
-    TransactionMO transactionMO = this.transactionRepositoryMapper.toTransactionMO(transactionToUpdate);
+    TransactionMO transactionMO =
+        this.transactionRepositoryMapper.toTransactionMO(transactionToUpdate);
     this.transactionJpaRepository.save(transactionMO);
   }
 }

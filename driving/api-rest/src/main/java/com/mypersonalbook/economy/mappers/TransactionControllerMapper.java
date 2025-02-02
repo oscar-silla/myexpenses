@@ -1,7 +1,8 @@
 package com.mypersonalbook.economy.mappers;
 
 import com.mypersonalbook.economy.domain.Transaction;
-import com.mypersonalbook.economy.models.response.TransactionDateResponse;
+import com.mypersonalbook.economy.models.response.transaction.TransactionDateResponse;
+import com.mypersonalbook.economy.models.response.transaction.TransactionsResponse;
 import openapi.economy.model.PaginationResponseType;
 import openapi.economy.model.TransactionDateResponseType;
 import openapi.economy.model.TransactionDetailResponseType;
@@ -37,18 +38,7 @@ public interface TransactionControllerMapper {
   List<TransactionDateResponseType> toExpenseResponseTypes(
       List<TransactionDateResponse> transactionDateResponse);
 
-  default TransactionsResponseType toTransactionDetailResponseType(
-      Page<TransactionDateResponse> expenseDateResponsePage) {
-    TransactionsResponseType expensesResponseType = new TransactionsResponseType();
-    PaginationResponseType paginationResponseType = new PaginationResponseType();
-    paginationResponseType.setPageNumber(expenseDateResponsePage.getNumber());
-    paginationResponseType.setPageSize(expenseDateResponsePage.getSize());
-    paginationResponseType.setTotalResults((int) expenseDateResponsePage.getTotalElements());
-    expensesResponseType.setResults(
-        this.toExpenseResponseTypes(expenseDateResponsePage.getContent()));
-    expensesResponseType.setPagination(paginationResponseType);
-    return expensesResponseType;
-  }
+  TransactionsResponseType toTransactionsResponseType(TransactionsResponse transactionsResponse);
 
   @Named("toUpperCase")
   default String toUpperCase(String string) {

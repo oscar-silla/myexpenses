@@ -14,7 +14,7 @@ public interface TransactionRepositoryPort {
 
   Optional<Transaction> findById(Long id);
 
-  Page<Transaction> find(TransactionFilter transactionFilter, PaginationFilter paginationFilter);
+  Page<Transaction> find(TransactionFilter transactionFilter);
 
   void modify(Transaction transaction, Transaction transactionToUpdate);
 }

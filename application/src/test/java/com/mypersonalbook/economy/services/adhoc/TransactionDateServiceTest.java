@@ -2,6 +2,7 @@ package com.mypersonalbook.economy.services.adhoc;
 
 import com.mypersonalbook.economy.exceptions.BadRequestException;
 import com.mypersonalbook.economy.models.response.transaction.TransactionDateResponse;
+import com.mypersonalbook.economy.models.response.transaction.TransactionSummaryResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,8 @@ import org.springframework.data.domain.Page;
 
 import static com.mypersonalbook.economy.utils.test.TestConstants.*;
 import static com.mypersonalbook.economy.utils.test.mocks.TransactionMock.*;
+import static com.mypersonalbook.economy.utils.test.mocks.models.response.TransactionDateResponseMock.TRANSACTION_DATE_RESPONSE_EMPTY_PAGE;
+import static com.mypersonalbook.economy.utils.test.mocks.models.response.TransactionDateResponseMock.TRANSACTION_DATE_RESPONSE_PAGE;
 import static com.mypersonalbook.economy.utils.test.mocks.queryparams.GetTransactionQueryParamsMock.GET_TRANSACTIONS_QUERY_PARAMS_WITH_WRONG_DATES;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -69,5 +72,42 @@ public class TransactionDateServiceTest {
         this.transactionDateService.collectTransactionDateResponsePage(EXPENSE_TRANSACTIONS_PAGE_2);
     assertEquals(2, RESULT.getContent().get(0).expenses().size());
     assertEquals(TRANSACTION_AMOUNT * 2, RESULT.getContent().get(0).amount().getExpense());
+  }
+
+  @Test
+  @DisplayName("Should sum transaction revenues when build summary response")
+  void shouldSumTransactionRevenues_WhenBuildSummaryResponse() {
+    final TransactionSummaryResponse RESULT =
+        this.transactionDateService.buildTransactionSummaryResponse(TRANSACTION_DATE_RESPONSE_PAGE);
+    assertEquals(TRANSACTION_AMOUNT * 2, RESULT.totalRevenue());
+  }
+
+  @Test
+  @DisplayName("Should sum transaction expenses when build summary response")
+  void shouldSumTransactionExpenses_WhenBuildSummaryResponse() {
+    final TransactionSummaryResponse RESULT =
+        this.transactionDateService.buildTransactionSummaryResponse(TRANSACTION_DATE_RESPONSE_PAGE);
+    assertEquals(TRANSACTION_AMOUNT * 2, RESULT.totalExpense());
+  }
+
+  @Test
+  @DisplayName("Should subtract expenses to revenues when build summary response")
+  void shouldSubtractExpensesToRevenues_WhenBuildSummaryResponse() {
+    final TransactionSummaryResponse RESULT =
+        this.transactionDateService.buildTransactionSummaryResponse(TRANSACTION_DATE_RESPONSE_PAGE);
+    assertEquals(0, RESULT.totalMoney());
+  }
+
+  @Test
+  @DisplayName(
+      "Should return default summary values when build summary response because transaction date list is empty")
+  void
+      shouldReturnDefaultSummaryValues_WhenBuildSummaryResponse_BecauseTransactionDateListIsEmpty() {
+    final TransactionSummaryResponse RESULT =
+        this.transactionDateService.buildTransactionSummaryResponse(
+            TRANSACTION_DATE_RESPONSE_EMPTY_PAGE);
+    assertEquals(0, RESULT.totalRevenue());
+    assertEquals(0, RESULT.totalExpense());
+    assertEquals(0, RESULT.totalMoney());
   }
 }

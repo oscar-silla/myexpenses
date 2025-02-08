@@ -1,15 +1,17 @@
 package com.mypersonalbook.economy.domain;
 
+import java.util.List;
+
 public class Category {
   Long id;
-  String name;
+  List<LocaleName> names;
   String type;
 
   public Category() {}
 
-  public Category(Long id, String name, String type) {
+  public Category(Long id, List<LocaleName> names, String type) {
     this.id = id;
-    this.name = name;
+    this.names = names;
     this.type = type;
   }
 
@@ -21,12 +23,12 @@ public class Category {
     this.id = id;
   }
 
-  public String getName() {
-    return name;
+  public List<LocaleName> getNames() {
+    return names;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setNames(List<LocaleName> names) {
+    this.names = names;
   }
 
   public String getType() {
@@ -39,6 +41,6 @@ public class Category {
 
   @Override
   public String toString() {
-    return "Category{" + "id=" + id + ", name='" + name + '\'' + ", type='" + type + '\'' + '}';
+    return "Category{" + "id=" + id + ", name='" + names + '\'' + ", type='" + type + '\'' + '}';
   }
 }

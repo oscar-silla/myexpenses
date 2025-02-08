@@ -2,6 +2,8 @@ package com.mypersonalbook.economy.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "o_categories")
 public class CategoryMO {
@@ -14,19 +16,19 @@ public class CategoryMO {
       allocationSize = 1)
   private Long id;
 
-  @Column(name = "category_name")
-  private String name;
-
   @OneToOne
   @JoinColumn(name = "transaction_type_id")
   private TransactionTypeMO type;
 
+  @OneToMany(mappedBy = "category")
+  private List<CategoryNameMO> names;
+
   public CategoryMO() {}
 
-  public CategoryMO(Long id, String name, TransactionTypeMO type) {
+  public CategoryMO(Long id, TransactionTypeMO type, List<CategoryNameMO> names) {
     this.id = id;
-    this.name = name;
     this.type = type;
+    this.names = names;
   }
 
   public Long getId() {
@@ -37,19 +39,19 @@ public class CategoryMO {
     this.id = id;
   }
 
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
   public TransactionTypeMO getType() {
     return type;
   }
 
   public void setType(TransactionTypeMO type) {
     this.type = type;
+  }
+
+  public List<CategoryNameMO> getNames() {
+    return this.names;
+  }
+
+  public void setNames(List<CategoryNameMO> names) {
+    this.names = names;
   }
 }

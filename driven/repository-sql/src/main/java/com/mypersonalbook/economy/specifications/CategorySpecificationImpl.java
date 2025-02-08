@@ -1,9 +1,8 @@
 package com.mypersonalbook.economy.specifications;
 
 import com.mypersonalbook.economy.filters.CategoryFilter;
-import com.mypersonalbook.economy.models.CategoryMO;
-import com.mypersonalbook.economy.models.CategoryMO_;
-import com.mypersonalbook.economy.models.TransactionTypeMO_;
+import com.mypersonalbook.economy.models.*;
+import jakarta.persistence.criteria.Join;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +24,10 @@ public class CategorySpecificationImpl implements CategorySpecification {
   }
 
   private Specification<CategoryMO> equalsName(String name) {
-    return (root, query, cb) -> cb.equal(cb.upper(root.get(CategoryMO_.NAME)), name);
+    return (root, query, cb) -> {
+      Join<CategoryMO, CategoryNameMO> join = root.join("names");
+      return cb.equal(cb.upper(join.get(CategoryNameMO_.NAME)), name);
+    };
   }
 
   private Specification<CategoryMO> equalsType(String type) {

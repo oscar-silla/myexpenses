@@ -1,5 +1,6 @@
 package com.mypersonalbook.economy.mappers;
 
+import com.mypersonalbook.economy.domain.LocaleName;
 import com.mypersonalbook.economy.domain.Transaction;
 import com.mypersonalbook.economy.models.response.transaction.TransactionDateResponse;
 import com.mypersonalbook.economy.models.response.transaction.TransactionsResponse;
@@ -15,21 +16,22 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.springframework.data.domain.Page;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface TransactionControllerMapper {
-  @Mapping(target = "category.name", source = "category", qualifiedByName = "toUpperCase")
+  @Mapping(target = "category.names", source = "category", qualifiedByName = "toLocaleNames")
   @Mapping(target = "type", source = "type", qualifiedByName = "toUpperCase")
   Transaction toExpense(TransactionRequestBodyType expenseRequestBodyType);
 
-  @Mapping(target = "category.name", source = "category", qualifiedByName = "toUpperCase")
+  @Mapping(target = "category.names", source = "category", qualifiedByName = "toLocaleNames")
   Transaction toExpense(TransactionRequestBodyPatchType expenseRequestBodyType);
 
-  @Mapping(target = "category", source = "category.name")
+  @Mapping(target = "category", source = "category.names", qualifiedByName = "toCategory")
   TransactionResponseType toExpenseResponseType(Transaction transaction);
 
-  @Mapping(target = "category", source = "category.name")
+  @Mapping(target = "category", source = "category.names", qualifiedByName = "toCategory")
   TransactionDetailResponseType toTransactionDetailResponseType(Transaction transaction);
 
   List<TransactionDetailResponseType> toTransactionDetailResponseTypes(
@@ -43,5 +45,17 @@ public interface TransactionControllerMapper {
   @Named("toUpperCase")
   default String toUpperCase(String string) {
     return string != null ? string.toUpperCase() : null;
+  }
+
+  @Named("toLocaleNames")
+  default List<LocaleName> toLocaleNames(String string) {
+    return string != null
+        ? new ArrayList<>(List.of(new LocaleName(string.toUpperCase(), null)))
+        : null;
+  }
+
+  @Named("toCategory")
+  default String toCategory(List<LocaleName> names) {
+    return names.get(0).getName();
   }
 }

@@ -17,7 +17,9 @@ public class CategoryRepositoryMapperTest {
 
   @BeforeEach
   void setUp() {
-    this.categoryRepositoryMapper = new CategoryRepositoryMapperImpl();
+    CategoryNameRepositoryMapper categoryNameRepositoryMapper =
+        new CategoryNameRepositoryMapperImpl();
+    this.categoryRepositoryMapper = new CategoryRepositoryMapperImpl(categoryNameRepositoryMapper);
   }
 
   @Test
@@ -25,7 +27,7 @@ public class CategoryRepositoryMapperTest {
   void shouldMapToCategoryMO() {
     final CategoryMO RESULT = this.categoryRepositoryMapper.toCategoryMO(EXPENSE_CATEGORY);
     assertEquals(CATEGORY_ID, RESULT.getId());
-    assertEquals(CATEGORY_NAME_UPPER_CASE, RESULT.getName());
+    assertEquals(CATEGORY_NAME_UPPER_CASE, RESULT.getNames().get(0).getName());
     assertEquals(CATEGORY_EXPENSE_TRANSACTION_TYPE_UPPER_CASE, RESULT.getType().getId());
   }
 }

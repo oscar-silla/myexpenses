@@ -32,7 +32,7 @@ public class TransactionControllerMapperTest {
         this.transactionControllerMapper.toExpense(TRANSACTION_REQUEST_BODY_TYPE());
     assertEquals(TRANSACTION_AMOUNT, RESULT.getAmount());
     assertEquals(TRANSACTION_DESCRIPTION, RESULT.getDescription());
-    assertEquals(CATEGORY_NAME_UPPER_CASE, RESULT.getCategory().getName());
+    assertEquals(CATEGORY_NAME_UPPER_CASE, RESULT.getCategory().getNames().get(0).getName());
     assertEquals(TRANSACTION_DATE_1, RESULT.getDate());
     assertEquals(CATEGORY_EXPENSE_TRANSACTION_TYPE_UPPER_CASE, RESULT.getType());
   }

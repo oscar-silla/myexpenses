@@ -5,10 +5,8 @@ import com.mypersonalbook.economy.domain.Transaction;
 import com.mypersonalbook.economy.exceptions.NotFoundException;
 import com.mypersonalbook.economy.filters.CategoryFilter;
 import com.mypersonalbook.economy.filters.TransactionFilter;
-import com.mypersonalbook.economy.filters.PaginationFilter;
 import com.mypersonalbook.economy.ports.out.CategoryRepositoryPort;
 import com.mypersonalbook.economy.ports.out.TransactionRepositoryPort;
-import com.mypersonalbook.economy.queryparams.GetTransactionsQueryParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -62,12 +60,14 @@ public class TransactionService {
 
   private Category findCategoryOrThrow(Transaction transaction) {
     return this.categoryRepository
-        .findOne(new CategoryFilter(transaction.getCategory().getName(), transaction.getType()))
+        .findOne(
+            new CategoryFilter(
+                transaction.getCategory().getNames().get(0).getName(), transaction.getType()))
         .orElseThrow(
             () -> {
               logger.error(
                   "Category with name: {}, type: {} not found.",
-                  transaction.getCategory().getName(),
+                  transaction.getCategory().getNames(),
                   EXPENSE_TYPE);
               return new NotFoundException();
             });

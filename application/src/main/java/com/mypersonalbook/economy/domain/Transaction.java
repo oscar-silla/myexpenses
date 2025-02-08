@@ -97,7 +97,9 @@ public class Transaction {
   }
 
   public boolean hasCategory() {
-    return this.category != null && StringUtils.hasText(this.getCategory().getName());
+    return this.category != null
+        && !this.getCategory().getNames().isEmpty()
+        && StringUtils.hasText(this.getCategory().getNames().get(0).getName());
   }
 
   public boolean hasEmptyDescription() {
@@ -110,6 +112,7 @@ public class Transaction {
 
   public boolean hasType() {
     return this.getType() != null
-        && (this.getType().toUpperCase().equals(EXPENSE_TYPE) || this.getType().toUpperCase().equals(REVENUE_TYPE));
+        && (this.getType().equalsIgnoreCase(EXPENSE_TYPE)
+            || this.getType().equalsIgnoreCase(REVENUE_TYPE));
   }
 }

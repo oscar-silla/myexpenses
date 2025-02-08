@@ -4,7 +4,10 @@ import com.mypersonalbook.economy.domain.Category;
 import com.mypersonalbook.economy.models.CategoryMO;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring")
+@Mapper(
+    componentModel = "spring",
+    uses = CategoryNameRepositoryMapper.class,
+    injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface CategoryRepositoryMapper {
   @Mapping(target = "type.id", source = "type")
   CategoryMO toCategoryMO(Category category);

@@ -30,4 +30,5 @@ public class TestConstants {
   public static final Float TOTAL_REVENUE = 2.5F;
   public static final Float TOTAL_EXPENSE = 2.5F;
   public static final Float TOTAL_MONEY = 0F;
+  public static final String LOCALE_ES = "es_ES";
 }

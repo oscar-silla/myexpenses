@@ -1,14 +1,13 @@
 package com.mypersonalbook.economy.utils.test.mocks;
 
-import com.mypersonalbook.economy.models.TransactionMO;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-
-import java.util.List;
-
 import static com.mypersonalbook.economy.utils.test.TestConstants.*;
 import static com.mypersonalbook.economy.utils.test.mocks.CategoryMOMock.CATEGORY_MO;
 import static com.mypersonalbook.economy.utils.test.mocks.TransactionTypeMOMock.TRANSACTION_TYPE_MO;
+
+import com.mypersonalbook.economy.models.TransactionMO;
+import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
 public class TransactionMOMock {
   public static final TransactionMO TRANSACTION_MO =

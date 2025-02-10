@@ -26,6 +26,7 @@
             <artifactId>com-mypersonalbook-economy-application</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
         <!-- External dependencies -->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -63,6 +64,11 @@
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct-processor</artifactId>
             <version>1.6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.transaction</groupId>
+            <artifactId>jakarta.transaction-api</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

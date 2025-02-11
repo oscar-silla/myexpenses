@@ -19,7 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import static com.mypersonalbook.economy.utils.mocks.TransactionRequestBodyPatchTypeMock.TRANSACTION_REQUEST_BODY_PATCH_TYPE;
-import static com.mypersonalbook.economy.utils.mocks.TransactionRequestBodyTypeMock.TRANSACTION_REQUEST_BODY_TYPE;
+import static com.mypersonalbook.economy.utils.mocks.TransactionRequestBodyTypeMock.EXPENSE_TRANSACTION_REQUEST_BODY_TYPE;
 import static com.mypersonalbook.economy.utils.mocks.TransactionResponseTypeMock.TRANSACTION_RESPONSE_TYPE;
 import static com.mypersonalbook.economy.utils.mocks.TransactionsResponseTypeMock.TRANSACTIONS_RESPONSE_TYPE;
 import static com.mypersonalbook.economy.utils.test.TestConstants.*;
@@ -60,7 +60,7 @@ public class TransactionControllerAdapterTest {
         .thenReturn(EXPENSE_TRANSACTION_1);
     doNothing().when(this.saveExpenseUseCase).execute(any(Transaction.class));
     final ResponseEntity<Void> RESULT =
-        this.transactionControllerAdapter.postTransaction(TRANSACTION_REQUEST_BODY_TYPE());
+        this.transactionControllerAdapter.postTransaction(EXPENSE_TRANSACTION_REQUEST_BODY_TYPE());
     assertEquals(HttpStatus.CREATED, RESULT.getStatusCode());
   }
 

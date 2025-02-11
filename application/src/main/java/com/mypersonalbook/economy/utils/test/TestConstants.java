@@ -7,8 +7,10 @@ public class TestConstants {
   public static final Long TRANSACTION_ID_2 = 2L;
   public static final Long TRANSACTION_ID_3 = 3L;
   public static final Long TRANSACTION_ID_4 = 4L;
-  public static final Float TRANSACTION_AMOUNT = 2.5F;
-  public static final Float TRANSACTION_AMOUNT_2 = 3.5F;
+  public static final Float EXPENSE_TRANSACTION_AMOUNT = 2.5F;
+  public static final Float REVENUE_TRANSACTION_AMOUNT = 3.5F;
+  public static final Float TRANSACTION_TOTAL_MONEY =
+      REVENUE_TRANSACTION_AMOUNT - EXPENSE_TRANSACTION_AMOUNT;
   public static final String TRANSACTION_DESCRIPTION = "WATER";
   public static final String TRANSACTION_DESCRIPTION_2 = "CURRENCY";
   public static final LocalDate TRANSACTION_DATE_1 = LocalDate.now();

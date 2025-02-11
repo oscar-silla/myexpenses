@@ -62,7 +62,7 @@ public class TransactionDateServiceTest {
     final Page<TransactionDateResponse> RESULT =
         this.transactionDateService.collectTransactionDateResponsePage(REVENUE_TRANSACTIONS_PAGE_2);
     assertEquals(2, RESULT.getContent().get(0).revenues().size());
-    assertEquals(TRANSACTION_AMOUNT * 2, RESULT.getContent().get(0).amount().getRevenue());
+    assertEquals(EXPENSE_TRANSACTION_AMOUNT * 2, RESULT.getContent().get(0).amount().getRevenue());
   }
 
   @Test
@@ -71,7 +71,7 @@ public class TransactionDateServiceTest {
     final Page<TransactionDateResponse> RESULT =
         this.transactionDateService.collectTransactionDateResponsePage(EXPENSE_TRANSACTIONS_PAGE_2);
     assertEquals(2, RESULT.getContent().get(0).expenses().size());
-    assertEquals(TRANSACTION_AMOUNT * 2, RESULT.getContent().get(0).amount().getExpense());
+    assertEquals(EXPENSE_TRANSACTION_AMOUNT * 2, RESULT.getContent().get(0).amount().getExpense());
   }
 
   @Test
@@ -79,7 +79,7 @@ public class TransactionDateServiceTest {
   void shouldSumTransactionRevenues_WhenBuildSummaryResponse() {
     final TransactionSummaryResponse RESULT =
         this.transactionDateService.buildTransactionSummaryResponse(TRANSACTION_DATE_RESPONSE_PAGE);
-    assertEquals(TRANSACTION_AMOUNT * 2, RESULT.totalRevenue());
+    assertEquals(EXPENSE_TRANSACTION_AMOUNT * 2, RESULT.totalRevenue());
   }
 
   @Test
@@ -87,7 +87,7 @@ public class TransactionDateServiceTest {
   void shouldSumTransactionExpenses_WhenBuildSummaryResponse() {
     final TransactionSummaryResponse RESULT =
         this.transactionDateService.buildTransactionSummaryResponse(TRANSACTION_DATE_RESPONSE_PAGE);
-    assertEquals(TRANSACTION_AMOUNT * 2, RESULT.totalExpense());
+    assertEquals(EXPENSE_TRANSACTION_AMOUNT * 2, RESULT.totalExpense());
   }
 
   @Test

@@ -34,7 +34,7 @@ public class TransactionRepositoryMapperTest {
   void shouldMapToTransactionMO() {
     final TransactionMO RESULT = this.transactionRepositoryMapper.toTransactionMO(EXPENSE_TRANSACTION_1);
     assertEquals(TRANSACTION_ID_1, RESULT.getId());
-    assertEquals(TRANSACTION_AMOUNT, RESULT.getAmount());
+    assertEquals(EXPENSE_TRANSACTION_AMOUNT, RESULT.getAmount());
     assertEquals(CATEGORY_ID, RESULT.getCategory().getId());
     assertEquals(CATEGORY_NAME_UPPER_CASE, RESULT.getCategory().getName());
     assertEquals(CATEGORY_EXPENSE_TRANSACTION_TYPE_UPPER_CASE, RESULT.getCategory().getType().getId());
@@ -47,7 +47,7 @@ public class TransactionRepositoryMapperTest {
   void shouldMapToTransaction() {
     final Transaction RESULT = this.transactionRepositoryMapper.toTransaction(TRANSACTION_MO);
     assertEquals(TRANSACTION_ID_1, RESULT.getId());
-    assertEquals(TRANSACTION_AMOUNT, RESULT.getAmount());
+    assertEquals(EXPENSE_TRANSACTION_AMOUNT, RESULT.getAmount());
     assertEquals(CATEGORY_ID, RESULT.getCategory().getId());
     assertEquals(CATEGORY_NAME_UPPER_CASE, RESULT.getCategory().getName());
     assertEquals(CATEGORY_EXPENSE_TRANSACTION_TYPE_UPPER_CASE, RESULT.getCategory().getType());
@@ -61,7 +61,7 @@ public class TransactionRepositoryMapperTest {
     Transaction transactionToUpdate = new Transaction(null, null, null, null, null, null);
     this.transactionRepositoryMapper.mapFromDtoToTransaction(EXPENSE_TRANSACTION_1, transactionToUpdate);
     assertEquals(TRANSACTION_ID_1, transactionToUpdate.getId());
-    assertEquals(TRANSACTION_AMOUNT, transactionToUpdate.getAmount());
+    assertEquals(EXPENSE_TRANSACTION_AMOUNT, transactionToUpdate.getAmount());
     assertEquals(CATEGORY_ID, transactionToUpdate.getCategory().getId());
     assertEquals(CATEGORY_NAME_UPPER_CASE, transactionToUpdate.getCategory().getName());
     assertEquals(CATEGORY_EXPENSE_TRANSACTION_TYPE_UPPER_CASE, transactionToUpdate.getCategory().getType());
@@ -83,7 +83,7 @@ public class TransactionRepositoryMapperTest {
     this.transactionRepositoryMapper.mapFromDtoToTransaction(
         OTHER_EXPENSE_TRANSACTION, transactionToUpdate);
     assertEquals(TRANSACTION_ID_2, transactionToUpdate.getId());
-    assertEquals(TRANSACTION_AMOUNT_2, transactionToUpdate.getAmount());
+    assertEquals(REVENUE_TRANSACTION_AMOUNT, transactionToUpdate.getAmount());
     assertEquals(CATEGORY_ID_2, transactionToUpdate.getCategory().getId());
     assertEquals(CATEGORY_NAME_2, transactionToUpdate.getCategory().getName());
     assertEquals(CATEGORY_TRANSACTION_TYPE_2, transactionToUpdate.getCategory().getType());
@@ -97,7 +97,7 @@ public class TransactionRepositoryMapperTest {
     Transaction dto = new Transaction(null, null, null, null, null, null);
     Transaction transactionToUpdate = new Transaction(
         TRANSACTION_ID_1,
-        TRANSACTION_AMOUNT,
+            EXPENSE_TRANSACTION_AMOUNT,
         EXPENSE_CATEGORY,
         TRANSACTION_DESCRIPTION,
         TRANSACTION_DATE_1,

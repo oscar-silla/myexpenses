@@ -8,7 +8,7 @@ public class TransactionResponseTypeMock {
   public static TransactionResponseType TRANSACTION_RESPONSE_TYPE() {
     TransactionResponseType expenseResponseType = new TransactionResponseType();
     expenseResponseType.setId(TRANSACTION_ID_1);
-    expenseResponseType.setAmount(TRANSACTION_AMOUNT);
+    expenseResponseType.setAmount(EXPENSE_TRANSACTION_AMOUNT);
     expenseResponseType.setCategory(CATEGORY_EXPENSE_TRANSACTION_TYPE_UPPER_CASE);
     expenseResponseType.setDescription(TRANSACTION_DESCRIPTION);
     expenseResponseType.setDate(TRANSACTION_DATE_1);

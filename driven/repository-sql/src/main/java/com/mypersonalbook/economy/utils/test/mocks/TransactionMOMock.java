@@ -14,7 +14,7 @@ public class TransactionMOMock {
   public static final TransactionMO TRANSACTION_MO =
       new TransactionMO(
           TRANSACTION_ID_1,
-          TRANSACTION_AMOUNT,
+              EXPENSE_TRANSACTION_AMOUNT,
           TRANSACTION_DESCRIPTION,
           TRANSACTION_DATE_1,
           TRANSACTION_TYPE_MO,

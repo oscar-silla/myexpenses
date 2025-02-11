@@ -10,7 +10,7 @@ public class TransactionRequestBodyPatchTypeMock {
     TransactionRequestBodyPatchType transactionRequestBodyPatchType =
         new TransactionRequestBodyPatchType();
     transactionRequestBodyPatchType.setDate(TRANSACTION_DATE_1);
-    transactionRequestBodyPatchType.setAmount(TRANSACTION_AMOUNT);
+    transactionRequestBodyPatchType.setAmount(EXPENSE_TRANSACTION_AMOUNT);
     transactionRequestBodyPatchType.setCategory(CATEGORY_NAME_UPPER_CASE);
     transactionRequestBodyPatchType.setDescription(TRANSACTION_DESCRIPTION);
     return transactionRequestBodyPatchType;

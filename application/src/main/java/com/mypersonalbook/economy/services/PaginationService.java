@@ -9,6 +9,7 @@ public class PaginationService {
   public PaginationService() {}
 
   public <T> PaginationResponse buildPaginationResponse(Page<T> page) {
-    return new PaginationResponse(page.getNumber(), page.getSize(), (int) page.getTotalElements());
+    return new PaginationResponse(
+        page.getNumber() + 1, page.getSize(), (int) page.getTotalElements());
   }
 }

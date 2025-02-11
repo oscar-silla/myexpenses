@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static com.mypersonalbook.economy.utils.mocks.TransactionRequestBodyTypeMock.TRANSACTION_REQUEST_BODY_TYPE;
+import static com.mypersonalbook.economy.utils.mocks.TransactionRequestBodyTypeMock.EXPENSE_TRANSACTION_REQUEST_BODY_TYPE;
 import static com.mypersonalbook.economy.utils.test.TestConstants.*;
 import static com.mypersonalbook.economy.utils.test.mocks.TransactionMock.EXPENSE_TRANSACTION_1;
 import static com.mypersonalbook.economy.utils.test.mocks.models.response.TransactionsResponseMock.TRANSACTIONS_RESPONSE;
@@ -29,8 +29,8 @@ public class TransactionControllerMapperTest {
   @DisplayName("Should map to transaction")
   void shouldMapToExpense() {
     final Transaction RESULT =
-        this.transactionControllerMapper.toExpense(TRANSACTION_REQUEST_BODY_TYPE());
-    assertEquals(TRANSACTION_AMOUNT, RESULT.getAmount());
+        this.transactionControllerMapper.toExpense(EXPENSE_TRANSACTION_REQUEST_BODY_TYPE());
+    assertEquals(EXPENSE_TRANSACTION_AMOUNT, RESULT.getAmount());
     assertEquals(TRANSACTION_DESCRIPTION, RESULT.getDescription());
     assertEquals(CATEGORY_NAME_UPPER_CASE, RESULT.getCategory().getName());
     assertEquals(TRANSACTION_DATE_1, RESULT.getDate());
@@ -42,7 +42,7 @@ public class TransactionControllerMapperTest {
   void shouldMapToExpenseResponseType() {
     final TransactionResponseType RESULT =
         this.transactionControllerMapper.toExpenseResponseType(EXPENSE_TRANSACTION_1);
-    assertEquals(TRANSACTION_AMOUNT, RESULT.getAmount());
+    assertEquals(EXPENSE_TRANSACTION_AMOUNT, RESULT.getAmount());
     assertEquals(TRANSACTION_DESCRIPTION, RESULT.getDescription());
     assertEquals(CATEGORY_NAME_UPPER_CASE, RESULT.getCategory());
     assertEquals(TRANSACTION_DATE_1, RESULT.getDate());
@@ -58,7 +58,7 @@ public class TransactionControllerMapperTest {
     assertEquals(PAGE_TOTAL_RESULTS, RESULT.getPagination().getTotalResults());
     assertEquals(TRANSACTION_DATE_1, RESULT.getResults().get(0).getDate());
     assertEquals(TRANSACTION_ID_1, RESULT.getResults().get(0).getExpenses().get(0).getId());
-    assertEquals(TRANSACTION_AMOUNT, RESULT.getResults().get(0).getExpenses().get(0).getAmount());
+    assertEquals(EXPENSE_TRANSACTION_AMOUNT, RESULT.getResults().get(0).getExpenses().get(0).getAmount());
     assertEquals(
         CATEGORY_NAME_UPPER_CASE, RESULT.getResults().get(0).getExpenses().get(0).getCategory());
     assertEquals(

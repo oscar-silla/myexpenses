@@ -3,15 +3,16 @@ package com.mypersonalbook.economy.controllers;
 import static com.mypersonalbook.economy.utils.mocks.TransactionRequestBodyTypeMock.EXPENSE_TRANSACTION_REQUEST_BODY_TYPE;
 import static com.mypersonalbook.economy.utils.mocks.TransactionRequestBodyTypeMock.REVENUE_TRANSACTION_REQUEST_BODY_TYPE;
 import static com.mypersonalbook.economy.utils.test.TestConstants.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.mypersonalbook.economy.Application;
 import com.mypersonalbook.economy.adapters.TransactionControllerAdapter;
+import com.mypersonalbook.economy.exceptions.NotFoundException;
 import jakarta.transaction.Transactional;
 import openapi.economy.model.TransactionResponseType;
 import openapi.economy.model.TransactionsResponseType;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
@@ -86,5 +87,13 @@ public class TransactionControllerAdapterIT {
     assertEquals(PAGE_NUMBER, RESULT.getBody().getPagination().getPageNumber());
     assertEquals(1, RESULT.getBody().getPagination().getPageSize());
     assertEquals(1, RESULT.getBody().getPagination().getTotalResults());
+  }
+
+  @Test
+  void shouldDeleteTransactionById() {
+    this.transactionControllerAdapter.postTransaction(EXPENSE_TRANSACTION_REQUEST_BODY_TYPE());
+    assertEquals(HttpStatus.OK, this.transactionControllerAdapter.getTransaction(1L).getStatusCode());
+    assertEquals(HttpStatus.NO_CONTENT, this.transactionControllerAdapter.deleteTransaction(1L).getStatusCode());
+    assertThrows(NotFoundException.class, () -> this.transactionControllerAdapter.getTransaction(1L));
   }
 }

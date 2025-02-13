@@ -14,6 +14,7 @@ public class TransactionRequestBodyTypeMock {
     expenseRequestBodyType.setType(CATEGORY_EXPENSE_TRANSACTION_TYPE_LOWER_CASE);
     return expenseRequestBodyType;
   }
+
   public static TransactionRequestBodyType REVENUE_TRANSACTION_REQUEST_BODY_TYPE() {
     TransactionRequestBodyType revenueRequestBodyType = new TransactionRequestBodyType();
     revenueRequestBodyType.setDate(TRANSACTION_DATE_1);

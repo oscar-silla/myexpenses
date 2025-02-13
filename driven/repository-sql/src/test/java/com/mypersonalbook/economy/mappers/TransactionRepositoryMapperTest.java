@@ -85,7 +85,7 @@ public class TransactionRepositoryMapperTest {
     assertEquals(TRANSACTION_ID_2, transactionToUpdate.getId());
     assertEquals(REVENUE_TRANSACTION_AMOUNT, transactionToUpdate.getAmount());
     assertEquals(CATEGORY_ID_2, transactionToUpdate.getCategory().getId());
-    assertEquals(CATEGORY_NAME_2, transactionToUpdate.getCategory().getName());
+    assertEquals(CATEGORY_NAME_UPPER_CASE_2, transactionToUpdate.getCategory().getName());
     assertEquals(CATEGORY_TRANSACTION_TYPE_2, transactionToUpdate.getCategory().getType());
     assertEquals(TRANSACTION_DESCRIPTION_2, transactionToUpdate.getDescription());
     assertEquals(TRANSACTION_DATE_2, transactionToUpdate.getDate());

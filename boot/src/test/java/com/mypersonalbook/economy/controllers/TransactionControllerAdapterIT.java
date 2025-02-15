@@ -23,7 +23,7 @@ import org.springframework.test.context.jdbc.Sql;
 @SpringBootTest(
     classes = Application.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles(profiles = "dev")
+@ActiveProfiles(profiles = "test")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @Sql(
     scripts = {

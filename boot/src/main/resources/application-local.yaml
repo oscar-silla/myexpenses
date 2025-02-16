@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://monorail.proxy.rlwy.net:50836/railway
-    username: postgres
-    password: NJyGLgqMgpANMXFcuTcxsiwtTAtagwKl
+    url: jdbc:postgresql://localhost:5434/economy
+    username: sa
+    password: root
     driver-class-name: org.postgresql.Driver
   jpa:
     properties:
@@ -14,5 +14,5 @@ spring:
     enabled: true
     locations: classpath:db/migration
     baselineOnMigrate: true
-    user: postgres
-    password: NJyGLgqMgpANMXFcuTcxsiwtTAtagwKl
+    user: sa
+    password: root

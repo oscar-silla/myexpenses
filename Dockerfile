@@ -5,6 +5,10 @@ WORKDIR /app
 # Copia los archivos del proyecto
 COPY . .
 
+ARG DATABASE_URL
+ARG DATABASE_PASSWORD
+ARG DATABASE_USER
+
 # Construye el JAR sin ejecutar tests
 RUN mvn clean package -DskipTests
 

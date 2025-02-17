@@ -33,3 +33,5 @@ build/
 .vscode/
 
 /.idea
+
+./boot/src/main/resources/application-pro.yaml

@@ -2,9 +2,10 @@ openapi: 3.0.0
 info:
   title: Economy API
   description: Economy API from my personal book
-  version: 2.2.0
+  version: 3.0.0
 tags:
   - name: Transactions
+  - name: Users
 paths:
   /transactions:
     post:
@@ -22,6 +23,18 @@ paths:
           description: CREATED SUCCESSFULLY
         '400':
           description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
+        '401':
+          description: UNAUTHORIZED
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
+        '403':
+          description: FORBIDDEN
           content:
             application/json:
               schema:
@@ -55,6 +68,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponseType"
+        '401':
+          description: UNAUTHORIZED
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
+        '403':
+          description: FORBIDDEN
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
         '500':
           description: INTERNAL SERVER ERROR
           content:
@@ -78,6 +103,18 @@ paths:
                 $ref: "#/components/schemas/TransactionResponseType"
         '404':
           description: NOT FOUND
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
+        '401':
+          description: UNAUTHORIZED
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
+        '403':
+          description: FORBIDDEN
           content:
             application/json:
               schema:
@@ -116,6 +153,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponseType"
+        '401':
+          description: UNAUTHORIZED
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
+        '403':
+          description: FORBIDDEN
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
         '500':
           description: INTERNAL SERVER ERROR
           content:
@@ -132,6 +181,74 @@ paths:
       responses:
         '204':
           description: NO CONTENT
+        '401':
+          description: UNAUTHORIZED
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
+        '403':
+          description: FORBIDDEN
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
+        '500':
+          description: INTERNAL SERVER ERROR
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
+  /users:
+    post:
+      summary: Create new user
+      operationId: postUser
+      tags:
+        - Users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserRequestBodyType"
+      responses:
+        '201':
+          description: CREATED SUCCESSFULLY
+        '400':
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
+        '500':
+          description: INTERNAL SERVER ERROR
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
+  /login:
+    post:
+      summary: User login
+      operationId: postLogin
+      tags:
+        - Login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequestBodyType"
+      responses:
+        '201':
+          description: CREATED SUCCESSFULLY
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginResponseType"
+        '400':
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
         '500':
           description: INTERNAL SERVER ERROR
           content:
@@ -140,6 +257,49 @@ paths:
                 $ref: "#/components/schemas/ErrorResponseType"
 components:
   schemas:
+    LoginResponseType:
+      type: object
+      required:
+        - token
+      properties:
+        token:
+          type: string
+          format: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+    LoginRequestBodyType:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          example: email@address.org
+        password:
+          type: string
+          format: string
+          example: 23123QS:323
+    UserRequestBodyType:
+      type: object
+      properties:
+        name:
+          type: string
+          format: string
+          example: Oscar
+        first_name:
+          type: string
+          format: string
+          example: Garcia
+        second_name:
+          type: string
+          format: string
+          example: Marco
+        email:
+          type: string
+          format: email
+          example: email@address.org
+        password:
+          type: string
+          format: string
+          example: 23123QS:323
     TransactionRequestBodyType:
       type: object
       properties:

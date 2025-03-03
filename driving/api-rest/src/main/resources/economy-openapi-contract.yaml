@@ -1,4 +1,4 @@
-openapi: 3.0.0
+openapi: 3.0.1
 info:
   title: Economy API
   description: Economy API from my personal book
@@ -284,11 +284,11 @@ components:
           type: string
           format: string
           example: Oscar
-        first_name:
+        firstSurname:
           type: string
           format: string
           example: Garcia
-        second_name:
+        secondSurname:
           type: string
           format: string
           example: Marco

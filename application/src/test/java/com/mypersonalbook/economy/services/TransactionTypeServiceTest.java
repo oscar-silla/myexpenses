@@ -1,7 +1,8 @@
 package com.mypersonalbook.economy.services;
 
-import com.mypersonalbook.economy.exceptions.NotFoundException;
-import com.mypersonalbook.economy.ports.out.TransactionTypeRepositoryPort;
+import com.mypersonalbook.economy.application.exceptions.NotFoundException;
+import com.mypersonalbook.economy.application.ports.driven.TransactionTypeRepositoryPort;
+import com.mypersonalbook.economy.application.services.TransactionTypeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

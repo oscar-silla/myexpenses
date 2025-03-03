@@ -1,7 +1,7 @@
 package com.mypersonalbook.economy.handlers;
 
-import com.mypersonalbook.economy.exceptions.BadRequestException;
-import com.mypersonalbook.economy.exceptions.NotFoundException;
+import com.mypersonalbook.economy.application.exceptions.BadRequestException;
+import com.mypersonalbook.economy.application.exceptions.NotFoundException;
 import openapi.economy.model.ErrorResponseType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

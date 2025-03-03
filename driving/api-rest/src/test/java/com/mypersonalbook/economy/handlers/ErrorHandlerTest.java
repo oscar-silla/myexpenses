@@ -1,7 +1,7 @@
 package com.mypersonalbook.economy.handlers;
 
-import com.mypersonalbook.economy.exceptions.BadRequestException;
-import com.mypersonalbook.economy.exceptions.NotFoundException;
+import com.mypersonalbook.economy.application.exceptions.BadRequestException;
+import com.mypersonalbook.economy.application.exceptions.NotFoundException;
 import openapi.economy.model.ErrorResponseType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

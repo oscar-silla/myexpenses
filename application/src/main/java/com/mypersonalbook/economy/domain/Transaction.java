@@ -1,11 +1,10 @@
 package com.mypersonalbook.economy.domain;
 
-import org.springframework.util.StringUtils;
-
-import java.time.LocalDate;
-
 import static com.mypersonalbook.economy.utils.AppConstants.EXPENSE_TYPE;
 import static com.mypersonalbook.economy.utils.AppConstants.REVENUE_TYPE;
+
+import java.time.LocalDate;
+import org.springframework.util.StringUtils;
 
 public class Transaction {
   Long id;
@@ -110,6 +109,7 @@ public class Transaction {
 
   public boolean hasType() {
     return this.getType() != null
-        && (this.getType().toUpperCase().equals(EXPENSE_TYPE) || this.getType().toUpperCase().equals(REVENUE_TYPE));
+        && (this.getType().equalsIgnoreCase(EXPENSE_TYPE)
+            || this.getType().equalsIgnoreCase(REVENUE_TYPE));
   }
 }

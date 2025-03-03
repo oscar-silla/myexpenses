@@ -1,10 +1,10 @@
 package com.mypersonalbook.economy.adapters;
 
 import com.mypersonalbook.economy.domain.Category;
-import com.mypersonalbook.economy.filters.CategoryFilter;
+import com.mypersonalbook.economy.application.filters.CategoryFilter;
 import com.mypersonalbook.economy.mappers.CategoryRepositoryMapper;
 import com.mypersonalbook.economy.models.CategoryMO;
-import com.mypersonalbook.economy.ports.out.CategoryRepositoryPort;
+import com.mypersonalbook.economy.application.ports.driven.CategoryRepositoryPort;
 import com.mypersonalbook.economy.repositories.CategoryJpaRepository;
 import com.mypersonalbook.economy.specifications.CategorySpecification;
 import org.springframework.stereotype.Service;

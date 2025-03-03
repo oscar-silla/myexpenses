@@ -1,6 +1,6 @@
 package com.mypersonalbook.economy.utils.test.mocks.filters;
 
-import com.mypersonalbook.economy.filters.PaginationFilter;
+import com.mypersonalbook.economy.application.filters.PaginationFilter;
 
 import static com.mypersonalbook.economy.utils.test.TestConstants.*;
 

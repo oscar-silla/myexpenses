@@ -1,11 +1,11 @@
 package com.mypersonalbook.economy.adapters;
 
+import com.mypersonalbook.economy.application.ports.driving.transaction.*;
 import com.mypersonalbook.economy.domain.Transaction;
 import com.mypersonalbook.economy.mappers.TransactionControllerMapper;
 import com.mypersonalbook.economy.models.response.transaction.TransactionsResponse;
-import com.mypersonalbook.economy.ports.in.*;
 
-import com.mypersonalbook.economy.queryparams.GetTransactionsQueryParams;
+import com.mypersonalbook.economy.application.queryparams.GetTransactionsQueryParams;
 import openapi.economy.api.TransactionsApi;
 import openapi.economy.model.TransactionRequestBodyPatchType;
 import openapi.economy.model.TransactionRequestBodyType;

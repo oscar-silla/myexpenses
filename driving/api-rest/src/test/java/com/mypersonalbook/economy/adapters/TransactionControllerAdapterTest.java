@@ -1,10 +1,10 @@
 package com.mypersonalbook.economy.adapters;
 
+import com.mypersonalbook.economy.application.ports.driving.transaction.*;
 import com.mypersonalbook.economy.domain.Transaction;
 import com.mypersonalbook.economy.mappers.TransactionControllerMapper;
 import com.mypersonalbook.economy.models.response.transaction.TransactionsResponse;
-import com.mypersonalbook.economy.ports.in.*;
-import com.mypersonalbook.economy.queryparams.GetTransactionsQueryParams;
+import com.mypersonalbook.economy.application.queryparams.GetTransactionsQueryParams;
 import openapi.economy.model.TransactionRequestBodyPatchType;
 import openapi.economy.model.TransactionRequestBodyType;
 import openapi.economy.model.TransactionResponseType;
@@ -18,10 +18,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import static com.mypersonalbook.economy.utils.mocks.TransactionRequestBodyPatchTypeMock.TRANSACTION_REQUEST_BODY_PATCH_TYPE;
-import static com.mypersonalbook.economy.utils.mocks.TransactionRequestBodyTypeMock.EXPENSE_TRANSACTION_REQUEST_BODY_TYPE;
-import static com.mypersonalbook.economy.utils.mocks.TransactionResponseTypeMock.TRANSACTION_RESPONSE_TYPE;
-import static com.mypersonalbook.economy.utils.mocks.TransactionsResponseTypeMock.TRANSACTIONS_RESPONSE_TYPE;
+import static com.mypersonalbook.economy.utils.mocks.transaction.TransactionRequestBodyPatchTypeMock.TRANSACTION_REQUEST_BODY_PATCH_TYPE;
+import static com.mypersonalbook.economy.utils.mocks.transaction.TransactionRequestBodyTypeMock.EXPENSE_TRANSACTION_REQUEST_BODY_TYPE;
+import static com.mypersonalbook.economy.utils.mocks.transaction.TransactionResponseTypeMock.TRANSACTION_RESPONSE_TYPE;
+import static com.mypersonalbook.economy.utils.mocks.transaction.TransactionsResponseTypeMock.TRANSACTIONS_RESPONSE_TYPE;
 import static com.mypersonalbook.economy.utils.test.TestConstants.*;
 import static com.mypersonalbook.economy.utils.test.mocks.TransactionMock.EXPENSE_TRANSACTION_1;
 import static com.mypersonalbook.economy.utils.test.mocks.models.response.TransactionsResponseMock.TRANSACTIONS_RESPONSE;

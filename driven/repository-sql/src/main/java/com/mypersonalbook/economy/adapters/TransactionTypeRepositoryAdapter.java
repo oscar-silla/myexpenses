@@ -1,6 +1,6 @@
 package com.mypersonalbook.economy.adapters;
 
-import com.mypersonalbook.economy.ports.out.TransactionTypeRepositoryPort;
+import com.mypersonalbook.economy.application.ports.driven.TransactionTypeRepositoryPort;
 import com.mypersonalbook.economy.projections.IdProjection;
 import com.mypersonalbook.economy.repositories.TransactionTypeJpaRepository;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
 package com.mypersonalbook.economy.adapters;
 
 import com.mypersonalbook.economy.domain.Transaction;
-import com.mypersonalbook.economy.filters.TransactionFilter;
+import com.mypersonalbook.economy.application.filters.TransactionFilter;
 import com.mypersonalbook.economy.mappers.TransactionRepositoryMapper;
 import com.mypersonalbook.economy.models.TransactionMO;
 import com.mypersonalbook.economy.repositories.TransactionJpaRepository;

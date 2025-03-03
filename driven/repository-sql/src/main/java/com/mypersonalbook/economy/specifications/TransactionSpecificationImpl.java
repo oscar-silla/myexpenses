@@ -1,6 +1,6 @@
 package com.mypersonalbook.economy.specifications;
 
-import com.mypersonalbook.economy.filters.TransactionFilter;
+import com.mypersonalbook.economy.application.filters.TransactionFilter;
 import com.mypersonalbook.economy.models.TransactionMO;
 import com.mypersonalbook.economy.models.TransactionMO_;
 import org.springframework.data.jpa.domain.Specification;

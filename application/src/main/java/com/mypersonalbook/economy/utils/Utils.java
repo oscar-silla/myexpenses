@@ -1,6 +1,6 @@
 package com.mypersonalbook.economy.utils;
 
-import com.mypersonalbook.economy.exceptions.BadRequestException;
+import com.mypersonalbook.economy.application.exceptions.BadRequestException;
 import org.slf4j.Logger;
 
 import java.time.LocalDate;

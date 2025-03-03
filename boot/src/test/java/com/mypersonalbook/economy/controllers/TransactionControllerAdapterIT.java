@@ -1,13 +1,13 @@
 package com.mypersonalbook.economy.controllers;
 
-import static com.mypersonalbook.economy.utils.mocks.TransactionRequestBodyPatchTypeMock.TRANSACTION_REQUEST_BODY_PATCH_TYPE_MODIFIED;
-import static com.mypersonalbook.economy.utils.mocks.TransactionRequestBodyTypeMock.*;
+import static com.mypersonalbook.economy.utils.mocks.transaction.TransactionRequestBodyPatchTypeMock.TRANSACTION_REQUEST_BODY_PATCH_TYPE_MODIFIED;
+import static com.mypersonalbook.economy.utils.mocks.transaction.TransactionRequestBodyTypeMock.*;
 import static com.mypersonalbook.economy.utils.test.TestConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.mypersonalbook.economy.Application;
 import com.mypersonalbook.economy.adapters.TransactionControllerAdapter;
-import com.mypersonalbook.economy.exceptions.NotFoundException;
+import com.mypersonalbook.economy.application.exceptions.NotFoundException;
 import openapi.economy.model.TransactionDateResponseType;
 import openapi.economy.model.TransactionResponseType;
 import openapi.economy.model.TransactionsResponseType;

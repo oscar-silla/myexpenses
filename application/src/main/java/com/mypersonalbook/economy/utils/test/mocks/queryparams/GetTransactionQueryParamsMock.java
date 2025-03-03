@@ -1,6 +1,6 @@
 package com.mypersonalbook.economy.utils.test.mocks.queryparams;
 
-import com.mypersonalbook.economy.queryparams.GetTransactionsQueryParams;
+import com.mypersonalbook.economy.application.queryparams.GetTransactionsQueryParams;
 
 import static com.mypersonalbook.economy.utils.test.TestConstants.*;
 

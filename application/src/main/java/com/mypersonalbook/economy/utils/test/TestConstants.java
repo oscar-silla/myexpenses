@@ -34,4 +34,12 @@ public class TestConstants {
   public static final Float TOTAL_REVENUE = 2.5F;
   public static final Float TOTAL_EXPENSE = 2.5F;
   public static final Float TOTAL_MONEY = 0F;
+
+  /* USER */
+  public static final Long USER_ID = 1L;
+  public static final String USER_NAME = "USER_NAME";
+  public static final String USER_FIRST_SURNAME = "USER_FIRST_SURNAME";
+  public static final String USER_SECOND_SURNAME = "USER_SECOND_SURNAME";
+  public static final String USER_EMAIL = "USER_EMAIL";
+  public static final String USER_PASSWORD = "USER_PASSWORD";
 }

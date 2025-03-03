@@ -1,6 +1,6 @@
 package com.mypersonalbook.economy.utils;
 
-import com.mypersonalbook.economy.exceptions.BadRequestException;
+import com.mypersonalbook.economy.application.exceptions.BadRequestException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

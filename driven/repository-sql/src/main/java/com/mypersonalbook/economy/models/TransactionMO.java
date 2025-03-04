@@ -1,7 +1,6 @@
 package com.mypersonalbook.economy.models;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
 
 @Entity
@@ -33,6 +32,10 @@ public class TransactionMO {
   @JoinColumn(name = "category_id")
   private CategoryMO category;
 
+  @ManyToOne
+  @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+  private UserMO user;
+
   public TransactionMO() {}
 
   public TransactionMO(
@@ -41,13 +44,15 @@ public class TransactionMO {
       String description,
       LocalDate date,
       TransactionTypeMO type,
-      CategoryMO category) {
+      CategoryMO category,
+      UserMO user) {
     this.id = id;
     this.amount = amount;
     this.description = description;
     this.date = date;
     this.type = type;
     this.category = category;
+    this.user = user;
   }
 
   public Long getId() {
@@ -96,5 +101,13 @@ public class TransactionMO {
 
   public void setCategory(CategoryMO category) {
     this.category = category;
+  }
+
+  public UserMO getUser() {
+    return user;
+  }
+
+  public void setUser(UserMO user) {
+    this.user = user;
   }
 }

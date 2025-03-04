@@ -1,6 +1,8 @@
 package com.mypersonalbook.economy.models;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "UserMO")
 @Table(name = "o_users")
@@ -26,6 +28,9 @@ public class UserMO {
   @Column(name = "password", nullable = false)
   private String password;
 
+  @OneToMany(mappedBy = "user")
+  private List<TransactionMO> transactions = new ArrayList<>();
+
   public UserMO() {}
 
   public UserMO(
@@ -34,13 +39,15 @@ public class UserMO {
       String firstSurname,
       String secondSurname,
       String email,
-      String password) {
+      String password,
+      List<TransactionMO> transactions) {
     this.id = id;
     this.name = name;
     this.firstSurname = firstSurname;
     this.secondSurname = secondSurname;
     this.email = email;
     this.password = password;
+    this.transactions = transactions;
   }
 
   public Long getId() {
@@ -89,5 +96,20 @@ public class UserMO {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public List<TransactionMO> getTransactions() {
+    return transactions;
+  }
+
+  public void setTransactions(List<TransactionMO> transactions) {
+    this.transactions = transactions;
+  }
+
+  public void addTransaction(TransactionMO transaction) {
+    if (!this.transactions.contains(transaction)) {
+      this.transactions.add(transaction);
+      transaction.setUser(this);
+    }
   }
 }

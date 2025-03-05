@@ -1,6 +1,7 @@
 package com.mypersonalbook.economy.handlers;
 
 import com.mypersonalbook.economy.application.exceptions.BadRequestException;
+import com.mypersonalbook.economy.application.exceptions.ConflictException;
 import com.mypersonalbook.economy.application.exceptions.NotFoundException;
 import openapi.economy.model.ErrorResponseType;
 import org.junit.jupiter.api.BeforeEach;
@@ -42,4 +43,12 @@ public class ErrorHandlerTest {
         assertEquals(HttpStatus.NOT_FOUND.getReasonPhrase(), Objects.requireNonNull(RESULT.getBody()).getMessage());
     }
 
+    @Test
+    @DisplayName("Should return conflict error type")
+    void shouldConflictErrorType() {
+        final ConflictException EXCEPTION = new ConflictException();
+        final ResponseEntity<ErrorResponseType> RESULT = this.errorHandler.handleConflict(EXCEPTION);
+        assertEquals(HttpStatus.CONFLICT.value(), Objects.requireNonNull(RESULT.getBody()).getCode());
+        assertEquals(HttpStatus.CONFLICT.getReasonPhrase(), Objects.requireNonNull(RESULT.getBody()).getMessage());
+    }
 }

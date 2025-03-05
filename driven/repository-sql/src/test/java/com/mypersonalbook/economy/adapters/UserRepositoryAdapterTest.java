@@ -1,8 +1,10 @@
 package com.mypersonalbook.economy.adapters;
 
+import static com.mypersonalbook.economy.utils.test.TestConstants.USER_EMAIL;
 import static com.mypersonalbook.economy.utils.test.mocks.UserMOMock.USER_MO;
 import static com.mypersonalbook.economy.utils.test.mocks.UserMock.USER;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -16,6 +18,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
 public class UserRepositoryAdapterTest {
@@ -38,5 +42,14 @@ public class UserRepositoryAdapterTest {
     when(this.userJpaRepository.save(any(UserMO.class))).thenReturn(USER_MO);
     this.userRepositoryAdapter.save(USER);
     verify(this.userJpaRepository).save(any(UserMO.class));
+  }
+
+  @Test
+  @DisplayName("Should return user by email")
+  void shouldReturnUserByEmail() {
+    when(this.userRepositoryMapper.toUser(any(UserMO.class))).thenReturn(USER);
+    when(this.userJpaRepository.findByEmail(anyString())).thenReturn(Optional.of(USER_MO));
+    this.userRepositoryAdapter.findByEmail(USER_EMAIL);
+    verify(this.userJpaRepository).findByEmail(anyString());
   }
 }

@@ -6,5 +6,7 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface UserRepositoryMapper {
-  UserMO toUserMO(User user);
+    UserMO toUserMO(User user);
+
+    User toUser(UserMO userMO);
 }

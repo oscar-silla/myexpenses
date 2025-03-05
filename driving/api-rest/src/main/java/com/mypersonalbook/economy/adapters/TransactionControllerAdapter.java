@@ -56,7 +56,7 @@ public class TransactionControllerAdapter implements TransactionsApi {
 
   @Override
   public ResponseEntity<TransactionResponseType> getTransaction(Long id) {
-    logger.info("GET /economy/v1/expenses/{id} with id: {}", id);
+    logger.info("GET /economy/v1/transactions/{id} with id: {}", id);
     Transaction transaction = this.getTransactionUseCase.execute(id);
     TransactionResponseType transactionResponseType =
         this.transactionControllerMapper.toExpenseResponseType(transaction);

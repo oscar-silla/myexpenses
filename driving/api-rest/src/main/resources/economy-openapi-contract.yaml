@@ -2,10 +2,11 @@ openapi: 3.0.1
 info:
   title: Economy API
   description: Economy API from my personal book
-  version: 3.0.0
+  version: 3.0.1
 tags:
   - name: Transactions
   - name: Users
+  - name: Auth
 paths:
   /transactions:
     post:
@@ -230,7 +231,7 @@ paths:
       summary: User login
       operationId: postLogin
       tags:
-        - Login
+        - Auth
       requestBody:
         content:
           application/json:

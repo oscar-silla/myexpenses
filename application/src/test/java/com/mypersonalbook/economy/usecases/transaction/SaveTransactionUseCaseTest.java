@@ -1,5 +1,6 @@
 package com.mypersonalbook.economy.usecases.transaction;
 
+import com.mypersonalbook.economy.application.services.AuthService;
 import com.mypersonalbook.economy.application.usecases.transaction.SaveTransactionUseCase;
 import com.mypersonalbook.economy.domain.Transaction;
 import com.mypersonalbook.economy.application.exceptions.BadRequestException;
@@ -22,48 +23,54 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class SaveTransactionUseCaseTest {
   SaveTransactionUseCasePort saveTransactionUseCase;
-  @Mock
-  private TransactionService transactionService;
-  @Mock
-  private TransactionTypeService transactionTypeService;
+  @Mock private TransactionService transactionService;
+  @Mock private TransactionTypeService transactionTypeService;
+  @Mock private AuthService authService;
 
   @BeforeEach
   void setUp() {
-    this.saveTransactionUseCase = new SaveTransactionUseCase(this.transactionService, this.transactionTypeService);
+    this.saveTransactionUseCase =
+        new SaveTransactionUseCase(
+            this.transactionService, this.transactionTypeService, this.authService);
   }
 
   @Test
   @DisplayName("Should throw bad request exception when amount is null")
   void shouldThrowBadRequestException_WhenAmountIsNull() {
-    final Executable EXECUTABLE = () -> this.saveTransactionUseCase.execute(EXPENSE_TRANSACTION_WITH_NULL_AMOUNT);
+    final Executable EXECUTABLE =
+        () -> this.saveTransactionUseCase.execute(EXPENSE_TRANSACTION_WITH_NULL_AMOUNT);
     assertThrows(BadRequestException.class, EXECUTABLE);
   }
 
   @Test
   @DisplayName("Should throw bad request exception when category is null")
   void shouldThrowBadRequestException_WhenCategoryIsNull() {
-    final Executable EXECUTABLE = () -> this.saveTransactionUseCase.execute(EXPENSE_TRANSACTION_WITH_NULL_CATEGORY);
+    final Executable EXECUTABLE =
+        () -> this.saveTransactionUseCase.execute(EXPENSE_TRANSACTION_WITH_NULL_CATEGORY);
     assertThrows(BadRequestException.class, EXECUTABLE);
   }
 
   @Test
   @DisplayName("Should throw bad request exception when category is empty")
   void shouldThrowBadRequestException_WhenCategoryIsEmpty() {
-    final Executable EXECUTABLE = () -> this.saveTransactionUseCase.execute(EXPENSE_TRANSACTION_WITH_EMPTY_CATEGORY);
+    final Executable EXECUTABLE =
+        () -> this.saveTransactionUseCase.execute(EXPENSE_TRANSACTION_WITH_EMPTY_CATEGORY);
     assertThrows(BadRequestException.class, EXECUTABLE);
   }
 
   @Test
   @DisplayName("Should throw bad request exception when description is empty")
   void shouldThrowBadRequestException_WhenDescriptionIsEmpty() {
-    final Executable EXECUTABLE = () -> this.saveTransactionUseCase.execute(EXPENSE_TRANSACTION_WITH_EMPTY_DESCRIPTION);
+    final Executable EXECUTABLE =
+        () -> this.saveTransactionUseCase.execute(EXPENSE_TRANSACTION_WITH_EMPTY_DESCRIPTION);
     assertThrows(BadRequestException.class, EXECUTABLE);
   }
 
   @Test
   @DisplayName("Should throw bad request exception when date is null")
   void shouldThrowBadRequestException_WhenDateIsNull() {
-    final Executable EXECUTABLE = () -> this.saveTransactionUseCase.execute(EXPENSE_TRANSACTION_WITH_NULL_DATE);
+    final Executable EXECUTABLE =
+        () -> this.saveTransactionUseCase.execute(EXPENSE_TRANSACTION_WITH_NULL_DATE);
     assertThrows(BadRequestException.class, EXECUTABLE);
   }
 

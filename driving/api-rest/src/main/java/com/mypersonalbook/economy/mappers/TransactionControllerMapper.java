@@ -1,9 +1,9 @@
 package com.mypersonalbook.economy.mappers;
 
 import com.mypersonalbook.economy.domain.Transaction;
+import com.mypersonalbook.economy.domain.User;
 import com.mypersonalbook.economy.models.response.transaction.TransactionDateResponse;
 import com.mypersonalbook.economy.models.response.transaction.TransactionsResponse;
-import openapi.economy.model.PaginationResponseType;
 import openapi.economy.model.TransactionDateResponseType;
 import openapi.economy.model.TransactionDetailResponseType;
 import openapi.economy.model.TransactionRequestBodyType;
@@ -13,7 +13,6 @@ import openapi.economy.model.TransactionRequestBodyPatchType;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
-import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -21,10 +20,11 @@ import java.util.List;
 public interface TransactionControllerMapper {
   @Mapping(target = "category.name", source = "category", qualifiedByName = "toUpperCase")
   @Mapping(target = "type", source = "type", qualifiedByName = "toUpperCase")
-  Transaction toExpense(TransactionRequestBodyType expenseRequestBodyType);
+  @Mapping(target = "user", expression = "java(new com.mypersonalbook.economy.domain.User())")
+  Transaction toTransaction(TransactionRequestBodyType expenseRequestBodyType);
 
   @Mapping(target = "category.name", source = "category", qualifiedByName = "toUpperCase")
-  Transaction toExpense(TransactionRequestBodyPatchType expenseRequestBodyType);
+  Transaction toTransaction(TransactionRequestBodyPatchType expenseRequestBodyType);
 
   @Mapping(target = "category", source = "category.name")
   TransactionResponseType toExpenseResponseType(Transaction transaction);

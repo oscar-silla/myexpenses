@@ -1,5 +1,6 @@
 package com.mypersonalbook.economy.config.auth;
 
+import com.mypersonalbook.economy.application.services.UserDetailsAdapter;
 import com.mypersonalbook.economy.application.services.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -43,7 +44,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
       if (jwtUtil.validateToken(token, userDetails)) {
         UsernamePasswordAuthenticationToken authToken =
             new UsernamePasswordAuthenticationToken(
-                userDetails, null, userDetails.getAuthorities());
+                userDetails,
+                ((UserDetailsAdapter) userDetails).getId(),
+                userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authToken);
       }
     }

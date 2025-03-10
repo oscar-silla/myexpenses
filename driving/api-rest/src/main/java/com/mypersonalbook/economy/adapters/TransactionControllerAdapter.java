@@ -87,7 +87,7 @@ public class TransactionControllerAdapter implements TransactionsApi {
         "PATCH /economy/v1/expenses/{id} with id: {}, body: {}",
         id,
         expenseRequestBodyType.toString());
-    Transaction transaction = this.transactionControllerMapper.toExpense(expenseRequestBodyType);
+    Transaction transaction = this.transactionControllerMapper.toTransaction(expenseRequestBodyType);
     transaction.setId(id);
     transaction.getCategory().setType(type);
     transaction.setType(type);
@@ -99,7 +99,7 @@ public class TransactionControllerAdapter implements TransactionsApi {
   public ResponseEntity<Void> postTransaction(TransactionRequestBodyType expenseRequestBodyType) {
     logger.info("POST /economy/v1/expenses with body: {}", expenseRequestBodyType.toString());
     this.saveExpenseUseCase.execute(
-        this.transactionControllerMapper.toExpense(expenseRequestBodyType));
+        this.transactionControllerMapper.toTransaction(expenseRequestBodyType));
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 }

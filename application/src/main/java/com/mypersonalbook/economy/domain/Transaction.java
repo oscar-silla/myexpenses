@@ -13,17 +13,25 @@ public class Transaction {
   String description;
   LocalDate date;
   String type;
+  User user;
 
   public Transaction() {}
 
   public Transaction(
-      Long id, Float amount, Category category, String description, LocalDate date, String type) {
+      Long id,
+      Float amount,
+      Category category,
+      String description,
+      LocalDate date,
+      String type,
+      User user) {
     this.id = id;
     this.amount = amount;
     this.category = category;
     this.description = description;
     this.date = date;
     this.type = type;
+    this.user = user;
   }
 
   public Long getId() {
@@ -72,6 +80,14 @@ public class Transaction {
 
   public void setType(String type) {
     this.type = type;
+  }
+
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
   }
 
   @Override

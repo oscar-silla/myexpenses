@@ -33,7 +33,7 @@ public class TransactionMO {
   private CategoryMO category;
 
   @ManyToOne
-  @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+  @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
   private UserMO user;
 
   public TransactionMO() {}

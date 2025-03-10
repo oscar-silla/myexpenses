@@ -27,9 +27,9 @@ public class TransactionControllerMapperTest {
 
   @Test
   @DisplayName("Should map to transaction")
-  void shouldMapToExpense() {
+  void shouldMapToTransaction() {
     final Transaction RESULT =
-        this.transactionControllerMapper.toExpense(EXPENSE_TRANSACTION_REQUEST_BODY_TYPE());
+        this.transactionControllerMapper.toTransaction(EXPENSE_TRANSACTION_REQUEST_BODY_TYPE());
     assertEquals(EXPENSE_TRANSACTION_AMOUNT, RESULT.getAmount());
     assertEquals(TRANSACTION_DESCRIPTION, RESULT.getDescription());
     assertEquals(CATEGORY_NAME_UPPER_CASE, RESULT.getCategory().getName());
@@ -39,7 +39,7 @@ public class TransactionControllerMapperTest {
 
   @Test
   @DisplayName("Should map to transaction response type")
-  void shouldMapToExpenseResponseType() {
+  void shouldMapToTransactionResponseType() {
     final TransactionResponseType RESULT =
         this.transactionControllerMapper.toExpenseResponseType(EXPENSE_TRANSACTION_1);
     assertEquals(EXPENSE_TRANSACTION_AMOUNT, RESULT.getAmount());

@@ -56,7 +56,7 @@ public class TransactionControllerAdapterTest {
   @Test
   @DisplayName("Should return 200 status code when post expense")
   void shouldReturn200StatusCode_WhenPostExpense() {
-    when(this.transactionControllerMapper.toExpense(any(TransactionRequestBodyType.class)))
+    when(this.transactionControllerMapper.toTransaction(any(TransactionRequestBodyType.class)))
         .thenReturn(EXPENSE_TRANSACTION_1);
     doNothing().when(this.saveExpenseUseCase).execute(any(Transaction.class));
     final ResponseEntity<Void> RESULT =
@@ -101,7 +101,7 @@ public class TransactionControllerAdapterTest {
   @Test
   @DisplayName("Should return 200 status code when patch expense")
   void shouldReturn200StatusCode_WhenPatchExpense() {
-    when(this.transactionControllerMapper.toExpense(any(TransactionRequestBodyPatchType.class)))
+    when(this.transactionControllerMapper.toTransaction(any(TransactionRequestBodyPatchType.class)))
         .thenReturn(EXPENSE_TRANSACTION_1);
     doNothing().when(this.modifyExpenseUseCase).execute(any(Transaction.class));
     final ResponseEntity<Void> RESULT =

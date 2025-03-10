@@ -5,6 +5,7 @@ import com.mypersonalbook.economy.domain.User;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -23,5 +24,13 @@ public class AuthService {
         this.authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
     return this.jwtUtil.generateToken((UserDetails) authentication.getPrincipal());
+  }
+
+  public Long getUserId() {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    if (authentication != null && authentication.getCredentials() != null) {
+      return (long) authentication.getCredentials();
+    }
+    return null;
   }
 }

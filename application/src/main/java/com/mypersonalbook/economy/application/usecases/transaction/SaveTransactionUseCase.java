@@ -1,5 +1,6 @@
 package com.mypersonalbook.economy.application.usecases.transaction;
 
+import com.mypersonalbook.economy.application.exceptions.UnauthorizedException;
 import com.mypersonalbook.economy.application.services.AuthService;
 import com.mypersonalbook.economy.domain.Transaction;
 import com.mypersonalbook.economy.application.exceptions.BadRequestException;
@@ -39,7 +40,7 @@ public class SaveTransactionUseCase implements SaveTransactionUseCasePort {
       throw new BadRequestException();
     }
     if (this.authService.getUserId() == null) {
-      // todo: Throw Unauthorized Exception
+      throw new UnauthorizedException();
     }
     this.transactionTypeService.findOrThrowNotFoundException(transaction.getType());
   }

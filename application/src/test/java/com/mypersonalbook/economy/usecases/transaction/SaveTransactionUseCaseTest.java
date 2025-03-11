@@ -1,5 +1,6 @@
 package com.mypersonalbook.economy.usecases.transaction;
 
+import com.mypersonalbook.economy.application.exceptions.UnauthorizedException;
 import com.mypersonalbook.economy.application.services.AuthService;
 import com.mypersonalbook.economy.application.usecases.transaction.SaveTransactionUseCase;
 import com.mypersonalbook.economy.domain.Transaction;
@@ -72,6 +73,14 @@ public class SaveTransactionUseCaseTest {
     final Executable EXECUTABLE =
         () -> this.saveTransactionUseCase.execute(EXPENSE_TRANSACTION_WITH_NULL_DATE);
     assertThrows(BadRequestException.class, EXECUTABLE);
+  }
+
+  @Test
+  @DisplayName("Should throw unauthorized exception when date is null")
+  void shouldThrowUnauthorizedException_WhenDateIsNull() {
+    when(this.authService.getUserId()).thenReturn(null);
+    final Executable EXECUTABLE = () -> this.saveTransactionUseCase.execute(EXPENSE_TRANSACTION_1);
+    assertThrows(UnauthorizedException.class, EXECUTABLE);
   }
 
   @Test

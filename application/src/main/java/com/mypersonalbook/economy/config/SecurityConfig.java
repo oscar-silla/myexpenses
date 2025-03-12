@@ -3,6 +3,7 @@ package com.mypersonalbook.economy.config;
 import com.mypersonalbook.economy.config.auth.JwtAuthFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
@@ -34,8 +35,10 @@ public class SecurityConfig {
     return http.csrf(AbstractHttpConfigurer::disable)
         .authorizeHttpRequests(
             auth ->
-                auth.requestMatchers("/economy/v1/login", "/economy/v1/users")
+                auth.requestMatchers(HttpMethod.POST, "/economy/v1/login", "/economy/v1/users")
                     .permitAll()
+                    .requestMatchers(HttpMethod.PATCH, "/economy/v1/**")
+                    .authenticated()
                     .anyRequest()
                     .authenticated())
         .sessionManagement(

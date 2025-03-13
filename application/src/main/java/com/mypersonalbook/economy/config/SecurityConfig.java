@@ -37,8 +37,6 @@ public class SecurityConfig {
             auth ->
                 auth.requestMatchers(HttpMethod.POST, "/economy/v1/login", "/economy/v1/users")
                     .permitAll()
-                    .requestMatchers(HttpMethod.PATCH, "/economy/v1/**")
-                    .authenticated()
                     .anyRequest()
                     .authenticated())
         .sessionManagement(

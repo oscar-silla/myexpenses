@@ -5,7 +5,6 @@ import com.mypersonalbook.economy.application.exceptions.ConflictException;
 import com.mypersonalbook.economy.application.exceptions.NotFoundException;
 import com.mypersonalbook.economy.application.ports.driven.UserRepositoryPort;
 import com.mypersonalbook.economy.domain.User;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

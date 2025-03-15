@@ -1,9 +1,12 @@
 package com.mypersonalbook.economy.models;
 
 import jakarta.persistence.*;
+import org.hibernate.envers.Audited;
+
 import java.time.LocalDate;
 
-@Entity
+@Entity(name = "TransactionMO")
+@Audited
 @Table(name = "o_transactions")
 public class TransactionMO {
   @Id

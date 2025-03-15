@@ -1,8 +1,10 @@
 package com.mypersonalbook.economy.models;
 
 import jakarta.persistence.*;
+import org.hibernate.envers.Audited;
 
-@Entity
+@Entity(name = "CategoryMO")
+@Audited
 @Table(name = "o_categories")
 public class CategoryMO {
   @Id

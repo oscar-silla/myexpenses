@@ -4,6 +4,12 @@ spring:
     username: ${DB_USER}
     password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baselineOnMigrate: true
+    user: ${DB_USER}
+    password: ${DB_PASSWORD}
   jpa:
     properties:
       hibernate:
@@ -15,9 +21,14 @@ spring:
         revision_field_name: REV
         revision_type_field_name: REV_TYPE
         revision_entity_class: com.mypersonalbook.economy.models.CustomRevisionMO
-  flyway:
-    enabled: true
-    locations: classpath:db/migration
-    baselineOnMigrate: true
-    user: ${DB_USER}
-    password: ${DB_PASSWORD}
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${EMAIL_ADDRESS}
+    password: ${EMAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true

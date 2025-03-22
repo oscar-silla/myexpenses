@@ -42,4 +42,10 @@ public class TestConstants {
   public static final String USER_SECOND_SURNAME = "USER_SECOND_SURNAME";
   public static final String USER_EMAIL = "USER_EMAIL";
   public static final String USER_PASSWORD = "USER_PASSWORD";
+
+  /* EMAIL */
+  public static final String EMAIL_FROM = "EMAIL_FROM";
+  public static final String EMAIL_TO = "EMAIL_TO";
+  public static final String EMAIL_SUBJECT = "EMAIL_SUBJECT";
+  public static final String EMAIL_TEXT = "EMAIL_TEXT";
 }

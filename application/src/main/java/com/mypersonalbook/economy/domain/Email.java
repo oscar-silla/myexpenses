@@ -1,18 +1,22 @@
 package com.mypersonalbook.economy.domain;
 
+import java.util.UUID;
+
 public class Email {
   private String from;
   private String to;
   private String subject;
   private String text;
+  private UUID code;
 
   public Email() {}
 
-  public Email(String from, String to, String subject, String text) {
+  public Email(String from, String to, String subject, String text, UUID code) {
     this.from = from;
     this.to = to;
     this.subject = subject;
     this.text = text;
+    this.code = code;
   }
 
   public String getFrom() {
@@ -45,5 +49,13 @@ public class Email {
 
   public void setText(String text) {
     this.text = text;
+  }
+
+  public UUID getCode() {
+    return code;
+  }
+
+  public void setCode(UUID code) {
+    this.code = code;
   }
 }

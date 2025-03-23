@@ -2,6 +2,7 @@ package com.mypersonalbook.economy.application.services;
 
 import static com.mypersonalbook.economy.utils.AppConstants.EMAIL_REGEX;
 
+import com.mypersonalbook.economy.application.ports.driven.VerificationEmailRepositoryPort;
 import com.mypersonalbook.economy.domain.Email;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -10,13 +11,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmailService {
   private final JavaMailSender emailSender;
+  private final VerificationEmailRepositoryPort verificationEmailRepository;
 
-  public EmailService(JavaMailSender emailSender) {
+  public EmailService(
+      JavaMailSender emailSender, VerificationEmailRepositoryPort verificationEmailRepository) {
     this.emailSender = emailSender;
+    this.verificationEmailRepository = verificationEmailRepository;
   }
 
   public boolean validate(String email) {
     return email != null && email.matches(EMAIL_REGEX);
+  }
+
+  public boolean sendVerificationEmail(Email email) {
+    this.sendEmail(email);
+    return this.verificationEmailRepository.save(email.getTo(), email.getCode());
   }
 
   public boolean sendEmail(Email email) {

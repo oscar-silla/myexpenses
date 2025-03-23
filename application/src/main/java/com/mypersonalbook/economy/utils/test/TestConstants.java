@@ -1,6 +1,7 @@
 package com.mypersonalbook.economy.utils.test;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class TestConstants {
   public static final Long TRANSACTION_ID_1 = 1L;
@@ -48,4 +49,5 @@ public class TestConstants {
   public static final String EMAIL_TO = "EMAIL_TO";
   public static final String EMAIL_SUBJECT = "EMAIL_SUBJECT";
   public static final String EMAIL_TEXT = "EMAIL_TEXT";
+  public static final UUID EMAIL_CODE = UUID.randomUUID();
 }

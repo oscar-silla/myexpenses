@@ -21,6 +21,7 @@ spring:
         revision_field_name: REV
         revision_type_field_name: REV_TYPE
         revision_entity_class: com.mypersonalbook.economy.models.CustomRevisionMO
+        #audited_entity_exclusion: "com.mypersonalbook.economy.models.VerificationEmailMO"
   mail:
     host: smtp.gmail.com
     port: 587

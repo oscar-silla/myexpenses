@@ -9,6 +9,8 @@ import com.mypersonalbook.economy.domain.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Service
 public class SaveUserUseCase implements SaveUserUseCasePort {
   private final EmailService emailService;
@@ -24,7 +26,7 @@ public class SaveUserUseCase implements SaveUserUseCasePort {
   public void execute(User user) {
     this.validate(user);
     this.userService.save(user);
-    this.emailService.sendEmail(this.buildEmail(user.getEmail()));
+    this.emailService.sendVerificationEmail(this.buildEmail(user.getEmail()));
   }
 
   private void validate(User user) {
@@ -37,11 +39,13 @@ public class SaveUserUseCase implements SaveUserUseCasePort {
   }
 
   private Email buildEmail(String userEmail) {
+    UUID randomUUID = UUID.randomUUID();
     Email email = new Email();
     email.setFrom("noreply@gmail.com");
     email.setTo(userEmail);
-    email.setSubject("Validation code");
-    email.setText("1234");
+    email.setSubject("Código de verificación");
+    email.setText("Su código de verificación es " + UUID.randomUUID());
+    email.setCode(randomUUID);
     return email;
   }
 }

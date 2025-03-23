@@ -1,5 +1,6 @@
 package com.mypersonalbook.economy.services;
 
+import com.mypersonalbook.economy.application.ports.driven.VerificationEmailRepositoryPort;
 import com.mypersonalbook.economy.application.services.EmailService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -14,8 +15,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
 import static com.mypersonalbook.economy.utils.test.mocks.EmailMock.EMAIL;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -24,10 +24,11 @@ public class EmailServiceTest {
   EmailService emailService;
 
   @Mock private JavaMailSender mailSender;
+  @Mock private VerificationEmailRepositoryPort verificationEmailRepository;
 
   @BeforeEach
   void setUp() {
-    this.emailService = new EmailService(this.mailSender);
+    this.emailService = new EmailService(this.mailSender, this.verificationEmailRepository);
   }
 
   @ParameterizedTest
@@ -53,8 +54,9 @@ public class EmailServiceTest {
   @DisplayName("Should return true when send email")
   void shouldReturnTrue_WhenSendEmail() {
     doNothing().when(this.mailSender).send(any(SimpleMailMessage.class));
-    this.emailService.sendEmail(EMAIL);
+    final boolean RESULT = this.emailService.sendEmail(EMAIL);
     verify(this.mailSender).send(any(SimpleMailMessage.class));
+    assertTrue(RESULT);
   }
 
   @Test
@@ -64,5 +66,16 @@ public class EmailServiceTest {
         .when(this.mailSender)
         .send(any(SimpleMailMessage.class));
     assertThrows(RuntimeException.class, () -> emailService.sendEmail(EMAIL));
+  }
+
+  @Test
+  @DisplayName("Should return true when send verification email")
+  void shouldReturnTrue_WhenSendVerificationEmail() {
+    doNothing().when(this.mailSender).send(any(SimpleMailMessage.class));
+    when(this.verificationEmailRepository.save(any(), any())).thenReturn(true);
+    final boolean RESULT = this.emailService.sendVerificationEmail(EMAIL);
+    verify(this.mailSender).send(any(SimpleMailMessage.class));
+    verify(this.verificationEmailRepository).save(any(), any());
+    assertTrue(RESULT);
   }
 }

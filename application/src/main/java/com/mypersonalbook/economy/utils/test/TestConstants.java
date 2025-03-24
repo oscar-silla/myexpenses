@@ -43,6 +43,7 @@ public class TestConstants {
   public static final String USER_SECOND_SURNAME = "USER_SECOND_SURNAME";
   public static final String USER_EMAIL = "USER_EMAIL";
   public static final String USER_PASSWORD = "USER_PASSWORD";
+  public static final Boolean USER_IS_VERIFIED = true;
 
   /* EMAIL */
   public static final String EMAIL_FROM = "EMAIL_FROM";

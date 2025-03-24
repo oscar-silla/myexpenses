@@ -16,147 +16,159 @@ import java.util.List;
 @Audited
 @Table(name = "o_users")
 public class UserMO implements UserDetails {
-    @Id
-    @SequenceGenerator(name = "o_users_seq", sequenceName = "O_USERS_SEQ", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "o_users_seq")
-    @Column(name = "user_id", updatable = false)
-    private Long id;
+  @Id
+  @SequenceGenerator(name = "o_users_seq", sequenceName = "O_USERS_SEQ", allocationSize = 1)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "o_users_seq")
+  @Column(name = "user_id", updatable = false)
+  private Long id;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+  @Column(name = "name", nullable = false)
+  private String name;
 
-    @Column(name = "first_surname", nullable = false)
-    private String firstSurname;
+  @Column(name = "first_surname", nullable = false)
+  private String firstSurname;
 
-    @Column(name = "second_surname")
-    private String secondSurname;
+  @Column(name = "second_surname")
+  private String secondSurname;
 
-    @Column(name = "email", nullable = false, unique = true)
-    private String email;
+  @Column(name = "email", nullable = false, unique = true)
+  private String email;
 
-    @Column(name = "password", nullable = false)
-    private String password;
+  @Column(name = "password", nullable = false)
+  private String password;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "role", nullable = false)
-    private Role role = Role.USER;
+  @Enumerated(EnumType.STRING)
+  @Column(name = "role", nullable = false)
+  private Role role = Role.USER;
 
-    @OneToMany(mappedBy = "user")
-    private List<TransactionMO> transactions = new ArrayList<>();
+  @OneToMany(mappedBy = "user")
+  private List<TransactionMO> transactions = new ArrayList<>();
 
-    public UserMO() {
-    }
+  @Column(name = "is_verified", nullable = false)
+  private Boolean isVerified;
 
-    public UserMO(
-            Long id,
-            String name,
-            String firstSurname,
-            String secondSurname,
-            String email,
-            String password,
-            Role role,
-            List<TransactionMO> transactions) {
-        this.id = id;
-        this.name = name;
-        this.firstSurname = firstSurname;
-        this.secondSurname = secondSurname;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-        this.transactions = transactions;
-    }
+  public UserMO() {}
 
-    public Long getId() {
-        return id;
-    }
+  public UserMO(
+      Long id,
+      String name,
+      String firstSurname,
+      String secondSurname,
+      String email,
+      String password,
+      Role role,
+      List<TransactionMO> transactions,
+      Boolean isVerified) {
+    this.id = id;
+    this.name = name;
+    this.firstSurname = firstSurname;
+    this.secondSurname = secondSurname;
+    this.email = email;
+    this.password = password;
+    this.role = role;
+    this.transactions = transactions;
+    this.isVerified = isVerified;
+  }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public String getFirstSurname() {
-        return firstSurname;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public void setFirstSurname(String firstSurname) {
-        this.firstSurname = firstSurname;
-    }
+  public String getFirstSurname() {
+    return firstSurname;
+  }
 
-    public String getSecondSurname() {
-        return secondSurname;
-    }
+  public void setFirstSurname(String firstSurname) {
+    this.firstSurname = firstSurname;
+  }
 
-    public void setSecondSurname(String secondSurname) {
-        this.secondSurname = secondSurname;
-    }
+  public String getSecondSurname() {
+    return secondSurname;
+  }
 
-    public String getEmail() {
-        return email;
-    }
+  public void setSecondSurname(String secondSurname) {
+    this.secondSurname = secondSurname;
+  }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-    public Role getRole() {
-        return role;
-    }
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
-    public void setRole(Role role) {
-        this.role = role;
-    }
+  public Role getRole() {
+    return role;
+  }
 
-    public List<TransactionMO> getTransactions() {
-        return transactions;
-    }
+  public void setRole(Role role) {
+    this.role = role;
+  }
 
-    public void setTransactions(List<TransactionMO> transactions) {
-        this.transactions = transactions;
-    }
+  public List<TransactionMO> getTransactions() {
+    return transactions;
+  }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("ROLE_" + this.role));
-    }
+  public void setTransactions(List<TransactionMO> transactions) {
+    this.transactions = transactions;
+  }
 
-    public String getPassword() {
-        return password;
-    }
+  public Boolean getVerified() {
+    return isVerified;
+  }
 
-    @Override
-    public String getUsername() {
-        return "";
-    }
+  public void setVerified(Boolean verified) {
+    isVerified = verified;
+  }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return Collections.singleton(new SimpleGrantedAuthority("ROLE_" + this.role));
+  }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
+  public String getPassword() {
+    return password;
+  }
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
+  @Override
+  public String getUsername() {
+    return "";
+  }
 
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
+  @Override
+  public boolean isAccountNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isAccountNonLocked() {
+    return true;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return true;
+  }
 }

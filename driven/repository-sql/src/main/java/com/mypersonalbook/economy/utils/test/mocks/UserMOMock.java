@@ -16,5 +16,6 @@ public class UserMOMock {
           USER_EMAIL,
           USER_PASSWORD,
           USER_ROLE,
-          new ArrayList<>());
+          new ArrayList<>(),
+          USER_IS_VERIFIED);
 }

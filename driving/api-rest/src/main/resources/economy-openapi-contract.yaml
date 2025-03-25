@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   title: Economy API
   description: Economy API from my personal book
-  version: 3.0.1
+  version: 3.1.0
 tags:
   - name: Transactions
   - name: Users
@@ -226,6 +226,46 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponseType"
+  /users/{id}:
+    patch:
+      summary: Activate user
+      operationId: patchUser
+      tags:
+        - Users
+      parameters:
+        - $ref: "#/components/parameters/idPathParam"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserRequestBodyPatchType"
+      responses:
+        '201':
+          description: CREATED SUCCESSFULLY
+        '400':
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
+        '401':
+          description: UNAUTHORIZED
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
+        '403':
+          description: FORBIDDEN
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
+        '500':
+          description: INTERNAL SERVER ERROR
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
   /login:
     post:
       summary: User login
@@ -258,6 +298,33 @@ paths:
                 $ref: "#/components/schemas/ErrorResponseType"
 components:
   schemas:
+    UserRequestBodyPatchType:
+      type: object
+      properties:
+        name:
+          type: string
+          format: string
+          example: Oscar
+        firstSurname:
+          type: string
+          format: string
+          example: Garcia
+        secondSurname:
+          type: string
+          format: string
+          example: Marco
+        email:
+          type: string
+          format: email
+          example: email@address.org
+        password:
+          type: string
+          format: string
+          example: 23123QS:323
+        activate:
+          type: boolean
+          format: boolean
+          example: true
     LoginResponseType:
       type: object
       required:

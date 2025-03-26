@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   title: Economy API
   description: Economy API from my personal book
-  version: 3.1.0
+  version: 3.2.0
 tags:
   - name: Transactions
   - name: Users
@@ -228,7 +228,7 @@ paths:
                 $ref: "#/components/schemas/ErrorResponseType"
   /users/{id}:
     patch:
-      summary: Activate user
+      summary: Modify user
       operationId: patchUser
       tags:
         - Users
@@ -256,6 +256,38 @@ paths:
                 $ref: "#/components/schemas/ErrorResponseType"
         '403':
           description: FORBIDDEN
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
+        '500':
+          description: INTERNAL SERVER ERROR
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
+  /users/activate:
+    post:
+      summary: Activate user by verification code and email
+      operationId: activateUser
+      tags:
+        - Users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ActivateUserRequestBodyType"
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
+        '404':
+          description: NOT FOUND
           content:
             application/json:
               schema:
@@ -298,6 +330,20 @@ paths:
                 $ref: "#/components/schemas/ErrorResponseType"
 components:
   schemas:
+    ActivateUserRequestBodyType:
+      type: object
+      required:
+        - email
+        - code
+      properties:
+        email:
+          type: string
+          format: email
+          example: email@address.org
+        code:
+          type: string
+          format: uuid
+          example: 550e8400-e29b-41d4-a716-446655440000
     UserRequestBodyPatchType:
       type: object
       properties:
@@ -321,10 +367,6 @@ components:
           type: string
           format: string
           example: 23123QS:323
-        activate:
-          type: boolean
-          format: boolean
-          example: true
     LoginResponseType:
       type: object
       required:

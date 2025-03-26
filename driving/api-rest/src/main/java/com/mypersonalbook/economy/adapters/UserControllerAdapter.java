@@ -4,6 +4,7 @@ import com.mypersonalbook.economy.application.ports.driving.SaveUserUseCasePort;
 import com.mypersonalbook.economy.domain.User;
 import com.mypersonalbook.economy.mappers.UserControllerMapper;
 import openapi.economy.api.UsersApi;
+import openapi.economy.model.ActivateUserRequestBodyType;
 import openapi.economy.model.UserRequestBodyPatchType;
 import openapi.economy.model.UserRequestBodyType;
 import org.slf4j.Logger;
@@ -32,6 +33,12 @@ public class UserControllerAdapter implements UsersApi {
     User user = this.userControllerMapper.toUser(userRequestBodyType);
     this.saveUserUseCase.execute(user);
     return ResponseEntity.status(HttpStatus.CREATED).build();
+  }
+
+  @Override
+  public ResponseEntity<Void> activateUser(
+      ActivateUserRequestBodyType activateUserRequestBodyType) {
+    return null;
   }
 
   @Override

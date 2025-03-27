@@ -1,6 +1,7 @@
 package com.mypersonalbook.economy.adapters;
 
-import com.mypersonalbook.economy.application.ports.driving.SaveUserUseCasePort;
+import com.mypersonalbook.economy.application.ports.driving.user.ActivateUserUseCasePort;
+import com.mypersonalbook.economy.application.ports.driving.user.SaveUserUseCasePort;
 import com.mypersonalbook.economy.domain.User;
 import com.mypersonalbook.economy.mappers.UserControllerMapper;
 import openapi.economy.api.UsersApi;
@@ -20,11 +21,15 @@ public class UserControllerAdapter implements UsersApi {
   final Logger logger = LoggerFactory.getLogger(UserControllerAdapter.class);
   final UserControllerMapper userControllerMapper;
   final SaveUserUseCasePort saveUserUseCase;
+  final ActivateUserUseCasePort activateUserUseCase;
 
   UserControllerAdapter(
-      UserControllerMapper userControllerMapper, SaveUserUseCasePort saveUserUseCase) {
+      UserControllerMapper userControllerMapper,
+      SaveUserUseCasePort saveUserUseCase,
+      ActivateUserUseCasePort activateUserUseCase) {
     this.userControllerMapper = userControllerMapper;
     this.saveUserUseCase = saveUserUseCase;
+    this.activateUserUseCase = activateUserUseCase;
   }
 
   @Override
@@ -38,7 +43,11 @@ public class UserControllerAdapter implements UsersApi {
   @Override
   public ResponseEntity<Void> activateUser(
       ActivateUserRequestBodyType activateUserRequestBodyType) {
-    return null;
+    logger.info(
+        "POST /economy/v1/users/activate with body: {}", activateUserRequestBodyType.toString());
+    this.activateUserUseCase.execute(
+        this.userControllerMapper.toEmailVerification(activateUserRequestBodyType));
+    return ResponseEntity.ok().build();
   }
 
   @Override

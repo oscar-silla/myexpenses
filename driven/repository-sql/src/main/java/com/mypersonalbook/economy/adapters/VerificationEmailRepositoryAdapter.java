@@ -1,10 +1,12 @@
 package com.mypersonalbook.economy.adapters;
 
 import com.mypersonalbook.economy.application.ports.driven.VerificationEmailRepositoryPort;
+import com.mypersonalbook.economy.domain.EmailCode;
 import com.mypersonalbook.economy.mappers.VerificationEmailRepositoryMapper;
 import com.mypersonalbook.economy.repositories.VerificationEmailJpaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -24,5 +26,12 @@ public class VerificationEmailRepositoryAdapter implements VerificationEmailRepo
     this.verificationEmailJpaRepository.save(
         this.verificationEmailRepositoryMapper.toVerificationEmailMO(email, uuid));
     return true;
+  }
+
+  @Override
+  public Optional<EmailCode> findByEmail(String email) {
+    return this.verificationEmailJpaRepository
+        .findById(email)
+        .map(this.verificationEmailRepositoryMapper::toEmailVerification);
   }
 }

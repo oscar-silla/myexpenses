@@ -4,6 +4,7 @@ import static com.mypersonalbook.economy.utils.AppConstants.EMAIL_REGEX;
 
 import com.mypersonalbook.economy.application.ports.driven.VerificationEmailRepositoryPort;
 import com.mypersonalbook.economy.domain.Email;
+import com.mypersonalbook.economy.domain.EmailCode;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -40,5 +41,12 @@ public class EmailService {
     } catch (Exception e) {
       throw new RuntimeException(e.getMessage());
     }
+  }
+
+  public boolean verifyEmailCode(EmailCode emailCode) {
+    return this.verificationEmailRepository
+        .findByEmail(emailCode.getEmail())
+        .map(_emailVerification -> emailCode.isMatchingCode(_emailVerification.getCode()))
+        .orElse(false);
   }
 }

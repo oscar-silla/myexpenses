@@ -1,5 +1,6 @@
 package com.mypersonalbook.economy.mappers;
 
+import com.mypersonalbook.economy.domain.EmailCode;
 import com.mypersonalbook.economy.models.VerificationEmailMO;
 import org.mapstruct.Mapper;
 
@@ -10,4 +11,6 @@ public interface VerificationEmailRepositoryMapper {
   default VerificationEmailMO toVerificationEmailMO(String email, UUID code) {
     return new VerificationEmailMO(email, code);
   }
+
+  EmailCode toEmailVerification(VerificationEmailMO verificationEmailMO);
 }

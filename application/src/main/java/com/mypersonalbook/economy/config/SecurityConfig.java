@@ -37,7 +37,11 @@ public class SecurityConfig {
         .csrf(AbstractHttpConfigurer::disable)
         .authorizeHttpRequests(
             auth ->
-                auth.requestMatchers(HttpMethod.POST, "/economy/v1/login", "/economy/v1/users")
+                auth.requestMatchers(
+                        HttpMethod.POST,
+                        "/economy/v1/login",
+                        "/economy/v1/users",
+                        "/economy/v1/users/activate")
                     .permitAll()
                     .anyRequest()
                     .authenticated())

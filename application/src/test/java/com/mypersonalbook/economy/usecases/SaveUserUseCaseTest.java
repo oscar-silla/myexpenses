@@ -7,7 +7,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 import com.mypersonalbook.economy.application.exceptions.BadRequestException;
-import com.mypersonalbook.economy.application.ports.driving.SaveUserUseCasePort;
+import com.mypersonalbook.economy.application.ports.driving.user.SaveUserUseCasePort;
 import com.mypersonalbook.economy.application.services.EmailService;
 import com.mypersonalbook.economy.application.services.UserService;
 import com.mypersonalbook.economy.application.usecases.SaveUserUseCase;

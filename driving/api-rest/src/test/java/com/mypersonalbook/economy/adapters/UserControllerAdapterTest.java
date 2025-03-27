@@ -6,7 +6,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
-import com.mypersonalbook.economy.application.ports.driving.SaveUserUseCasePort;
+import com.mypersonalbook.economy.application.ports.driving.user.ActivateUserUseCasePort;
+import com.mypersonalbook.economy.application.ports.driving.user.SaveUserUseCasePort;
 import com.mypersonalbook.economy.domain.User;
 import com.mypersonalbook.economy.mappers.UserControllerMapper;
 import openapi.economy.model.UserRequestBodyType;
@@ -27,10 +28,13 @@ public class UserControllerAdapterTest {
 
   @Mock private SaveUserUseCasePort saveUserUseCase;
 
+  @Mock private ActivateUserUseCasePort activateUserUseCase;
+
   @BeforeEach
   void setUp() {
     this.userControllerAdapter =
-        new UserControllerAdapter(this.userControllerMapper, this.saveUserUseCase);
+        new UserControllerAdapter(
+            this.userControllerMapper, this.saveUserUseCase, this.activateUserUseCase);
   }
 
   @Test

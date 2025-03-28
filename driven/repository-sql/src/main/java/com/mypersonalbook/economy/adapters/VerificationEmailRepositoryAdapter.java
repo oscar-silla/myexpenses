@@ -32,6 +32,6 @@ public class VerificationEmailRepositoryAdapter implements VerificationEmailRepo
   public Optional<EmailCode> findByEmail(String email) {
     return this.verificationEmailJpaRepository
         .findById(email)
-        .map(this.verificationEmailRepositoryMapper::toEmailVerification);
+        .map(this.verificationEmailRepositoryMapper::toEmailCode);
   }
 }

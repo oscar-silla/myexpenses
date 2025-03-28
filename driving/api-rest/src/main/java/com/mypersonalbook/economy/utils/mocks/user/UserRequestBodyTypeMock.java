@@ -1,4 +1,4 @@
-package com.mypersonalbook.economy.utils.mocks;
+package com.mypersonalbook.economy.utils.mocks.user;
 
 import static com.mypersonalbook.economy.utils.test.TestConstants.*;
 

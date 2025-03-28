@@ -1,5 +1,6 @@
 package com.mypersonalbook.economy.application.usecases;
 
+import com.mypersonalbook.economy.application.exceptions.BadRequestException;
 import com.mypersonalbook.economy.application.ports.driving.user.ActivateUserUseCasePort;
 import com.mypersonalbook.economy.application.services.EmailService;
 import com.mypersonalbook.economy.domain.EmailCode;
@@ -15,7 +16,12 @@ public class ActivateUserUseCase implements ActivateUserUseCasePort {
 
   @Override
   public void execute(EmailCode emailCode) {
-    this.emailService.validate(emailCode.getEmail());
-    this.emailService.verifyEmailCode(emailCode);
+    if (this.emailService.validate(emailCode.getEmail())) {
+      if (!this.emailService.verifyEmailCode(emailCode)) {
+        throw new BadRequestException();
+      }
+    } else {
+      throw new BadRequestException();
+    }
   }
 }

@@ -1,5 +1,6 @@
 package com.mypersonalbook.economy.adapters;
 
+import com.mypersonalbook.economy.domain.EmailCode;
 import com.mypersonalbook.economy.mappers.VerificationEmailRepositoryMapper;
 import com.mypersonalbook.economy.models.VerificationEmailMO;
 import com.mypersonalbook.economy.repositories.VerificationEmailJpaRepository;
@@ -10,10 +11,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static com.mypersonalbook.economy.utils.test.TestConstants.EMAIL_CODE;
-import static com.mypersonalbook.economy.utils.test.TestConstants.EMAIL_TO;
+import java.util.Optional;
+
+import static com.mypersonalbook.economy.utils.test.TestConstants.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -39,5 +43,16 @@ public class VerificationEmailRepositoryAdapterTest {
         .thenReturn(new VerificationEmailMO());
     final boolean RESULT = this.verificationEmailRepositoryAdapter.save(EMAIL_TO, EMAIL_CODE);
     assertTrue(RESULT);
+  }
+
+  @Test
+  @DisplayName("Should return email code when find by email")
+  void shouldReturnEmailCode_WhenFindByEmail() {
+    when(this.verificationEmailRepositoryMapper.toEmailCode(any(VerificationEmailMO.class)))
+        .thenReturn(new EmailCode());
+    when(this.verificationEmailJpaRepository.findById(anyString()))
+        .thenReturn(Optional.of(new VerificationEmailMO()));
+    this.verificationEmailRepositoryAdapter.findByEmail(USER_EMAIL);
+    verify(this.verificationEmailJpaRepository).findById(anyString());
   }
 }

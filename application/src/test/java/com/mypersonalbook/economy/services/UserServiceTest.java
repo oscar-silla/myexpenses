@@ -1,7 +1,7 @@
 package com.mypersonalbook.economy.services;
 
-import static com.mypersonalbook.economy.utils.test.mocks.UserMock.USER;
-import static com.mypersonalbook.economy.utils.test.mocks.UserMock.USER_TO_ENCODE;
+import static com.mypersonalbook.economy.utils.test.mocks.user.UserMock.USER;
+import static com.mypersonalbook.economy.utils.test.mocks.user.UserMock.USER_TO_ENCODE;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;

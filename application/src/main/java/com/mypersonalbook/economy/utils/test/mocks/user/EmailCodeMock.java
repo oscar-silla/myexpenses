@@ -1,0 +1,10 @@
+package com.mypersonalbook.economy.utils.test.mocks.user;
+
+import com.mypersonalbook.economy.domain.EmailCode;
+import com.mypersonalbook.economy.utils.test.TestConstants;
+
+import static com.mypersonalbook.economy.utils.test.TestConstants.USER_EMAIL;
+
+public class EmailCodeMock {
+  public static EmailCode EMAIL_CODE = new EmailCode(USER_EMAIL, TestConstants.EMAIL_CODE);
+}

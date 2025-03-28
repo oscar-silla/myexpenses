@@ -2,7 +2,7 @@ package com.mypersonalbook.economy.adapters;
 
 import static com.mypersonalbook.economy.utils.test.TestConstants.USER_EMAIL;
 import static com.mypersonalbook.economy.utils.test.mocks.UserMOMock.USER_MO;
-import static com.mypersonalbook.economy.utils.test.mocks.UserMock.USER;
+import static com.mypersonalbook.economy.utils.test.mocks.user.UserMock.USER;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;

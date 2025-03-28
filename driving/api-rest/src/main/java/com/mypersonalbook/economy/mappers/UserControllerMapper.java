@@ -10,5 +10,5 @@ import org.mapstruct.Mapper;
 public interface UserControllerMapper {
   User toUser(UserRequestBodyType userRequestBodyType);
 
-  EmailCode toEmailVerification(ActivateUserRequestBodyType activateUserRequestBodyType);
+  EmailCode toEmailCode(ActivateUserRequestBodyType activateUserRequestBodyType);
 }

@@ -1,5 +1,6 @@
 package com.mypersonalbook.economy.mappers;
 
+import com.mypersonalbook.economy.domain.EmailCode;
 import com.mypersonalbook.economy.models.VerificationEmailMO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -7,8 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static com.mypersonalbook.economy.utils.test.TestConstants.EMAIL_CODE;
-import static com.mypersonalbook.economy.utils.test.TestConstants.EMAIL_TO;
+import static com.mypersonalbook.economy.utils.test.TestConstants.*;
+import static com.mypersonalbook.economy.utils.test.mocks.VerificationEmailMOMock.VERIFICATION_EMAIL_MO;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -28,6 +29,15 @@ public class VerificationEmailRepositoryMapperTest {
         this.verificationEmailRepositoryMapper.toVerificationEmailMO(EMAIL_TO, EMAIL_CODE);
     assertNotNull(RESULT);
     assertEquals(EMAIL_TO, RESULT.getEmail());
+    assertEquals(EMAIL_CODE, RESULT.getCode());
+  }
+
+  @Test
+  @DisplayName("Should map to email code")
+  void shouldMapToEmailCode() {
+    final EmailCode RESULT =
+        this.verificationEmailRepositoryMapper.toEmailCode(VERIFICATION_EMAIL_MO);
+    assertEquals(USER_EMAIL, RESULT.getEmail());
     assertEquals(EMAIL_CODE, RESULT.getCode());
   }
 }

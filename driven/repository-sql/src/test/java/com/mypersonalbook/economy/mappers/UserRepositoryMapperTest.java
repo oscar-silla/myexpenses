@@ -2,7 +2,7 @@ package com.mypersonalbook.economy.mappers;
 
 import static com.mypersonalbook.economy.utils.test.TestConstants.*;
 import static com.mypersonalbook.economy.utils.test.mocks.UserMOMock.USER_MO;
-import static com.mypersonalbook.economy.utils.test.mocks.UserMock.USER;
+import static com.mypersonalbook.economy.utils.test.mocks.user.UserMock.USER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.mypersonalbook.economy.domain.User;

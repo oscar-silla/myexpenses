@@ -1,4 +1,4 @@
-package com.mypersonalbook.economy.utils.test.mocks;
+package com.mypersonalbook.economy.utils.test.mocks.user;
 
 import static com.mypersonalbook.economy.utils.test.TestConstants.*;
 import static com.mypersonalbook.economy.utils.test.mocks.RoleMock.USER_ROLE;

@@ -16,7 +16,7 @@ import static com.mypersonalbook.economy.utils.test.mocks.CategoryMock.EXPENSE_C
 import static com.mypersonalbook.economy.utils.test.mocks.TransactionMOMock.TRANSACTION_MO;
 import static com.mypersonalbook.economy.utils.test.mocks.TransactionMock.EXPENSE_TRANSACTION_1;
 import static com.mypersonalbook.economy.utils.test.mocks.TransactionMock.OTHER_EXPENSE_TRANSACTION;
-import static com.mypersonalbook.economy.utils.test.mocks.UserMock.USER;
+import static com.mypersonalbook.economy.utils.test.mocks.user.UserMock.USER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 

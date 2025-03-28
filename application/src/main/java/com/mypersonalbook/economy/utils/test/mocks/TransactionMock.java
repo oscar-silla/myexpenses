@@ -8,7 +8,7 @@ import java.util.List;
 
 import static com.mypersonalbook.economy.utils.test.TestConstants.*;
 import static com.mypersonalbook.economy.utils.test.mocks.CategoryMock.*;
-import static com.mypersonalbook.economy.utils.test.mocks.UserMock.USER;
+import static com.mypersonalbook.economy.utils.test.mocks.user.UserMock.USER;
 
 public class TransactionMock {
   public static final Transaction EXPENSE_TRANSACTION_1 =

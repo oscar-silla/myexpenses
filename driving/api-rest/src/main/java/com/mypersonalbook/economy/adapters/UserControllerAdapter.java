@@ -46,7 +46,7 @@ public class UserControllerAdapter implements UsersApi {
     logger.info(
         "POST /economy/v1/users/activate with body: {}", activateUserRequestBodyType.toString());
     this.activateUserUseCase.execute(
-        this.userControllerMapper.toEmailVerification(activateUserRequestBodyType));
+        this.userControllerMapper.toEmailCode(activateUserRequestBodyType));
     return ResponseEntity.ok().build();
   }
 

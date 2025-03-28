@@ -14,7 +14,10 @@ import org.springframework.mail.MailSendException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
+import java.util.Optional;
+
 import static com.mypersonalbook.economy.utils.test.mocks.EmailMock.EMAIL;
+import static com.mypersonalbook.economy.utils.test.mocks.user.EmailCodeMock.EMAIL_CODE;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -77,5 +80,20 @@ public class EmailServiceTest {
     verify(this.mailSender).send(any(SimpleMailMessage.class));
     verify(this.verificationEmailRepository).save(any(), any());
     assertTrue(RESULT);
+  }
+
+  @Test
+  @DisplayName("Should return true when verify email code")
+  void shouldReturnTrue_WhenVerifyEmailCode() {
+    when(this.verificationEmailRepository.findByEmail(anyString()))
+        .thenReturn(Optional.of(EMAIL_CODE));
+    assertTrue(this.emailService.verifyEmailCode(EMAIL_CODE));
+  }
+
+  @Test
+  @DisplayName("Should return false when verify email code")
+  void shouldReturnFalse_WhenVerifyEmailCode() {
+    when(this.verificationEmailRepository.findByEmail(anyString())).thenReturn(Optional.empty());
+    assertFalse(this.emailService.verifyEmailCode(EMAIL_CODE));
   }
 }

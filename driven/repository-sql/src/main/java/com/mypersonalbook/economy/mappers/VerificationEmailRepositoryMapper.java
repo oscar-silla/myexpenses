@@ -12,5 +12,5 @@ public interface VerificationEmailRepositoryMapper {
     return new VerificationEmailMO(email, code);
   }
 
-  EmailCode toEmailVerification(VerificationEmailMO verificationEmailMO);
+  EmailCode toEmailCode(VerificationEmailMO verificationEmailMO);
 }

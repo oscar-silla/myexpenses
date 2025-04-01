@@ -13,6 +13,10 @@ public class User {
   private Role role;
   private Boolean isVerified = false;
 
+  public boolean isVerified() {
+    return this.isVerified;
+  }
+
   public User() {}
 
   public User(

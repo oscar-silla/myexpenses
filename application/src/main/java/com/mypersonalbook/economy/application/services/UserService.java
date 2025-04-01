@@ -11,27 +11,37 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService implements UserDetailsService {
-    private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(8);
-    private final UserRepositoryPort userRepository;
+  private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(8);
+  private final UserRepositoryPort userRepository;
 
-    public UserService(UserRepositoryPort userRepository) {
-        this.userRepository = userRepository;
-    }
+  public UserService(UserRepositoryPort userRepository) {
+    this.userRepository = userRepository;
+  }
 
-    public void save(User user) {
-        String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
-        user.setRole(Role.USER);
-        if (this.userRepository.findByEmail(user.getEmail()).isPresent()) {
-            throw new ConflictException();
-        }
-        this.userRepository.save(user);
-    }
+  public void save(User user) {
+    String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
+    user.setPassword(encodedPassword);
+    user.setRole(Role.USER);
+    this.userRepository.save(user);
+  }
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return this.userRepository.findByEmail(email).map(UserDetailsAdapter::new).orElseThrow(NotFoundException::new);
+  public Optional<User> findByEmail(String email) {
+    if (email != null) {
+      return this.userRepository.findByEmail(email);
+    } else {
+      return Optional.empty();
     }
+  }
+
+  @Override
+  public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    return this.userRepository
+        .findByEmail(email)
+        .map(UserDetailsAdapter::new)
+        .orElseThrow(NotFoundException::new);
+  }
 }

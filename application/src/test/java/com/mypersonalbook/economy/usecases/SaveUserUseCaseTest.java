@@ -7,6 +7,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 import com.mypersonalbook.economy.application.exceptions.BadRequestException;
+import com.mypersonalbook.economy.application.exceptions.ConflictException;
 import com.mypersonalbook.economy.application.ports.driving.user.SaveUserUseCasePort;
 import com.mypersonalbook.economy.application.services.EmailService;
 import com.mypersonalbook.economy.application.services.UserService;
@@ -19,6 +20,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.function.Executable;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
 public class SaveUserUseCaseTest {
@@ -63,11 +66,31 @@ public class SaveUserUseCaseTest {
   }
 
   @Test
-  @DisplayName("Should save user when execute")
-  void shouldSaveUser_WhenExecute() {
+  @DisplayName("Should save user when execute and is new user")
+  void shouldSaveUser_WhenExecute_AndIsNewUser() {
     when(this.emailService.validate(anyString())).thenReturn(true);
+    when(this.userService.findByEmail(anyString())).thenReturn(Optional.empty());
     doNothing().when(this.userService).save(any(User.class));
     this.saveUserUseCase.execute(USER);
     verify(this.userService).save(any(User.class));
+  }
+
+  @Test
+  @DisplayName("Should save user when execute and is not new user but is not verified")
+  void shouldSaveUser_WhenExecute_AndIsNotNewUser_ButIsNotVerified() {
+    when(this.emailService.validate(anyString())).thenReturn(true);
+    when(this.userService.findByEmail(anyString())).thenReturn(Optional.of(USER_NOT_VERIFIED));
+    doNothing().when(this.userService).save(any(User.class));
+    this.saveUserUseCase.execute(USER);
+    verify(this.userService).save(any(User.class));
+  }
+
+  @Test
+  @DisplayName("Should throw conflict exception when find by email and check if user is verified")
+  void shouldThrowConflictException_WhenFindByEmail_AndCheckIfUserIsVerified() {
+    final Executable EXECUTABLE = () -> this.saveUserUseCase.execute(USER);
+    when(this.emailService.validate(anyString())).thenReturn(true);
+    when(this.userService.findByEmail(anyString())).thenReturn(Optional.of(USER));
+    assertThrows(ConflictException.class, EXECUTABLE);
   }
 }

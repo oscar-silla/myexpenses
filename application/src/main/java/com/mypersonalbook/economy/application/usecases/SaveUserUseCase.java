@@ -1,6 +1,7 @@
 package com.mypersonalbook.economy.application.usecases;
 
 import com.mypersonalbook.economy.application.exceptions.BadRequestException;
+import com.mypersonalbook.economy.application.exceptions.ConflictException;
 import com.mypersonalbook.economy.application.ports.driving.user.SaveUserUseCasePort;
 import com.mypersonalbook.economy.application.services.EmailService;
 import com.mypersonalbook.economy.application.services.UserService;
@@ -13,8 +14,8 @@ import java.util.UUID;
 
 @Service
 public class SaveUserUseCase implements SaveUserUseCasePort {
-  private final EmailService emailService;
   private final UserService userService;
+  private final EmailService emailService;
 
   public SaveUserUseCase(EmailService emailService, UserService userService) {
     this.emailService = emailService;
@@ -25,6 +26,7 @@ public class SaveUserUseCase implements SaveUserUseCasePort {
   @Transactional
   public void execute(User user) {
     this.validate(user);
+    this.findByEmailAndThrowConflictException(user.getEmail());
     this.userService.save(user);
     this.emailService.sendVerificationEmail(this.buildEmail(user.getEmail()));
   }
@@ -36,6 +38,15 @@ public class SaveUserUseCase implements SaveUserUseCasePort {
         || !user.hasPassword()) {
       throw new BadRequestException();
     }
+  }
+
+  private void findByEmailAndThrowConflictException(String email) {
+    this.userService
+        .findByEmail(email)
+        .ifPresent(
+            user -> {
+              if (user.isVerified()) throw new ConflictException();
+            });
   }
 
   private Email buildEmail(String userEmail) {

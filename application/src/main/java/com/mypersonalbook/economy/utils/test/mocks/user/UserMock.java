@@ -15,7 +15,17 @@ public class UserMock {
           USER_EMAIL,
           USER_PASSWORD,
           USER_ROLE,
-          USER_IS_VERIFIED);
+          USER_IS_VERIFIED_TRUE);
+  public static final User USER_NOT_VERIFIED =
+      new User(
+          USER_ID,
+          USER_NAME,
+          USER_FIRST_SURNAME,
+          USER_SECOND_SURNAME,
+          USER_EMAIL,
+          USER_PASSWORD,
+          USER_ROLE,
+          USER_IS_VERIFIED_FALSE);
   public static final User USER_TO_ENCODE =
       new User(
           USER_ID,
@@ -25,7 +35,7 @@ public class UserMock {
           USER_EMAIL,
           USER_PASSWORD,
           USER_ROLE,
-          USER_IS_VERIFIED);
+          USER_IS_VERIFIED_TRUE);
   public static final User USER_WITHOUT_NAME =
       new User(
           USER_ID,
@@ -35,7 +45,7 @@ public class UserMock {
           USER_EMAIL,
           USER_PASSWORD,
           USER_ROLE,
-          USER_IS_VERIFIED);
+          USER_IS_VERIFIED_TRUE);
   public static final User USER_WITHOUT_FIRST_SURNAME =
       new User(
           USER_ID,
@@ -45,7 +55,7 @@ public class UserMock {
           USER_EMAIL,
           USER_PASSWORD,
           USER_ROLE,
-          USER_IS_VERIFIED);
+          USER_IS_VERIFIED_TRUE);
   public static final User USER_WITHOUT_EMAIL =
       new User(
           USER_ID,
@@ -55,7 +65,7 @@ public class UserMock {
           null,
           USER_PASSWORD,
           USER_ROLE,
-          USER_IS_VERIFIED);
+          USER_IS_VERIFIED_TRUE);
   public static final User USER_WITHOUT_PASSWORD =
       new User(
           USER_ID,
@@ -65,5 +75,5 @@ public class UserMock {
           USER_EMAIL,
           null,
           USER_ROLE,
-          USER_IS_VERIFIED);
+          USER_IS_VERIFIED_TRUE);
 }

@@ -1,5 +1,6 @@
 package com.mypersonalbook.economy.services;
 
+import static com.mypersonalbook.economy.utils.test.TestConstants.USER_EMAIL;
 import static com.mypersonalbook.economy.utils.test.mocks.user.UserMock.USER;
 import static com.mypersonalbook.economy.utils.test.mocks.user.UserMock.USER_TO_ENCODE;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -22,29 +23,35 @@ import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
-    UserService userService;
+  UserService userService;
 
-    @Mock
-    private UserRepositoryPort userRepository;
+  @Mock private UserRepositoryPort userRepository;
 
-    @BeforeEach
-    void setUp() {
-        this.userService = new UserService(this.userRepository);
-    }
+  @BeforeEach
+  void setUp() {
+    this.userService = new UserService(this.userRepository);
+  }
 
-    @Test
-    @DisplayName("Should save user")
-    void shouldSaveUser_WithEncodedPassword() {
-        doNothing().when(this.userRepository).save(any(User.class));
-        this.userService.save(USER_TO_ENCODE);
-        verify(this.userRepository).save(any(User.class));
-    }
+  @Test
+  @DisplayName("Should save user")
+  void shouldSaveUser_WithEncodedPassword() {
+    doNothing().when(this.userRepository).save(any(User.class));
+    this.userService.save(USER_TO_ENCODE);
+    verify(this.userRepository).save(any(User.class));
+  }
 
-    @Test
-    @DisplayName("Should throw conflict exception when try to save user")
-    void shouldThrowConflictException_WhenTryToSaveUser() {
-        when(this.userRepository.findByEmail(anyString())).thenReturn(Optional.of(USER));
-        final Executable EXECUTABLE = () -> this.userService.save(USER);
-        assertThrows(ConflictException.class, EXECUTABLE);
-    }
+  @Test
+  @DisplayName("Should return user when find by email")
+  void shouldReturnUser_WhenFindByEmail() {
+    when(this.userRepository.findByEmail(anyString())).thenReturn(Optional.of(USER));
+    this.userService.findByEmail(USER_EMAIL);
+    verify(this.userRepository).findByEmail(anyString());
+  }
+
+  @Test
+  @DisplayName("Should return empty when find by email")
+  void shouldReturnEmpty_WhenFindByEmail() {
+    this.userService.findByEmail(null);
+    verify(this.userRepository, times(0)).findByEmail(anyString());
+  }
 }

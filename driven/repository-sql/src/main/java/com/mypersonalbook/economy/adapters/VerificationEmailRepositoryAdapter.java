@@ -6,6 +6,7 @@ import com.mypersonalbook.economy.mappers.VerificationEmailRepositoryMapper;
 import com.mypersonalbook.economy.repositories.VerificationEmailJpaRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -22,9 +23,9 @@ public class VerificationEmailRepositoryAdapter implements VerificationEmailRepo
   }
 
   @Override
-  public boolean save(String email, UUID uuid) {
+  public boolean save(String email, UUID uuid, LocalDateTime creationDate) {
     this.verificationEmailJpaRepository.save(
-        this.verificationEmailRepositoryMapper.toVerificationEmailMO(email, uuid));
+        this.verificationEmailRepositoryMapper.toVerificationEmailMO(email, uuid, creationDate));
     return true;
   }
 

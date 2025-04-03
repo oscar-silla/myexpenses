@@ -9,6 +9,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class EmailService {
   private final JavaMailSender emailSender;
@@ -26,7 +28,8 @@ public class EmailService {
 
   public boolean sendVerificationEmail(Email email) {
     this.sendEmail(email);
-    return this.verificationEmailRepository.save(email.getTo(), email.getCode());
+    return this.verificationEmailRepository.save(
+        email.getTo(), email.getCode(), LocalDateTime.now());
   }
 
   public boolean sendEmail(Email email) {

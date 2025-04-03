@@ -26,7 +26,7 @@ public class VerificationEmailRepositoryMapperTest {
   @DisplayName("Should map to verification email model")
   void shouldMapToVerificationEmailMO() {
     final VerificationEmailMO RESULT =
-        this.verificationEmailRepositoryMapper.toVerificationEmailMO(EMAIL_TO, EMAIL_CODE);
+        this.verificationEmailRepositoryMapper.toVerificationEmailMO(EMAIL_TO, EMAIL_CODE, LOCAL_DATE_TIME);
     assertNotNull(RESULT);
     assertEquals(EMAIL_TO, RESULT.getEmail());
     assertEquals(EMAIL_CODE, RESULT.getCode());

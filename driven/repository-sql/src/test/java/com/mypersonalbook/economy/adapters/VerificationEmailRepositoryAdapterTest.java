@@ -37,11 +37,12 @@ public class VerificationEmailRepositoryAdapterTest {
   @Test
   @DisplayName("Should return true when save")
   void shouldReturnTrue_WhenSave() {
-    when(this.verificationEmailRepositoryMapper.toVerificationEmailMO(any(), any()))
+    when(this.verificationEmailRepositoryMapper.toVerificationEmailMO(any(), any(), any()))
         .thenReturn(new VerificationEmailMO());
     when(this.verificationEmailJpaRepository.save(any(VerificationEmailMO.class)))
         .thenReturn(new VerificationEmailMO());
-    final boolean RESULT = this.verificationEmailRepositoryAdapter.save(EMAIL_TO, EMAIL_CODE);
+    final boolean RESULT =
+        this.verificationEmailRepositoryAdapter.save(EMAIL_TO, EMAIL_CODE, LOCAL_DATE_TIME);
     assertTrue(RESULT);
   }
 

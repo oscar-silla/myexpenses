@@ -75,10 +75,10 @@ public class EmailServiceTest {
   @DisplayName("Should return true when send verification email")
   void shouldReturnTrue_WhenSendVerificationEmail() {
     doNothing().when(this.mailSender).send(any(SimpleMailMessage.class));
-    when(this.verificationEmailRepository.save(any(), any())).thenReturn(true);
+    when(this.verificationEmailRepository.save(any(), any(), any())).thenReturn(true);
     final boolean RESULT = this.emailService.sendVerificationEmail(EMAIL);
     verify(this.mailSender).send(any(SimpleMailMessage.class));
-    verify(this.verificationEmailRepository).save(any(), any());
+    verify(this.verificationEmailRepository).save(any(), any(), any());
     assertTrue(RESULT);
   }
 

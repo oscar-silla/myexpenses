@@ -1,9 +1,11 @@
 package com.mypersonalbook.economy.utils.test;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class TestConstants {
+  public static final LocalDateTime LOCAL_DATE_TIME = LocalDateTime.now();
   public static final Long TRANSACTION_ID_1 = 1L;
   public static final Long TRANSACTION_ID_2 = 2L;
   public static final Long TRANSACTION_ID_3 = 3L;

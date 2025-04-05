@@ -1,9 +1,6 @@
 package com.mypersonalbook.economy.handlers;
 
-import com.mypersonalbook.economy.application.exceptions.BadRequestException;
-import com.mypersonalbook.economy.application.exceptions.ConflictException;
-import com.mypersonalbook.economy.application.exceptions.NotFoundException;
-import com.mypersonalbook.economy.application.exceptions.UnauthorizedException;
+import com.mypersonalbook.economy.application.exceptions.*;
 import openapi.economy.model.ErrorResponseType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -39,6 +36,15 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
   @ExceptionHandler(value = UnauthorizedException.class)
   protected ResponseEntity<ErrorResponseType> handleUnauthorizedException(
       UnauthorizedException exception) {
+    ErrorResponseType errorResponseType = new ErrorResponseType();
+    errorResponseType.setCode(exception.getStatusCode().value());
+    errorResponseType.setMessage(exception.getStatusText());
+    return ResponseEntity.status(exception.getStatusCode()).body(errorResponseType);
+  }
+
+  @ExceptionHandler(TooManyRequestsException.class)
+  protected ResponseEntity<ErrorResponseType> handleTooManyRequestsException(
+      TooManyRequestsException exception) {
     ErrorResponseType errorResponseType = new ErrorResponseType();
     errorResponseType.setCode(exception.getStatusCode().value());
     errorResponseType.setMessage(exception.getStatusText());

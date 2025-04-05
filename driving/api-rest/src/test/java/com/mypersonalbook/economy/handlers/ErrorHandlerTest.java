@@ -1,9 +1,6 @@
 package com.mypersonalbook.economy.handlers;
 
-import com.mypersonalbook.economy.application.exceptions.BadRequestException;
-import com.mypersonalbook.economy.application.exceptions.ConflictException;
-import com.mypersonalbook.economy.application.exceptions.NotFoundException;
-import com.mypersonalbook.economy.application.exceptions.UnauthorizedException;
+import com.mypersonalbook.economy.application.exceptions.*;
 import openapi.economy.model.ErrorResponseType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -40,7 +37,7 @@ public class ErrorHandlerTest {
 
   @Test
   @DisplayName("Should return not found error type")
-  void shouldNotFoundErrorType() {
+  void shouldReturnNotFoundErrorType() {
     final NotFoundException EXCEPTION = new NotFoundException();
     final ResponseEntity<ErrorResponseType> RESULT = this.errorHandler.handleNotFound(EXCEPTION);
     assertEquals(HttpStatus.NOT_FOUND.value(), Objects.requireNonNull(RESULT.getBody()).getCode());
@@ -51,7 +48,7 @@ public class ErrorHandlerTest {
 
   @Test
   @DisplayName("Should return conflict error type")
-  void shouldConflictErrorType() {
+  void shouldReturnConflictErrorType() {
     final ConflictException EXCEPTION = new ConflictException();
     final ResponseEntity<ErrorResponseType> RESULT = this.errorHandler.handleConflict(EXCEPTION);
     assertEquals(HttpStatus.CONFLICT.value(), Objects.requireNonNull(RESULT.getBody()).getCode());
@@ -61,8 +58,8 @@ public class ErrorHandlerTest {
   }
 
   @Test
-  @DisplayName("Should return exception error type")
-  void shouldExceptionErrorType() {
+  @DisplayName("Should return unauthorized exception error type")
+  void shouldReturnUnauthorizedExceptionErrorType() {
     final UnauthorizedException EXCEPTION = new UnauthorizedException();
     final ResponseEntity<ErrorResponseType> RESULT =
         this.errorHandler.handleUnauthorizedException(EXCEPTION);
@@ -71,5 +68,18 @@ public class ErrorHandlerTest {
     assertEquals(
         HttpStatus.UNAUTHORIZED.getReasonPhrase(),
         Objects.requireNonNull(RESULT.getBody()).getMessage());
+  }
+
+  @Test
+  @DisplayName("Should return too many requests exception error type")
+  void shouldReturnTooManyRequestsExceptionErrorType() {
+    final TooManyRequestsException EXCEPTION = new TooManyRequestsException();
+    final ResponseEntity<ErrorResponseType> RESULT =
+            this.errorHandler.handleTooManyRequestsException(EXCEPTION);
+    assertEquals(
+            HttpStatus.TOO_MANY_REQUESTS.value(), Objects.requireNonNull(RESULT.getBody()).getCode());
+    assertEquals(
+            HttpStatus.TOO_MANY_REQUESTS.getReasonPhrase(),
+            Objects.requireNonNull(RESULT.getBody()).getMessage());
   }
 }

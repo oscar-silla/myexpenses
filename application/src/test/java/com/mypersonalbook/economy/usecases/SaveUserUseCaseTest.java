@@ -1,5 +1,7 @@
 package com.mypersonalbook.economy.usecases;
 
+import static com.mypersonalbook.economy.utils.test.mocks.user.EmailCodeMock.EMAIL_CODE;
+import static com.mypersonalbook.economy.utils.test.mocks.user.EmailCodeMock.EMAIL_CODE_WITH_1_PLUS_MINUTE;
 import static com.mypersonalbook.economy.utils.test.mocks.user.UserMock.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -8,6 +10,7 @@ import static org.mockito.Mockito.*;
 
 import com.mypersonalbook.economy.application.exceptions.BadRequestException;
 import com.mypersonalbook.economy.application.exceptions.ConflictException;
+import com.mypersonalbook.economy.application.exceptions.TooManyRequestsException;
 import com.mypersonalbook.economy.application.ports.driving.user.SaveUserUseCasePort;
 import com.mypersonalbook.economy.application.services.EmailService;
 import com.mypersonalbook.economy.application.services.UserService;
@@ -92,5 +95,17 @@ public class SaveUserUseCaseTest {
     when(this.emailService.validate(anyString())).thenReturn(true);
     when(this.userService.findByEmail(anyString())).thenReturn(Optional.of(USER));
     assertThrows(ConflictException.class, EXECUTABLE);
+  }
+
+  @Test
+  @DisplayName(
+      "Should throw too many requests exception when find email code by email sent before five minutes")
+  void shouldThrowTooManyRequestsException_WhenFindEmailCodeByEmailSent_BeforeFiveMinutes() {
+    when(this.emailService.validate(anyString())).thenReturn(true);
+    when(this.userService.findByEmail(anyString())).thenReturn(Optional.of(USER_NOT_VERIFIED));
+    when(this.emailService.findByEmail(anyString()))
+        .thenReturn(Optional.of(EMAIL_CODE_WITH_1_PLUS_MINUTE));
+    final Executable EXECUTABLE = () -> this.saveUserUseCase.execute(USER_NOT_VERIFIED);
+    assertThrows(TooManyRequestsException.class, EXECUTABLE);
   }
 }

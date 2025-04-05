@@ -10,6 +10,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 public class EmailService {
@@ -51,5 +52,9 @@ public class EmailService {
         .findByEmail(emailCode.getEmail())
         .map(_emailVerification -> emailCode.isMatchingCode(_emailVerification.getCode()))
         .orElse(false);
+  }
+
+  public Optional<EmailCode> findByEmail(String email) {
+    return this.verificationEmailRepository.findByEmail(email);
   }
 }

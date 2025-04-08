@@ -72,7 +72,7 @@ public class SaveUserUseCase implements SaveUserUseCasePort {
     email.setFrom("noreply@gmail.com");
     email.setTo(userEmail);
     email.setSubject("Código de verificación");
-    email.setText("Su código de verificación es " + UUID.randomUUID());
+    email.setText("Su código de verificación es " + randomUUID);
     email.setCode(randomUUID);
     return email;
   }

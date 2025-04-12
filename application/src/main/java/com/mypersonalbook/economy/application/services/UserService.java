@@ -1,7 +1,6 @@
 package com.mypersonalbook.economy.application.services;
 
 import com.mypersonalbook.economy.application.enums.Role;
-import com.mypersonalbook.economy.application.exceptions.ConflictException;
 import com.mypersonalbook.economy.application.exceptions.NotFoundException;
 import com.mypersonalbook.economy.application.ports.driven.UserRepositoryPort;
 import com.mypersonalbook.economy.domain.User;
@@ -35,6 +34,10 @@ public class UserService implements UserDetailsService {
     } else {
       return Optional.empty();
     }
+  }
+
+  public void activateUserByEmail(String email) {
+    this.userRepository.activateUserByEmail(email);
   }
 
   @Override

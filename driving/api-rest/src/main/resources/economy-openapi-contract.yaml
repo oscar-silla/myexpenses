@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   title: Economy API
   description: Economy API from my personal book
-  version: 3.2.0
+  version: 3.2.1
 tags:
   - name: Transactions
   - name: Users
@@ -280,6 +280,10 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserActivateResponseType"
         '400':
           description: BAD REQUEST
           content:
@@ -367,6 +371,15 @@ components:
           type: string
           format: string
           example: 23123QS:323
+    UserActivateResponseType:
+      type: object
+      required:
+        - token
+      properties:
+        token:
+          type: string
+          format: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
     LoginResponseType:
       type: object
       required:

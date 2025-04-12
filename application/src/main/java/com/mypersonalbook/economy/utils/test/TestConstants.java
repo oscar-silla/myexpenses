@@ -54,4 +54,8 @@ public class TestConstants {
   public static final String EMAIL_SUBJECT = "EMAIL_SUBJECT";
   public static final String EMAIL_TEXT = "EMAIL_TEXT";
   public static final UUID EMAIL_CODE = UUID.randomUUID();
+
+  /* TOKEN */
+  public static final String TOKEN =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
 }

@@ -6,6 +6,7 @@ import com.mypersonalbook.economy.domain.User;
 import com.mypersonalbook.economy.mappers.UserControllerMapper;
 import openapi.economy.api.UsersApi;
 import openapi.economy.model.ActivateUserRequestBodyType;
+import openapi.economy.model.UserActivateResponseType;
 import openapi.economy.model.UserRequestBodyPatchType;
 import openapi.economy.model.UserRequestBodyType;
 import org.slf4j.Logger;
@@ -41,13 +42,14 @@ public class UserControllerAdapter implements UsersApi {
   }
 
   @Override
-  public ResponseEntity<Void> activateUser(
+  public ResponseEntity<UserActivateResponseType> activateUser(
       ActivateUserRequestBodyType activateUserRequestBodyType) {
     logger.info(
         "POST /economy/v1/users/activate with body: {}", activateUserRequestBodyType.toString());
-    this.activateUserUseCase.execute(
-        this.userControllerMapper.toEmailCode(activateUserRequestBodyType));
-    return ResponseEntity.ok().build();
+    String token =
+        this.activateUserUseCase.execute(
+            this.userControllerMapper.toEmailCode(activateUserRequestBodyType));
+    return ResponseEntity.ok().body(this.userControllerMapper.toUserActivateResponseType(token));
   }
 
   @Override

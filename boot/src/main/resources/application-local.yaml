@@ -27,3 +27,4 @@ spring:
           auth: true
           starttls:
             enable: true
+SECRET_KEY: secretkey12312412e412eewe2341wdeqwe231234124123erqserrqeqweqdfqwedf

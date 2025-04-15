@@ -33,3 +33,5 @@ spring:
           auth: true
           starttls:
             enable: true
+
+SECRET_KEY: ${SECRET_KEY}

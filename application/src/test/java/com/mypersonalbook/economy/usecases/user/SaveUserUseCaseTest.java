@@ -1,6 +1,5 @@
-package com.mypersonalbook.economy.usecases;
+package com.mypersonalbook.economy.usecases.user;
 
-import static com.mypersonalbook.economy.utils.test.mocks.user.EmailCodeMock.EMAIL_CODE;
 import static com.mypersonalbook.economy.utils.test.mocks.user.EmailCodeMock.EMAIL_CODE_WITH_1_PLUS_MINUTE;
 import static com.mypersonalbook.economy.utils.test.mocks.user.UserMock.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;

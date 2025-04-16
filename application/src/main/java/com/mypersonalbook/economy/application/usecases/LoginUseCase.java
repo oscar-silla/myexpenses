@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class LoginUseCase implements LoginUseCasePort {
   private final AuthService authService;
 
-  LoginUseCase(AuthService authService) {
+  public LoginUseCase(AuthService authService) {
     this.authService = authService;
   }
 

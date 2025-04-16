@@ -10,8 +10,12 @@ import java.util.Collections;
 public class UserDetailsAdapter implements UserDetails {
   private final User user;
 
-  UserDetailsAdapter(User user) {
+  public UserDetailsAdapter(User user) {
     this.user = user;
+  }
+
+  User getUser() {
+    return this.user;
   }
 
   @Override

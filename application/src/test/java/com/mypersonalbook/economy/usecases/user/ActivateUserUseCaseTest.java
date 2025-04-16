@@ -1,4 +1,4 @@
-package com.mypersonalbook.economy.usecases;
+package com.mypersonalbook.economy.usecases.user;
 
 import com.mypersonalbook.economy.application.exceptions.BadRequestException;
 import com.mypersonalbook.economy.application.ports.driving.user.ActivateUserUseCasePort;

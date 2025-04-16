@@ -1,5 +1,6 @@
 package com.mypersonalbook.economy.application.services;
 
+import com.mypersonalbook.economy.application.exceptions.UnauthorizedException;
 import com.mypersonalbook.economy.config.auth.JwtUtil;
 import com.mypersonalbook.economy.domain.User;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,7 +15,7 @@ public class AuthService {
   private final AuthenticationManager authenticationManager;
   private final JwtUtil jwtUtil;
 
-  AuthService(AuthenticationManager authenticationManager, JwtUtil jwtUtil) {
+  public AuthService(AuthenticationManager authenticationManager, JwtUtil jwtUtil) {
     this.authenticationManager = authenticationManager;
     this.jwtUtil = jwtUtil;
   }
@@ -23,12 +24,20 @@ public class AuthService {
     Authentication authentication =
         this.authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
-    return this.jwtUtil.generateToken((UserDetails) authentication.getPrincipal());
+    UserDetailsAdapter userDetails = (UserDetailsAdapter) authentication.getPrincipal();
+    this.ensureUserIsVerified(userDetails.getUser());
+    return this.jwtUtil.generateToken(userDetails);
+  }
+
+  private void ensureUserIsVerified(User user) {
+    if (!user.isVerified()) {
+      throw new UnauthorizedException();
+    }
   }
 
   public Long getUserId() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    if (authentication != null && authentication.getCredentials() != null) {
+    if (authentication != null && authentication.getCredentials() != null) { // TODO: Obtain id from principal, not credentials
       return (long) authentication.getCredentials();
     }
     return null;

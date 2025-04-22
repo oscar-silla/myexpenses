@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   title: Economy API
   description: Economy API from my personal book
-  version: 3.2.1
+  version: 3.3.0
 tags:
   - name: Transactions
   - name: Users
@@ -332,8 +332,43 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponseType"
+  /resend-verification-code:
+    post:
+      summary: Resend verification code
+      operationId: resendVerificationCode
+      tags:
+        - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResendVerificationCodeRequestBodyType"
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
+        '500':
+          description: INTERNAL SERVER ERROR
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
 components:
   schemas:
+    ResendVerificationCodeRequestBodyType:
+      type: object
+      required:
+        - email
+      properties:
+        email:
+          type: string
+          format: email
+          example: email@address.org
     ActivateUserRequestBodyType:
       type: object
       required:

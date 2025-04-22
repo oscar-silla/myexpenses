@@ -1,4 +1,4 @@
-package com.mypersonalbook.economy.application.ports.driving;
+package com.mypersonalbook.economy.application.ports.driving.auth;
 
 import com.mypersonalbook.economy.domain.User;
 

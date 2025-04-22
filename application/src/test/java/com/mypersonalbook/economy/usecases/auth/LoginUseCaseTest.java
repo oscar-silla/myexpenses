@@ -1,8 +1,8 @@
 package com.mypersonalbook.economy.usecases.auth;
 
-import com.mypersonalbook.economy.application.ports.driving.LoginUseCasePort;
+import com.mypersonalbook.economy.application.ports.driving.auth.LoginUseCasePort;
 import com.mypersonalbook.economy.application.services.AuthService;
-import com.mypersonalbook.economy.application.usecases.LoginUseCase;
+import com.mypersonalbook.economy.application.usecases.auth.LoginUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

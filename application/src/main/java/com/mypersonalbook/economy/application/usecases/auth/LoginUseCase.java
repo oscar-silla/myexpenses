@@ -1,6 +1,6 @@
-package com.mypersonalbook.economy.application.usecases;
+package com.mypersonalbook.economy.application.usecases.auth;
 
-import com.mypersonalbook.economy.application.ports.driving.LoginUseCasePort;
+import com.mypersonalbook.economy.application.ports.driving.auth.LoginUseCasePort;
 import com.mypersonalbook.economy.application.services.AuthService;
 import com.mypersonalbook.economy.domain.User;
 import org.springframework.stereotype.Service;

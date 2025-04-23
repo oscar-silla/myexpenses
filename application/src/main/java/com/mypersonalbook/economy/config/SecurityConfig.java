@@ -40,6 +40,7 @@ public class SecurityConfig {
                 auth.requestMatchers(
                         HttpMethod.POST,
                         "/economy/v1/login",
+                        "/economy/v1/resend-verification-code",
                         "/economy/v1/users",
                         "/economy/v1/users/activate")
                     .permitAll()

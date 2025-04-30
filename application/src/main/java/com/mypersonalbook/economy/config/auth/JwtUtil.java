@@ -1,5 +1,8 @@
 package com.mypersonalbook.economy.config.auth;
 
+import com.mypersonalbook.economy.application.exceptions.UnauthorizedException;
+import com.mypersonalbook.economy.config.auth.exceptions.JwtAuthException;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -14,6 +17,7 @@ import java.util.Date;
 public class JwtUtil {
   @Value("${SECRET_KEY}")
   private String SECRET_KEY;
+
   private static final long EXPIRATION_TIME = 86400000; // 1 día
 
   public String generateToken(UserDetails userDetails) {
@@ -26,7 +30,11 @@ public class JwtUtil {
   }
 
   public String extractEmail(String token) {
-    return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody().getSubject();
+    try {
+      return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody().getSubject();
+    } catch (ExpiredJwtException e) {
+      throw new JwtAuthException("Expired token");
+    }
   }
 
   public boolean validateToken(String token, UserDetails userDetails) {

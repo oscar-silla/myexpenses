@@ -1,6 +1,7 @@
 package com.mypersonalbook.economy.config;
 
 import com.mypersonalbook.economy.config.auth.JwtAuthFilter;
+import com.mypersonalbook.economy.config.auth.handlers.JwtAuthExceptionHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -25,10 +26,15 @@ public class SecurityConfig {
 
   private final JwtAuthFilter jwtAuthFilter;
   private final UserDetailsService userDetailsService;
+  private final JwtAuthExceptionHandler jwtAuthExceptionHandler;
 
-  public SecurityConfig(JwtAuthFilter jwtAuthFilter, UserDetailsService userDetailsService) {
+  public SecurityConfig(
+      JwtAuthFilter jwtAuthFilter,
+      UserDetailsService userDetailsService,
+      JwtAuthExceptionHandler jwtAuthExceptionHandler) {
     this.jwtAuthFilter = jwtAuthFilter;
     this.userDetailsService = userDetailsService;
+    this.jwtAuthExceptionHandler = jwtAuthExceptionHandler;
   }
 
   @Bean
@@ -49,6 +55,8 @@ public class SecurityConfig {
         .sessionManagement(
             session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authenticationProvider(authenticationProvider())
+        .exceptionHandling(
+            exception -> exception.authenticationEntryPoint(this.jwtAuthExceptionHandler))
         .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
         .build();
   }

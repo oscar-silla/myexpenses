@@ -2,6 +2,7 @@ package com.mypersonalbook.economy.usecases.transaction;
 
 import com.mypersonalbook.economy.application.filters.TransactionFilter;
 import com.mypersonalbook.economy.application.queryparams.GetTransactionsQueryParams;
+import com.mypersonalbook.economy.application.services.AuthService;
 import com.mypersonalbook.economy.application.services.PaginationService;
 import com.mypersonalbook.economy.application.services.TransactionService;
 import com.mypersonalbook.economy.application.services.adhoc.TransactionDateService;
@@ -28,19 +29,23 @@ public class GetTransactionsUseCaseTest {
   @Mock private TransactionService transactionService;
   @Mock private TransactionDateService transactionDateService;
   @Mock private PaginationService paginationService;
+  @Mock private AuthService authService;
 
   @BeforeEach
   void setUp() {
     this.getTransactionsUseCase =
         new GetTransactionsUseCase(
-            this.transactionService, this.transactionDateService, this.paginationService);
+            this.transactionService,
+            this.transactionDateService,
+            this.paginationService,
+            this.authService);
   }
 
   @Test
   @DisplayName("Should return transaction response when execute")
   void shouldReturnTransactionResponse_WhenExecute() {
     when(this.transactionDateService.validateQueryParamsAndGetFilters(
-            any(GetTransactionsQueryParams.class)))
+            any(GetTransactionsQueryParams.class), anyLong()))
         .thenReturn(TRANSACTION_FILTER);
     when(this.transactionService.find(any(TransactionFilter.class)))
         .thenReturn(EXPENSE_TRANSACTIONS_PAGE);

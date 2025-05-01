@@ -35,7 +35,7 @@ public class TransactionDateServiceTest {
     Executable executable =
         () ->
             this.transactionDateService.validateQueryParamsAndGetFilters(
-                GET_TRANSACTIONS_QUERY_PARAMS_WITH_WRONG_DATES);
+                GET_TRANSACTIONS_QUERY_PARAMS_WITH_WRONG_DATES, USER_ID);
     assertThrows(BadRequestException.class, executable);
   }
 

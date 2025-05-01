@@ -25,11 +25,12 @@ public class TransactionDateService {
   Logger log = LoggerFactory.getLogger(TransactionDateService.class);
 
   public TransactionFilter validateQueryParamsAndGetFilters(
-      GetTransactionsQueryParams queryParams) {
+      GetTransactionsQueryParams queryParams, Long userId) {
     validateAndThrowPagination(queryParams.pageNumber(), queryParams.pageSize(), log);
     validateAndThrowDateRange(queryParams.startDate(), queryParams.endDate(), log);
     var paginationFilter = new PaginationFilter(queryParams.pageNumber(), queryParams.pageSize());
-    return new TransactionFilter(queryParams.startDate(), queryParams.endDate(), paginationFilter);
+    return new TransactionFilter(
+        userId, queryParams.startDate(), queryParams.endDate(), paginationFilter);
   }
 
   public Page<TransactionDateResponse> collectTransactionDateResponsePage(

@@ -4,6 +4,7 @@ import com.mypersonalbook.economy.application.exceptions.UnauthorizedException;
 import com.mypersonalbook.economy.config.auth.JwtUtil;
 import com.mypersonalbook.economy.domain.User;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,12 +22,19 @@ public class AuthService {
   }
 
   public String login(User user) {
-    Authentication authentication =
-        this.authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
+    Authentication authentication = this.authenticateUser(user.getEmail(), user.getPassword());
     UserDetailsAdapter userDetails = (UserDetailsAdapter) authentication.getPrincipal();
     this.ensureUserIsVerified(userDetails.getUser());
     return this.jwtUtil.generateToken(userDetails);
+  }
+
+  private Authentication authenticateUser(String email, String password) {
+    try {
+      return this.authenticationManager.authenticate(
+          new UsernamePasswordAuthenticationToken(email, password));
+    } catch (BadCredentialsException e) {
+      throw new UnauthorizedException(e.getMessage());
+    }
   }
 
   private void ensureUserIsVerified(User user) {
@@ -37,7 +45,9 @@ public class AuthService {
 
   public Long getUserId() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    if (authentication != null && authentication.getCredentials() != null) { // TODO: Obtain id from principal, not credentials
+    if (authentication != null
+        && authentication.getCredentials()
+            != null) { // TODO: Obtain id from principal, not credentials
       return (long) authentication.getCredentials();
     }
     return null;

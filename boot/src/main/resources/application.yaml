@@ -40,3 +40,6 @@ spring:
   #          enable: true
 
 SECRET_KEY: ${SECRET_KEY}
+
+server:
+  port: ${PORT:8080}

@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://monorail.proxy.rlwy.net:50836/railway?ssl=false
+    url: jdbc:postgresql://monorail.proxy.rlwy.net:50836/railway?sslmode=require
     username: ${DB_USER}
     password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver

@@ -34,7 +34,6 @@ public class SaveTransactionUseCase implements SaveTransactionUseCasePort {
   private void validate(Transaction transaction) {
     if (!transaction.hasAmount()
         || !transaction.hasCategory()
-        || transaction.hasEmptyDescription()
         || !transaction.hasDate()
         || !transaction.hasType()) {
       throw new BadRequestException();

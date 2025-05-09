@@ -115,10 +115,6 @@ public class Transaction {
     return this.category != null && StringUtils.hasText(this.getCategory().getName());
   }
 
-  public boolean hasEmptyDescription() {
-    return this.getDescription() != null && this.getDescription().isBlank();
-  }
-
   public boolean hasDate() {
     return this.date != null;
   }

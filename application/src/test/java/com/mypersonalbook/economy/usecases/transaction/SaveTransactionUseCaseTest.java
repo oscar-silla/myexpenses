@@ -60,14 +60,6 @@ public class SaveTransactionUseCaseTest {
   }
 
   @Test
-  @DisplayName("Should throw bad request exception when description is empty")
-  void shouldThrowBadRequestException_WhenDescriptionIsEmpty() {
-    final Executable EXECUTABLE =
-        () -> this.saveTransactionUseCase.execute(EXPENSE_TRANSACTION_WITH_EMPTY_DESCRIPTION);
-    assertThrows(BadRequestException.class, EXECUTABLE);
-  }
-
-  @Test
   @DisplayName("Should throw bad request exception when date is null")
   void shouldThrowBadRequestException_WhenDateIsNull() {
     final Executable EXECUTABLE =

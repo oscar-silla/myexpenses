@@ -6,8 +6,9 @@ import org.mapstruct.*;
 
 @Mapper(componentModel = "spring")
 public interface CategoryRepositoryMapper {
-  @Mapping(target = "type.id", source = "type")
-  CategoryMO toCategoryMO(Category category);
+  @Mapping(target = "type.id", source = "category.type")
+  @Mapping(target = "user.id", source = "userId")
+  CategoryMO toCategoryMO(Category category, Long userId);
 
   @Mapping(target = "type", source = "type.id")
   Category toCategory(CategoryMO categoryMO);

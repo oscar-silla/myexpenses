@@ -2,6 +2,8 @@ package com.mypersonalbook.economy.application.usecases.transaction;
 
 import com.mypersonalbook.economy.application.exceptions.UnauthorizedException;
 import com.mypersonalbook.economy.application.services.AuthService;
+import com.mypersonalbook.economy.application.services.CategoryService;
+import com.mypersonalbook.economy.domain.Category;
 import com.mypersonalbook.economy.domain.Transaction;
 import com.mypersonalbook.economy.application.exceptions.BadRequestException;
 import com.mypersonalbook.economy.application.ports.driving.transaction.SaveTransactionUseCasePort;
@@ -13,14 +15,17 @@ import org.springframework.stereotype.Service;
 public class SaveTransactionUseCase implements SaveTransactionUseCasePort {
   private final TransactionService transactionService;
   private final TransactionTypeService transactionTypeService;
+  private final CategoryService categoryService;
   private final AuthService authService;
 
   public SaveTransactionUseCase(
       TransactionService transactionService,
       TransactionTypeService transactionTypeService,
+      CategoryService categoryService,
       AuthService authService) {
     this.transactionService = transactionService;
     this.transactionTypeService = transactionTypeService;
+    this.categoryService = categoryService;
     this.authService = authService;
   }
 
@@ -28,7 +33,10 @@ public class SaveTransactionUseCase implements SaveTransactionUseCasePort {
   public void execute(Transaction transaction) {
     this.validate(transaction);
     transaction.getUser().setId(this.authService.getUserId());
-    this.transactionService.save(transaction);
+    Category category =
+        this.categoryService.save(
+            this.populateCategory(transaction), transaction.getUser().getId());
+    this.transactionService.save(this.populateTransaction(transaction, category));
   }
 
   private void validate(Transaction transaction) {
@@ -42,5 +50,14 @@ public class SaveTransactionUseCase implements SaveTransactionUseCasePort {
       throw new UnauthorizedException();
     }
     this.transactionTypeService.findOrThrowNotFoundException(transaction.getType());
+  }
+
+  private Category populateCategory(Transaction transaction) {
+    return new Category(null, transaction.getCategory().getName(), transaction.getType());
+  }
+
+  private Transaction populateTransaction(Transaction transaction, Category category) {
+    transaction.setCategory(category);
+    return transaction;
   }
 }

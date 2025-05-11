@@ -4,6 +4,7 @@ import com.mypersonalbook.economy.application.filters.CategoryFilter;
 import com.mypersonalbook.economy.models.CategoryMO;
 import com.mypersonalbook.economy.models.CategoryMO_;
 import com.mypersonalbook.economy.models.TransactionTypeMO_;
+import com.mypersonalbook.economy.models.UserMO_;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,9 @@ public class CategorySpecificationImpl implements CategorySpecification {
     if (filter.type() != null) {
       specifications.add(this.equalsType(filter.type()));
     }
+    if (filter.userId() != null) {
+      specifications.add(this.equalsUserId(filter.userId()));
+    }
     return specifications.stream().reduce(Specification::and).orElse(null);
   }
 
@@ -31,5 +35,10 @@ public class CategorySpecificationImpl implements CategorySpecification {
   private Specification<CategoryMO> equalsType(String type) {
     return (root, query, cb) ->
         cb.equal(cb.upper(root.get(CategoryMO_.TYPE).get(TransactionTypeMO_.ID)), type);
+  }
+
+  private Specification<CategoryMO> equalsUserId(Long userId) {
+    return (root, query, cb) ->
+        cb.equal(root.get(CategoryMO_.USER).get(UserMO_.ID), userId);
   }
 }

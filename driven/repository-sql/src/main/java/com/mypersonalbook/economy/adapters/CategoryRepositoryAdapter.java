@@ -32,4 +32,11 @@ public class CategoryRepositoryAdapter implements CategoryRepositoryPort {
         this.categoryJpaRepository.findOne(this.categorySpecification.getSpecification(filter));
     return categoryMO.map(this.categoryRepositoryMapper::toCategory);
   }
+
+  @Override
+  public Category save(Category category, Long userId) {
+    return this.categoryRepositoryMapper.toCategory(
+        this.categoryJpaRepository.save(
+            this.categoryRepositoryMapper.toCategoryMO(category, userId)));
+  }
 }

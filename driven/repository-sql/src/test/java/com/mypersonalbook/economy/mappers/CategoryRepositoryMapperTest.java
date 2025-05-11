@@ -23,9 +23,10 @@ public class CategoryRepositoryMapperTest {
   @Test
   @DisplayName("Should map to categoryMO")
   void shouldMapToCategoryMO() {
-    final CategoryMO RESULT = this.categoryRepositoryMapper.toCategoryMO(EXPENSE_CATEGORY);
+    final CategoryMO RESULT = this.categoryRepositoryMapper.toCategoryMO(EXPENSE_CATEGORY, USER_ID);
     assertEquals(CATEGORY_ID, RESULT.getId());
     assertEquals(CATEGORY_NAME_UPPER_CASE, RESULT.getName());
     assertEquals(CATEGORY_EXPENSE_TRANSACTION_TYPE_UPPER_CASE, RESULT.getType().getId());
+    assertEquals(USER_ID, RESULT.getUser().getId());
   }
 }

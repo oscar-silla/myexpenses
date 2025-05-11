@@ -23,12 +23,17 @@ public class CategoryMO {
   @JoinColumn(name = "transaction_type_id")
   private TransactionTypeMO type;
 
+  @ManyToOne
+  @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
+  private UserMO user;
+
   public CategoryMO() {}
 
-  public CategoryMO(Long id, String name, TransactionTypeMO type) {
+  public CategoryMO(Long id, String name, TransactionTypeMO type, UserMO user) {
     this.id = id;
     this.name = name;
     this.type = type;
+    this.user = user;
   }
 
   public Long getId() {
@@ -53,5 +58,13 @@ public class CategoryMO {
 
   public void setType(TransactionTypeMO type) {
     this.type = type;
+  }
+
+  public UserMO getUser() {
+    return user;
+  }
+
+  public void setUser(UserMO user) {
+    this.user = user;
   }
 }

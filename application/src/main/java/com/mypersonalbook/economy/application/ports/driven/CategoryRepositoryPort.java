@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface CategoryRepositoryPort {
   Optional<Category> findOne(CategoryFilter filter);
+
+  Category save(Category category, Long userId);
 }

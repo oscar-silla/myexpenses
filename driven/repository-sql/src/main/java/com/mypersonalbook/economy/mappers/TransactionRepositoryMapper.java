@@ -10,6 +10,7 @@ import org.mapstruct.*;
     injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface TransactionRepositoryMapper {
   @Mapping(target = "type.id", source = "type")
+  @Mapping(target = "category.user.id", source = "user.id")
   TransactionMO toTransactionMO(Transaction transaction);
 
   @Mapping(target = "type", source = "type.id")

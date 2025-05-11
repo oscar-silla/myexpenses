@@ -2,6 +2,7 @@ package com.mypersonalbook.economy.usecases.transaction;
 
 import com.mypersonalbook.economy.application.exceptions.UnauthorizedException;
 import com.mypersonalbook.economy.application.services.AuthService;
+import com.mypersonalbook.economy.application.services.CategoryService;
 import com.mypersonalbook.economy.application.usecases.transaction.SaveTransactionUseCase;
 import com.mypersonalbook.economy.domain.Transaction;
 import com.mypersonalbook.economy.application.exceptions.BadRequestException;
@@ -26,13 +27,17 @@ public class SaveTransactionUseCaseTest {
   SaveTransactionUseCasePort saveTransactionUseCase;
   @Mock private TransactionService transactionService;
   @Mock private TransactionTypeService transactionTypeService;
+  @Mock private CategoryService categoryService;
   @Mock private AuthService authService;
 
   @BeforeEach
   void setUp() {
     this.saveTransactionUseCase =
         new SaveTransactionUseCase(
-            this.transactionService, this.transactionTypeService, this.authService);
+            this.transactionService,
+            this.transactionTypeService,
+            this.categoryService,
+            this.authService);
   }
 
   @Test

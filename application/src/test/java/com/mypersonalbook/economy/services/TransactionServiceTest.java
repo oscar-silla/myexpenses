@@ -30,27 +30,16 @@ import static org.mockito.Mockito.*;
 public class TransactionServiceTest {
   TransactionService transactionService;
   @Mock private TransactionRepositoryPort transactionRepository;
-  @Mock private CategoryRepositoryPort categoryRepository;
 
   @BeforeEach
   void setUp() {
     this.transactionService =
-        new TransactionService(this.transactionRepository, this.categoryRepository);
-  }
-
-  @Test
-  @DisplayName("Should throw not found exception when save")
-  void shouldThrowNotFoundException_WhenSave() {
-    when(this.categoryRepository.findOne(any(CategoryFilter.class))).thenReturn(Optional.empty());
-    Executable executable = () -> this.transactionService.save(EXPENSE_TRANSACTION_1);
-    assertThrows(NotFoundException.class, executable);
+        new TransactionService(this.transactionRepository);
   }
 
   @Test
   @DisplayName("Should save transaction")
   void shouldSaveTransaction() {
-    when(this.categoryRepository.findOne(any(CategoryFilter.class)))
-        .thenReturn(Optional.of(EXPENSE_CATEGORY));
     doNothing().when(this.transactionRepository).save(any(Transaction.class));
     this.transactionService.save(EXPENSE_TRANSACTION_1);
     verify(this.transactionRepository).save(any(Transaction.class));
@@ -93,7 +82,6 @@ public class TransactionServiceTest {
   @Test
   @DisplayName("Should throw not found exception when modify transaction and category not exists")
   void shouldThrowNotFoundException_WhenModifyTransaction_AndCategoryNotExists() {
-    when(this.categoryRepository.findOne(any(CategoryFilter.class))).thenReturn(Optional.empty());
     Executable executable = () -> this.transactionService.modify(EXPENSE_TRANSACTION_1);
     assertThrows(NotFoundException.class, executable);
   }
@@ -102,8 +90,6 @@ public class TransactionServiceTest {
   @DisplayName(
       "Should throw not found exception when modify transaction and transaction to update not exists")
   void shouldThrowNotFoundException_WhenModifyTransaction_AndTransactionToUpdateNotExists() {
-    when(this.categoryRepository.findOne(any(CategoryFilter.class)))
-        .thenReturn(Optional.of(EXPENSE_CATEGORY));
     when(this.transactionRepository.findById(anyLong())).thenReturn(Optional.empty());
     Executable executable = () -> this.transactionService.modify(EXPENSE_TRANSACTION_1);
     assertThrows(NotFoundException.class, executable);
@@ -112,8 +98,6 @@ public class TransactionServiceTest {
   @Test
   @DisplayName("Should modify transaction")
   void shouldModifyTransaction() {
-    when(this.categoryRepository.findOne(any(CategoryFilter.class)))
-        .thenReturn(Optional.of(EXPENSE_CATEGORY));
     when(this.transactionRepository.findById(anyLong()))
         .thenReturn(Optional.of(EXPENSE_TRANSACTION_1));
     doNothing()

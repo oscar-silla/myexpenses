@@ -22,4 +22,9 @@ public class Utils {
       throw new BadRequestException();
     }
   }
+
+  public static float roundToTwoDecimals(float value) {
+    if (value == 0) return 0;
+    return Math.round(value * 100f) / 100f;
+  }
 }

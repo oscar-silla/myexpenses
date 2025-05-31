@@ -65,4 +65,16 @@ public class UtilsTest {
                 PAGE_NUMBER, 0, LoggerFactory.getLogger(UtilsTest.class));
     assertThrows(BadRequestException.class, executable);
   }
+
+  @Test
+  @DisplayName("Should return 0 when round to two decimals")
+  void shouldReturnZero_WhenRoundToTwoDecimals() {
+    assertEquals(0.0f, Utils.roundToTwoDecimals(0.0f));
+  }
+
+  @Test
+  @DisplayName("Should return value when round to two decimals")
+  void shouldReturnValue_WhenRoundToTwoDecimals() {
+    assertEquals(1.23f, Utils.roundToTwoDecimals(1.23239437394343f));
+  }
 }

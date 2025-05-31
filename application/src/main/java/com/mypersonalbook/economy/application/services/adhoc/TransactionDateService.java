@@ -17,8 +17,8 @@ import java.time.LocalDate;
 import java.util.*;
 
 import static com.mypersonalbook.economy.utils.AppConstants.EXPENSE_TYPE;
-import static com.mypersonalbook.economy.utils.Utils.validateAndThrowDateRange;
-import static com.mypersonalbook.economy.utils.Utils.validateAndThrowPagination;
+import static com.mypersonalbook.economy.utils.Utils.*;
+import static com.mypersonalbook.economy.utils.Utils.roundToTwoDecimals;
 
 @Service
 public class TransactionDateService {
@@ -58,13 +58,17 @@ public class TransactionDateService {
                 transactionDateResponse
                     .amount()
                     .setExpense(
-                        transactionDateResponse.amount().getExpense() + transaction.getAmount());
+                        roundToTwoDecimals(
+                            transactionDateResponse.amount().getExpense()
+                                + transaction.getAmount()));
               } else {
                 transactionDateResponse.revenues().add(transaction);
                 transactionDateResponse
                     .amount()
                     .setRevenue(
-                        transactionDateResponse.amount().getRevenue() + transaction.getAmount());
+                        roundToTwoDecimals(
+                            transactionDateResponse.amount().getRevenue()
+                                + transaction.getAmount()));
               }
             });
     return new PageImpl<>(getSortTransactionDateResponseList(transactionDateResponseMap));
@@ -104,16 +108,26 @@ public class TransactionDateService {
     } else {
       final float totalRevenue = this.sumRevenues(transactionDates);
       final float totalExpense = this.sumExpenses(transactionDates);
-      final float totalMoney = totalRevenue - totalExpense;
+      final float totalMoney = roundToTwoDecimals(totalRevenue - totalExpense);
       return new TransactionSummaryResponse(totalRevenue, totalExpense, totalMoney);
     }
   }
 
   private float sumRevenues(List<TransactionDateResponse> transactionDates) {
-    return transactionDates.stream().reduce(0f, (a, c) -> a + c.amount().getRevenue(), Float::sum);
+    final float total =
+        transactionDates.stream().reduce(0f, (a, c) -> a + c.amount().getRevenue(), Float::sum);
+    if (total != 0) {
+      return roundToTwoDecimals(total);
+    }
+    return total;
   }
 
   private float sumExpenses(List<TransactionDateResponse> transactionDates) {
-    return transactionDates.stream().reduce(0f, (a, c) -> a + c.amount().getExpense(), Float::sum);
+    final float total =
+        transactionDates.stream().reduce(0f, (a, c) -> a + c.amount().getExpense(), Float::sum);
+    if (total != 0) {
+      return roundToTwoDecimals(total);
+    }
+    return total;
   }
 }

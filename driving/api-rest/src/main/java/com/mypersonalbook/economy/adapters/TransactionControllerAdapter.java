@@ -67,7 +67,7 @@ public class TransactionControllerAdapter implements TransactionsApi {
   public ResponseEntity<TransactionsResponseType> getTransactions(
       Integer pageSize, Integer pageNumber, LocalDate startDate, LocalDate endDate) {
     logger.info(
-        "GET /economy/v1/expenses with pageSize: {}, pageNumber: {}, startDate: {}, endDate: {}",
+        "GET /economy/v1/transactions with pageSize: {}, pageNumber: {}, startDate: {}, endDate: {}",
         pageSize,
         pageNumber,
         startDate,

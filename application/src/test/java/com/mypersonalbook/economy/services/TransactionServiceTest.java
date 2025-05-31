@@ -80,30 +80,12 @@ public class TransactionServiceTest {
   }
 
   @Test
-  @DisplayName("Should throw not found exception when modify transaction and category not exists")
-  void shouldThrowNotFoundException_WhenModifyTransaction_AndCategoryNotExists() {
-    Executable executable = () -> this.transactionService.modify(EXPENSE_TRANSACTION_1);
-    assertThrows(NotFoundException.class, executable);
-  }
-
-  @Test
-  @DisplayName(
-      "Should throw not found exception when modify transaction and transaction to update not exists")
-  void shouldThrowNotFoundException_WhenModifyTransaction_AndTransactionToUpdateNotExists() {
-    when(this.transactionRepository.findById(anyLong())).thenReturn(Optional.empty());
-    Executable executable = () -> this.transactionService.modify(EXPENSE_TRANSACTION_1);
-    assertThrows(NotFoundException.class, executable);
-  }
-
-  @Test
   @DisplayName("Should modify transaction")
   void shouldModifyTransaction() {
-    when(this.transactionRepository.findById(anyLong()))
-        .thenReturn(Optional.of(EXPENSE_TRANSACTION_1));
     doNothing()
         .when(this.transactionRepository)
         .modify(any(Transaction.class), any(Transaction.class));
-    this.transactionService.modify(EXPENSE_TRANSACTION_1);
+    this.transactionService.modify(EXPENSE_TRANSACTION_1, EXPENSE_TRANSACTION_1);
     verify(this.transactionRepository).modify(any(Transaction.class), any(Transaction.class));
   }
 }

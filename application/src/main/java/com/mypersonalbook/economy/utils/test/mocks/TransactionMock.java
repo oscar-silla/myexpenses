@@ -83,12 +83,12 @@ public class TransactionMock {
           TRANSACTION_DATE_1,
           CATEGORY_EXPENSE_TRANSACTION_TYPE_UPPER_CASE,
           USER);
-  public static final Transaction EXPENSE_TRANSACTION_WITH_EMPTY_DESCRIPTION =
+  public static final Transaction EXPENSE_TRANSACTION_WITH_DIFFERENT_CATEGORY =
       new Transaction(
           TRANSACTION_ID_1,
           EXPENSE_TRANSACTION_AMOUNT,
-          EXPENSE_CATEGORY,
-          "  ",
+          EXPENSE_CATEGORY_2,
+          TRANSACTION_DESCRIPTION,
           TRANSACTION_DATE_1,
           CATEGORY_EXPENSE_TRANSACTION_TYPE_UPPER_CASE,
           USER);

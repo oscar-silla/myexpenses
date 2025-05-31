@@ -27,8 +27,12 @@ public class TransactionRepositoryMapperTest {
   @BeforeEach
   void setUp() {
     CategoryRepositoryMapper categoryRepositoryMapper = new CategoryRepositoryMapperImpl();
+    UserRepositoryMapper userRepositoryMapper = new UserRepositoryMapperImpl();
+    TransactionTypeRepositoryMapper transactionTypeRepositoryMapper =
+        new TransactionTypeRepositoryMapperImpl();
     this.transactionRepositoryMapper =
-        new TransactionRepositoryMapperImpl(categoryRepositoryMapper);
+        new TransactionRepositoryMapperImpl(
+            categoryRepositoryMapper, userRepositoryMapper, transactionTypeRepositoryMapper);
   }
 
   @Test

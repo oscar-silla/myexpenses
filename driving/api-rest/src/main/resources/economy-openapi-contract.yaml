@@ -2,11 +2,12 @@ openapi: 3.0.1
 info:
   title: Economy API
   description: Economy API from my personal book
-  version: 3.3.1
+  version: 3.3.2
 tags:
   - name: Transactions
   - name: Users
   - name: Auth
+  - name: Categories
 paths:
   /transactions:
     post:
@@ -358,8 +359,72 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponseType"
+  /categories:
+    get:
+      summary: Get user categories
+      operationId: getCategories
+      tags:
+        - Categories
+      parameters:
+        - $ref: "#/components/parameters/pageSizeQueryParam"
+        - $ref: "#/components/parameters/pageNumberQueryParam"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoriesResponseType"
+        '400':
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
+        '401':
+          description: UNAUTHORIZED
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
+        '403':
+          description: FORBIDDEN
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
+        '500':
+          description: INTERNAL SERVER ERROR
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseType"
 components:
   schemas:
+    CategoryResponseType:
+      type: object
+      required:
+        - name
+        - color
+      properties:
+        name:
+          type: string
+          example: FOOD
+        color:
+          type: string
+          example: FFFFFF
+    CategoriesResponseType:
+      type: object
+      required:
+        - results
+        - pagination
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/CategoryResponseType"
+        pagination:
+          $ref: "#/components/schemas/PaginationResponseType"
     TransactionCategoryResponseType:
       type: object
       required:

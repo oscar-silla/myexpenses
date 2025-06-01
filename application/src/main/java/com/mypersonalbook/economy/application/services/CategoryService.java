@@ -1,6 +1,5 @@
 package com.mypersonalbook.economy.application.services;
 
-import com.mypersonalbook.economy.application.exceptions.NotFoundException;
 import com.mypersonalbook.economy.application.filters.CategoryFilter;
 import com.mypersonalbook.economy.application.ports.driven.CategoryRepositoryPort;
 import com.mypersonalbook.economy.domain.Category;
@@ -26,7 +25,7 @@ public class CategoryService {
     return currentCategory.orElseGet(() -> this.categoryRepository.save(category, userId));
   }
 
-  public Category findOneOrThrow(CategoryFilter filter) {
-    return this.findOne(filter).orElseThrow(NotFoundException::new);
+  public Category findOneOrCreate(Category category, CategoryFilter filter) {
+    return this.findOne(filter).orElseGet(() -> this.save(category, filter.userId()));
   }
 }

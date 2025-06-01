@@ -1,6 +1,7 @@
 package com.mypersonalbook.economy.application.usecases.transaction;
 
 import com.mypersonalbook.economy.application.exceptions.UnauthorizedException;
+import com.mypersonalbook.economy.application.filters.CategoryFilter;
 import com.mypersonalbook.economy.application.services.AuthService;
 import com.mypersonalbook.economy.application.services.CategoryService;
 import com.mypersonalbook.economy.domain.Category;
@@ -10,6 +11,8 @@ import com.mypersonalbook.economy.application.ports.driving.transaction.SaveTran
 import com.mypersonalbook.economy.application.services.TransactionService;
 import com.mypersonalbook.economy.application.services.TransactionTypeService;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class SaveTransactionUseCase implements SaveTransactionUseCasePort {
@@ -34,8 +37,8 @@ public class SaveTransactionUseCase implements SaveTransactionUseCasePort {
     this.validate(transaction);
     transaction.getUser().setId(this.authService.getUserId());
     Category category =
-        this.categoryService.save(
-            this.populateCategory(transaction), transaction.getUser().getId());
+        this.categoryService.findOneOrCreate(
+            this.populateCategory(transaction), buildCategoryFilter(transaction));
     this.transactionService.save(this.populateTransaction(transaction, category));
   }
 
@@ -53,11 +56,20 @@ public class SaveTransactionUseCase implements SaveTransactionUseCasePort {
   }
 
   private Category populateCategory(Transaction transaction) {
-    return new Category(null, transaction.getCategory().getName(), transaction.getType());
+    return new Category(
+        null,
+        transaction.getCategory().getName(),
+        transaction.getType(),
+        transaction.getCategory().getColor());
   }
 
   private Transaction populateTransaction(Transaction transaction, Category category) {
     transaction.setCategory(category);
     return transaction;
+  }
+
+  private CategoryFilter buildCategoryFilter(Transaction transaction) {
+    return new CategoryFilter(
+        transaction.getCategory().getName(), transaction.getType(), this.authService.getUserId());
   }
 }

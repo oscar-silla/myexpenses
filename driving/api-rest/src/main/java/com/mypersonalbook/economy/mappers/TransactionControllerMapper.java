@@ -18,18 +18,16 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface TransactionControllerMapper {
-  @Mapping(target = "category.name", source = "category", qualifiedByName = "toUpperCase")
+  @Mapping(target = "category.name", source = "category.name", qualifiedByName = "toUpperCase")
   @Mapping(target = "type", source = "type", qualifiedByName = "toUpperCase")
   @Mapping(target = "user", expression = "java(new com.mypersonalbook.economy.domain.User())")
   Transaction toTransaction(TransactionRequestBodyType expenseRequestBodyType);
 
-  @Mapping(target = "category.name", source = "category", qualifiedByName = "toUpperCase")
+  @Mapping(target = "category.name", source = "category.name", qualifiedByName = "toUpperCase")
   Transaction toTransaction(TransactionRequestBodyPatchType expenseRequestBodyType);
 
-  @Mapping(target = "category", source = "category.name")
   TransactionResponseType toExpenseResponseType(Transaction transaction);
 
-  @Mapping(target = "category", source = "category.name")
   TransactionDetailResponseType toTransactionDetailResponseType(Transaction transaction);
 
   List<TransactionDetailResponseType> toTransactionDetailResponseTypes(

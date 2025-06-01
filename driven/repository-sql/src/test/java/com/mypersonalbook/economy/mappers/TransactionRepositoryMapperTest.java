@@ -82,7 +82,7 @@ public class TransactionRepositoryMapperTest {
   @Test
   @DisplayName("Should map from dto to transaction with transaction")
   void shouldMapFromDtoToTransaction_WithTransaction() {
-    Category category = new Category(1L, "CATEGORY", "EXPENSE");
+    Category category = new Category(1L, "CATEGORY", "EXPENSE", CATEGORY_COLOR);
     Transaction transactionToUpdate =
         new Transaction(
             1L,
@@ -101,6 +101,7 @@ public class TransactionRepositoryMapperTest {
     assertEquals(CATEGORY_TRANSACTION_TYPE_2, transactionToUpdate.getCategory().getType());
     assertEquals(TRANSACTION_DESCRIPTION_2, transactionToUpdate.getDescription());
     assertEquals(TRANSACTION_DATE_2, transactionToUpdate.getDate());
+    assertEquals(CATEGORY_COLOR_2, transactionToUpdate.getCategory().getColor());
   }
 
   @Test

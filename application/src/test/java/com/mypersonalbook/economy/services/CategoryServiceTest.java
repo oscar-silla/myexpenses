@@ -53,25 +53,6 @@ public class CategoryServiceTest {
   }
 
   @Test
-  @DisplayName("Should return value when findOneOrThrow")
-  void shouldReturnValue_WhenFindOneOrThrow() {
-    when(this.categoryRepository.findOne(any(CategoryFilter.class)))
-        .thenReturn(Optional.of(EXPENSE_CATEGORY));
-    final Category RESULT = this.categoryService.findOneOrThrow(CATEGORY_FILTER);
-    verify(this.categoryRepository).findOne(any(CategoryFilter.class));
-    assertEquals(RESULT, EXPENSE_CATEGORY);
-  }
-
-  @Test
-  @DisplayName("Should throw exception when findOneOrThrow")
-  void shouldThrowException_WhenFindOneOrThrow() {
-    when(this.categoryRepository.findOne(any(CategoryFilter.class))).thenReturn(Optional.empty());
-    assertThrows(
-        NotFoundException.class, () -> this.categoryService.findOneOrThrow(CATEGORY_FILTER));
-    verify(this.categoryRepository).findOne(any(CategoryFilter.class));
-  }
-
-  @Test
   @DisplayName("Should return value when save")
   void shouldReturnValue_WhenSave() {
     when(this.categoryRepository.save(any(), any())).thenReturn(EXPENSE_CATEGORY);

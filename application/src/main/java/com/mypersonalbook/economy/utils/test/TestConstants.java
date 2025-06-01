@@ -21,6 +21,8 @@ public class TestConstants {
   public static final LocalDate TRANSACTION_DATE_2 = LocalDate.now().plusDays(1);
   public static final Long CATEGORY_ID = 2L;
   public static final Long CATEGORY_ID_2 = 3L;
+  public static final String CATEGORY_COLOR_2 = "#777777";
+  public static final String CATEGORY_COLOR = "#777770";
   public static final String CATEGORY_NAME_UPPER_CASE = "FOOD";
   public static final String CATEGORY_NAME_LOWER_CASE = "Food";
   public static final String CATEGORY_NAME_LOWER_CASE_2 = "Finances";

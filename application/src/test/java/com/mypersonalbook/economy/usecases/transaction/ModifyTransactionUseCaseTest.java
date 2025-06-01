@@ -46,13 +46,13 @@ public class ModifyTransactionUseCaseTest {
   void shouldModifyTransaction_WithNewCategory_WhenExecuteUseCase() {
     when(this.transactionService.findById(anyLong()))
         .thenReturn(EXPENSE_TRANSACTION_WITH_DIFFERENT_CATEGORY);
-    when(this.categoryService.findOneOrThrow(any()))
+    when(this.categoryService.findOneOrCreate(any(),any()))
         .thenReturn(EXPENSE_TRANSACTION_2.getCategory());
     doNothing()
         .when(this.transactionService)
         .modify(any(Transaction.class), any(Transaction.class));
     this.modifyTransactionUseCase.execute(EXPENSE_TRANSACTION_1);
-    verify(this.categoryService).findOneOrThrow(any());
+    verify(this.categoryService).findOneOrCreate(any(), any());
     verify(this.transactionService).modify(any(Transaction.class), any(Transaction.class));
   }
 }

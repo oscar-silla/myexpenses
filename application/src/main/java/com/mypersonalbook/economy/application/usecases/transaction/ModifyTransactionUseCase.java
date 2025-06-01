@@ -29,7 +29,8 @@ public class ModifyTransactionUseCase implements ModifyTransactionUseCasePort {
     final Transaction transactionToUpdate = this.transactionService.findById(transaction.getId());
     if (this.isCategoryModified(transaction, transactionToUpdate)) {
       Category category =
-          this.categoryService.findOneOrThrow(this.buildCategoryFilter(transaction));
+          this.categoryService.findOneOrCreate(
+              transaction.getCategory(), this.buildCategoryFilter(transaction));
       transaction.setCategory(category);
     }
     this.transactionService.modify(transaction, transactionToUpdate);

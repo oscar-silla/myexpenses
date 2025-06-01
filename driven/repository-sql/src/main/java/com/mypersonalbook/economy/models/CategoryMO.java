@@ -19,6 +19,9 @@ public class CategoryMO {
   @Column(name = "category_name")
   private String name;
 
+  @Column(name = "color", nullable = false)
+  private String color;
+
   @OneToOne
   @JoinColumn(name = "transaction_type_id")
   private TransactionTypeMO type;
@@ -29,11 +32,12 @@ public class CategoryMO {
 
   public CategoryMO() {}
 
-  public CategoryMO(Long id, String name, TransactionTypeMO type, UserMO user) {
+  public CategoryMO(Long id, String name, TransactionTypeMO type, UserMO user, String color) {
     this.id = id;
     this.name = name;
     this.type = type;
     this.user = user;
+    this.color = color;
   }
 
   public Long getId() {
@@ -66,5 +70,13 @@ public class CategoryMO {
 
   public void setUser(UserMO user) {
     this.user = user;
+  }
+
+  public String getColor() {
+    return color;
+  }
+
+  public void setColor(String color) {
+    this.color = color;
   }
 }

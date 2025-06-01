@@ -44,7 +44,8 @@ public class TransactionControllerMapperTest {
         this.transactionControllerMapper.toExpenseResponseType(EXPENSE_TRANSACTION_1);
     assertEquals(EXPENSE_TRANSACTION_AMOUNT, RESULT.getAmount());
     assertEquals(TRANSACTION_DESCRIPTION, RESULT.getDescription());
-    assertEquals(CATEGORY_NAME_UPPER_CASE, RESULT.getCategory());
+    assertEquals(CATEGORY_NAME_UPPER_CASE, RESULT.getCategory().getName());
+    assertEquals(CATEGORY_COLOR, RESULT.getCategory().getColor());
     assertEquals(TRANSACTION_DATE_1, RESULT.getDate());
   }
 
@@ -58,9 +59,13 @@ public class TransactionControllerMapperTest {
     assertEquals(PAGE_TOTAL_RESULTS, RESULT.getPagination().getTotalResults());
     assertEquals(TRANSACTION_DATE_1, RESULT.getResults().get(0).getDate());
     assertEquals(TRANSACTION_ID_1, RESULT.getResults().get(0).getExpenses().get(0).getId());
-    assertEquals(EXPENSE_TRANSACTION_AMOUNT, RESULT.getResults().get(0).getExpenses().get(0).getAmount());
     assertEquals(
-        CATEGORY_NAME_UPPER_CASE, RESULT.getResults().get(0).getExpenses().get(0).getCategory());
+        EXPENSE_TRANSACTION_AMOUNT, RESULT.getResults().get(0).getExpenses().get(0).getAmount());
+    assertEquals(
+        CATEGORY_NAME_UPPER_CASE,
+        RESULT.getResults().get(0).getExpenses().get(0).getCategory().getName());
+    assertEquals(
+        CATEGORY_COLOR, RESULT.getResults().get(0).getExpenses().get(0).getCategory().getColor());
     assertEquals(
         TRANSACTION_DESCRIPTION, RESULT.getResults().get(0).getExpenses().get(0).getDescription());
   }

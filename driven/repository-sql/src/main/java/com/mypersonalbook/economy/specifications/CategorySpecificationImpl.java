@@ -25,6 +25,7 @@ public class CategorySpecificationImpl implements CategorySpecification {
     if (filter.userId() != null) {
       specifications.add(this.equalsUserId(filter.userId()));
     }
+
     return specifications.stream().reduce(Specification::and).orElse(null);
   }
 
@@ -38,7 +39,6 @@ public class CategorySpecificationImpl implements CategorySpecification {
   }
 
   private Specification<CategoryMO> equalsUserId(Long userId) {
-    return (root, query, cb) ->
-        cb.equal(root.get(CategoryMO_.USER).get(UserMO_.ID), userId);
+    return (root, query, cb) -> cb.equal(root.get(CategoryMO_.USER).get(UserMO_.ID), userId);
   }
 }

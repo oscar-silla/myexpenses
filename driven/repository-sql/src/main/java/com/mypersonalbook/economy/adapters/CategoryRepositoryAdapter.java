@@ -1,5 +1,6 @@
 package com.mypersonalbook.economy.adapters;
 
+import com.mypersonalbook.economy.application.filters.PaginationFilter;
 import com.mypersonalbook.economy.domain.Category;
 import com.mypersonalbook.economy.application.filters.CategoryFilter;
 import com.mypersonalbook.economy.mappers.CategoryRepositoryMapper;
@@ -7,6 +8,8 @@ import com.mypersonalbook.economy.models.CategoryMO;
 import com.mypersonalbook.economy.application.ports.driven.CategoryRepositoryPort;
 import com.mypersonalbook.economy.repositories.CategoryJpaRepository;
 import com.mypersonalbook.economy.specifications.CategorySpecification;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -38,5 +41,14 @@ public class CategoryRepositoryAdapter implements CategoryRepositoryPort {
     return this.categoryRepositoryMapper.toCategory(
         this.categoryJpaRepository.save(
             this.categoryRepositoryMapper.toCategoryMO(category, userId)));
+  }
+
+  @Override
+  public Page<Category> findAll(CategoryFilter filter, PaginationFilter paginationFilter) {
+    PageRequest pageRequest =
+        PageRequest.of(paginationFilter.pageNumber() - 1, paginationFilter.pageSize());
+    return this.categoryJpaRepository
+        .findAllByUserId(filter.userId(), pageRequest)
+        .map(this.categoryRepositoryMapper::toCategory);
   }
 }

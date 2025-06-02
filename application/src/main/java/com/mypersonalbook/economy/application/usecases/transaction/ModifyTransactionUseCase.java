@@ -41,7 +41,6 @@ public class ModifyTransactionUseCase implements ModifyTransactionUseCasePort {
   }
 
   private CategoryFilter buildCategoryFilter(Transaction transaction) {
-    return new CategoryFilter(
-        transaction.getCategory().getName(), transaction.getType(), this.authService.getUserId());
+    return new CategoryFilter(transaction.getCategory().getName(), this.authService.getUserId());
   }
 }

@@ -23,7 +23,7 @@ public class CategoryService {
 
   public Category save(Category category, Long userId) {
     final Optional<Category> currentCategory =
-        this.findOne(new CategoryFilter(category.getName(), category.getType(), userId));
+        this.findOne(new CategoryFilter(category.getName(), userId));
     return currentCategory.orElseGet(() -> this.categoryRepository.save(category, userId));
   }
 

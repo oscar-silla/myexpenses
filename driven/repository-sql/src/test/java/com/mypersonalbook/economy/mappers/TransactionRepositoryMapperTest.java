@@ -44,8 +44,6 @@ public class TransactionRepositoryMapperTest {
     assertEquals(EXPENSE_TRANSACTION_AMOUNT, RESULT.getAmount());
     assertEquals(CATEGORY_ID, RESULT.getCategory().getId());
     assertEquals(CATEGORY_NAME_UPPER_CASE, RESULT.getCategory().getName());
-    assertEquals(
-        CATEGORY_EXPENSE_TRANSACTION_TYPE_UPPER_CASE, RESULT.getCategory().getType().getId());
     assertEquals(TRANSACTION_DESCRIPTION, RESULT.getDescription());
     assertEquals(TRANSACTION_DATE_1, RESULT.getDate());
   }
@@ -58,7 +56,6 @@ public class TransactionRepositoryMapperTest {
     assertEquals(EXPENSE_TRANSACTION_AMOUNT, RESULT.getAmount());
     assertEquals(CATEGORY_ID, RESULT.getCategory().getId());
     assertEquals(CATEGORY_NAME_UPPER_CASE, RESULT.getCategory().getName());
-    assertEquals(CATEGORY_EXPENSE_TRANSACTION_TYPE_UPPER_CASE, RESULT.getCategory().getType());
     assertEquals(TRANSACTION_DESCRIPTION, RESULT.getDescription());
     assertEquals(TRANSACTION_DATE_1, RESULT.getDate());
   }
@@ -73,8 +70,6 @@ public class TransactionRepositoryMapperTest {
     assertEquals(EXPENSE_TRANSACTION_AMOUNT, transactionToUpdate.getAmount());
     assertEquals(CATEGORY_ID, transactionToUpdate.getCategory().getId());
     assertEquals(CATEGORY_NAME_UPPER_CASE, transactionToUpdate.getCategory().getName());
-    assertEquals(
-        CATEGORY_EXPENSE_TRANSACTION_TYPE_UPPER_CASE, transactionToUpdate.getCategory().getType());
     assertEquals(TRANSACTION_DESCRIPTION, transactionToUpdate.getDescription());
     assertEquals(TRANSACTION_DATE_1, transactionToUpdate.getDate());
   }
@@ -82,7 +77,7 @@ public class TransactionRepositoryMapperTest {
   @Test
   @DisplayName("Should map from dto to transaction with transaction")
   void shouldMapFromDtoToTransaction_WithTransaction() {
-    Category category = new Category(1L, "CATEGORY", "EXPENSE", CATEGORY_COLOR);
+    Category category = new Category(1L, "CATEGORY", CATEGORY_COLOR);
     Transaction transactionToUpdate =
         new Transaction(
             1L,
@@ -98,7 +93,6 @@ public class TransactionRepositoryMapperTest {
     assertEquals(REVENUE_TRANSACTION_AMOUNT, transactionToUpdate.getAmount());
     assertEquals(CATEGORY_ID_2, transactionToUpdate.getCategory().getId());
     assertEquals(CATEGORY_NAME_UPPER_CASE_2, transactionToUpdate.getCategory().getName());
-    assertEquals(CATEGORY_TRANSACTION_TYPE_2, transactionToUpdate.getCategory().getType());
     assertEquals(TRANSACTION_DESCRIPTION_2, transactionToUpdate.getDescription());
     assertEquals(TRANSACTION_DATE_2, transactionToUpdate.getDate());
     assertEquals(CATEGORY_COLOR_2, transactionToUpdate.getCategory().getColor());
@@ -123,7 +117,6 @@ public class TransactionRepositoryMapperTest {
     assertNotNull(transactionToUpdate.getCategory());
     assertNotNull(transactionToUpdate.getCategory().getId());
     assertNotNull(transactionToUpdate.getCategory().getName());
-    assertNotNull(transactionToUpdate.getCategory().getType());
     assertNotNull(transactionToUpdate.getDescription());
     assertNotNull(transactionToUpdate.getDate());
   }

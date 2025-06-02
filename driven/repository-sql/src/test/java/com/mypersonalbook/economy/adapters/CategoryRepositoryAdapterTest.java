@@ -52,8 +52,7 @@ public class CategoryRepositoryAdapterTest {
         .thenReturn(EXPENSE_CATEGORY);
     final Optional<Category> RESULT =
         this.categoryRepositoryAdapter.findOne(
-            new CategoryFilter(
-                CATEGORY_NAME_UPPER_CASE, CATEGORY_EXPENSE_TRANSACTION_TYPE_UPPER_CASE, USER_ID));
+            new CategoryFilter(CATEGORY_NAME_UPPER_CASE, USER_ID));
     assertTrue(RESULT.isPresent());
     assertEquals(CATEGORY_ID, RESULT.get().getId());
   }

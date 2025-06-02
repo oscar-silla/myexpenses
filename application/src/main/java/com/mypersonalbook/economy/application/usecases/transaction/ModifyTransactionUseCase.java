@@ -1,6 +1,5 @@
 package com.mypersonalbook.economy.application.usecases.transaction;
 
-import com.mypersonalbook.economy.application.filters.CategoryFilter;
 import com.mypersonalbook.economy.application.services.AuthService;
 import com.mypersonalbook.economy.application.services.CategoryService;
 import com.mypersonalbook.economy.domain.Category;
@@ -30,7 +29,7 @@ public class ModifyTransactionUseCase implements ModifyTransactionUseCasePort {
     if (this.isCategoryModified(transaction, transactionToUpdate)) {
       Category category =
           this.categoryService.findOneOrCreate(
-              transaction.getCategory(), this.buildCategoryFilter(transaction));
+              transaction.getCategory(), this.authService.getUserId());
       transaction.setCategory(category);
     }
     this.transactionService.modify(transaction, transactionToUpdate);
@@ -38,9 +37,5 @@ public class ModifyTransactionUseCase implements ModifyTransactionUseCasePort {
 
   private boolean isCategoryModified(Transaction transaction, Transaction transactionToUpdate) {
     return !transaction.getCategory().getName().equals(transactionToUpdate.getCategory().getName());
-  }
-
-  private CategoryFilter buildCategoryFilter(Transaction transaction) {
-    return new CategoryFilter(transaction.getCategory().getName(), this.authService.getUserId());
   }
 }

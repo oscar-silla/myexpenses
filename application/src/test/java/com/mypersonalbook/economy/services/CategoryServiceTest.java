@@ -1,6 +1,5 @@
 package com.mypersonalbook.economy.services;
 
-import com.mypersonalbook.economy.application.exceptions.NotFoundException;
 import com.mypersonalbook.economy.application.filters.CategoryFilter;
 import com.mypersonalbook.economy.application.ports.driven.CategoryRepositoryPort;
 import com.mypersonalbook.economy.application.services.CategoryService;
@@ -54,9 +53,9 @@ public class CategoryServiceTest {
 
   @Test
   @DisplayName("Should return value when save")
-  void shouldReturnValue_WhenSave() {
+  void shouldReturnValue_WhenFindOneOrCreate() {
     when(this.categoryRepository.save(any(), any())).thenReturn(EXPENSE_CATEGORY);
-    final Category RESULT = this.categoryService.save(EXPENSE_CATEGORY, USER_ID);
+    final Category RESULT = this.categoryService.findOneOrCreate(EXPENSE_CATEGORY, USER_ID);
     verify(this.categoryRepository).save(any(), any());
     assertEquals(RESULT, EXPENSE_CATEGORY);
   }

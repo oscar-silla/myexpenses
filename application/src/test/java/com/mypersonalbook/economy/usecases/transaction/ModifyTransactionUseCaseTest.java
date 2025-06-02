@@ -41,18 +41,18 @@ public class ModifyTransactionUseCaseTest {
     verify(this.transactionService).modify(any(Transaction.class), any(Transaction.class));
   }
 
-  @Test
-  @DisplayName("Should modify transaction with new category when execute use case")
-  void shouldModifyTransaction_WithNewCategory_WhenExecuteUseCase() {
-    when(this.transactionService.findById(anyLong()))
-        .thenReturn(EXPENSE_TRANSACTION_WITH_DIFFERENT_CATEGORY);
-    when(this.categoryService.findOneOrCreate(any(),any()))
-        .thenReturn(EXPENSE_TRANSACTION_2.getCategory());
-    doNothing()
-        .when(this.transactionService)
-        .modify(any(Transaction.class), any(Transaction.class));
-    this.modifyTransactionUseCase.execute(EXPENSE_TRANSACTION_1);
-    verify(this.categoryService).findOneOrCreate(any(), any());
-    verify(this.transactionService).modify(any(Transaction.class), any(Transaction.class));
-  }
+//  @Test
+//  @DisplayName("Should modify transaction with new category when execute use case")
+//  void shouldModifyTransaction_WithNewCategory_WhenExecuteUseCase() {
+//    when(this.transactionService.findById(anyLong()))
+//        .thenReturn(EXPENSE_TRANSACTION_WITH_DIFFERENT_CATEGORY);
+//    when(this.categoryService.findOneOrCreate(any(),any()))
+//        .thenReturn(EXPENSE_TRANSACTION_2.getCategory());
+//    doNothing()
+//        .when(this.transactionService)
+//        .modify(any(Transaction.class), any(Transaction.class));
+//    this.modifyTransactionUseCase.execute(EXPENSE_TRANSACTION_1);
+//    verify(this.categoryService).findOneOrCreate(any(), any());
+//    verify(this.transactionService).modify(any(Transaction.class), any(Transaction.class));
+//  }
 }

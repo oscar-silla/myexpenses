@@ -12,8 +12,6 @@ import com.mypersonalbook.economy.application.services.TransactionService;
 import com.mypersonalbook.economy.application.services.TransactionTypeService;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class SaveTransactionUseCase implements SaveTransactionUseCasePort {
   private final TransactionService transactionService;
@@ -57,10 +55,7 @@ public class SaveTransactionUseCase implements SaveTransactionUseCasePort {
 
   private Category populateCategory(Transaction transaction) {
     return new Category(
-        null,
-        transaction.getCategory().getName(),
-        transaction.getType(),
-        transaction.getCategory().getColor());
+        null, transaction.getCategory().getName(), transaction.getCategory().getColor());
   }
 
   private Transaction populateTransaction(Transaction transaction, Category category) {
@@ -69,7 +64,6 @@ public class SaveTransactionUseCase implements SaveTransactionUseCasePort {
   }
 
   private CategoryFilter buildCategoryFilter(Transaction transaction) {
-    return new CategoryFilter(
-        transaction.getCategory().getName(), transaction.getType(), this.authService.getUserId());
+    return new CategoryFilter(transaction.getCategory().getName(), this.authService.getUserId());
   }
 }

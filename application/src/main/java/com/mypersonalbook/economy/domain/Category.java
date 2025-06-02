@@ -3,15 +3,13 @@ package com.mypersonalbook.economy.domain;
 public class Category {
   Long id;
   String name;
-  String type;
   String color;
 
   public Category() {}
 
-  public Category(Long id, String name, String type, String color) {
+  public Category(Long id, String name, String color) {
     this.id = id;
     this.name = name;
-    this.type = type;
     this.color = color;
   }
 
@@ -31,14 +29,6 @@ public class Category {
     this.name = name;
   }
 
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
-
   public String getColor() {
     return color;
   }
@@ -49,18 +39,6 @@ public class Category {
 
   @Override
   public String toString() {
-    return "Category{"
-        + "id="
-        + id
-        + ", name='"
-        + name
-        + '\''
-        + ", type='"
-        + type
-        + '\''
-        + ", color='"
-        + color
-        + '\''
-        + '}';
+    return "Category{" + "id=" + id + ", name='" + name + '\'' + ", color='" + color + '\'' + '}';
   }
 }

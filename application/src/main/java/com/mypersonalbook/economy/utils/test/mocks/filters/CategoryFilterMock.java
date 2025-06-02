@@ -6,6 +6,5 @@ import static com.mypersonalbook.economy.utils.test.TestConstants.*;
 
 public class CategoryFilterMock {
   public static final CategoryFilter CATEGORY_FILTER =
-      new CategoryFilter(
-          CATEGORY_NAME_UPPER_CASE, CATEGORY_EXPENSE_TRANSACTION_TYPE_UPPER_CASE, USER_ID);
+      new CategoryFilter(CATEGORY_NAME_UPPER_CASE, USER_ID);
 }

@@ -7,17 +7,15 @@ import org.mapstruct.*;
 
 @Mapper(componentModel = "spring")
 public interface CategoryRepositoryMapper {
-  @Mapping(target = "type.id", source = "category.type")
   @Mapping(target = "user.id", source = "userId")
   CategoryMO toCategoryMO(Category category, Long userId);
 
-  @Mapping(target = "type", source = "type.id")
   Category toCategory(CategoryMO categoryMO);
 
   @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
   void mapFromDtoToCategory(Category dto, @MappingTarget Category category);
 
   default Category toCategory(CategoryProjection categoryProjection) {
-    return new Category(null, categoryProjection.getName(), null, categoryProjection.getColor());
+    return new Category(null, categoryProjection.getName(), categoryProjection.getColor());
   }
 }

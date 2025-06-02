@@ -26,7 +26,7 @@ public class GetCategoriesUseCase implements GetCategoriesUseCasePort {
   }
 
   private CategoryFilter buildCategoryFilter() {
-    return new CategoryFilter(null, null, this.authService.getUserId());
+    return new CategoryFilter(null, this.authService.getUserId());
   }
 
   private PaginationFilter buildPaginationFilter(Integer pageNumber, Integer pageSize) {

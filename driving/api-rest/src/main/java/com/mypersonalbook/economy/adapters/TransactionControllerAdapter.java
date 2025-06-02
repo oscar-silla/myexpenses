@@ -87,9 +87,9 @@ public class TransactionControllerAdapter implements TransactionsApi {
         "PATCH /economy/v1/expenses/{id} with id: {}, body: {}",
         id,
         expenseRequestBodyType.toString());
-    Transaction transaction = this.transactionControllerMapper.toTransaction(expenseRequestBodyType);
+    Transaction transaction =
+        this.transactionControllerMapper.toTransaction(expenseRequestBodyType);
     transaction.setId(id);
-    transaction.getCategory().setType(type);
     transaction.setType(type);
     this.modifyExpenseUseCase.execute(transaction);
     return ResponseEntity.status(HttpStatus.OK).build();

@@ -1,7 +1,6 @@
 package com.mypersonalbook.economy.application.usecases.transaction;
 
 import com.mypersonalbook.economy.application.exceptions.UnauthorizedException;
-import com.mypersonalbook.economy.application.filters.CategoryFilter;
 import com.mypersonalbook.economy.application.services.AuthService;
 import com.mypersonalbook.economy.application.services.CategoryService;
 import com.mypersonalbook.economy.domain.Category;
@@ -36,7 +35,7 @@ public class SaveTransactionUseCase implements SaveTransactionUseCasePort {
     transaction.getUser().setId(this.authService.getUserId());
     Category category =
         this.categoryService.findOneOrCreate(
-            this.populateCategory(transaction), buildCategoryFilter(transaction));
+            this.populateCategory(transaction), this.authService.getUserId());
     this.transactionService.save(this.populateTransaction(transaction, category));
   }
 
@@ -61,9 +60,5 @@ public class SaveTransactionUseCase implements SaveTransactionUseCasePort {
   private Transaction populateTransaction(Transaction transaction, Category category) {
     transaction.setCategory(category);
     return transaction;
-  }
-
-  private CategoryFilter buildCategoryFilter(Transaction transaction) {
-    return new CategoryFilter(transaction.getCategory().getName(), this.authService.getUserId());
   }
 }

@@ -21,14 +21,9 @@ public class CategoryService {
     return this.categoryRepository.findOne(filter);
   }
 
-  public Category save(Category category, Long userId) {
-    final Optional<Category> currentCategory =
-        this.findOne(new CategoryFilter(category.getName(), userId));
-    return currentCategory.orElseGet(() -> this.categoryRepository.save(category, userId));
-  }
-
-  public Category findOneOrCreate(Category category, CategoryFilter filter) {
-    return this.findOne(filter).orElseGet(() -> this.save(category, filter.userId()));
+  public Category findOneOrCreate(Category category, Long userId) {
+    return this.findOne(new CategoryFilter(category.getName(), userId))
+        .orElseGet(() -> this.categoryRepository.save(category, userId));
   }
 
   public Page<Category> findAll(CategoryFilter filter, PaginationFilter paginationFilter) {

@@ -55,7 +55,7 @@ public class TransactionRepositoryAdapter implements TransactionRepositoryPort {
     Pageable pageable =
         PageRequest.of(
             transactionFilter.paginationFilter().pageNumber() - 1,
-            transactionFilter.paginationFilter().pageSize());
+            2000);
     Page<TransactionMO> expensesMOPage =
         this.transactionJpaRepository.findAll(specifications, pageable);
     return expensesMOPage.map(this.transactionRepositoryMapper::toTransaction);

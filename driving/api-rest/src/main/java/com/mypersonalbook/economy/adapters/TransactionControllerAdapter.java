@@ -13,6 +13,7 @@ import openapi.economy.model.TransactionResponseType;
 import openapi.economy.model.TransactionsResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -72,11 +73,11 @@ public class TransactionControllerAdapter implements TransactionsApi {
         pageNumber,
         startDate,
         endDate);
-    TransactionsResponse transactionsResponse =
+    Page<Transaction> transactions =
         this.getExpensesUseCase.execute(
             new GetTransactionsQueryParams(pageSize, pageNumber, startDate, endDate));
     TransactionsResponseType expensesResponseType =
-        this.transactionControllerMapper.toTransactionsResponseType(transactionsResponse);
+        this.transactionControllerMapper.toTransactionsResponseType(transactions);
     return ResponseEntity.status(HttpStatus.OK).body(expensesResponseType);
   }
 

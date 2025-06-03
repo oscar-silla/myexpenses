@@ -13,6 +13,7 @@ import openapi.economy.model.TransactionRequestBodyPatchType;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -36,7 +37,7 @@ public interface TransactionControllerMapper {
   List<TransactionDateResponseType> toExpenseResponseTypes(
       List<TransactionDateResponse> transactionDateResponse);
 
-  TransactionsResponseType toTransactionsResponseType(TransactionsResponse transactionsResponse);
+  TransactionsResponseType toTransactionsResponseType(Page<Transaction> transactionsResponse);
 
   @Named("toUpperCase")
   default String toUpperCase(String string) {

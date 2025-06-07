@@ -2,6 +2,8 @@ package com.mypersonalbook.economy.mappers;
 
 import com.mypersonalbook.economy.domain.Transaction;
 import com.mypersonalbook.economy.models.TransactionMO;
+import com.mypersonalbook.economy.models.response.transaction.TransactionsSummary;
+import com.mypersonalbook.economy.projections.TransactionsSummaryProjection;
 import org.mapstruct.*;
 
 @Mapper(
@@ -20,4 +22,9 @@ public interface TransactionRepositoryMapper {
 
   @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
   void mapFromDtoToTransaction(Transaction dto, @MappingTarget Transaction transaction);
+
+  default TransactionsSummary toTransactionsSummary(TransactionsSummaryProjection projection) {
+    return new TransactionsSummary(
+        projection.getTotalRevenue(), projection.getTotalExpense(), projection.getTotalMoney());
+  }
 }

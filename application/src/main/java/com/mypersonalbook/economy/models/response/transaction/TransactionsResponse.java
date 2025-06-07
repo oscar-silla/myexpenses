@@ -1,10 +1,8 @@
 package com.mypersonalbook.economy.models.response.transaction;
 
-import com.mypersonalbook.economy.models.response.pagination.PaginationResponse;
-
-import java.util.List;
+import com.mypersonalbook.economy.domain.Transaction;
+import org.springframework.data.domain.Page;
 
 public record TransactionsResponse(
-    List<TransactionDateResponse> results,
-    TransactionSummaryResponse summary,
-    PaginationResponse pagination) {}
+    Page<Transaction> results,
+    TransactionsSummary summary) {}

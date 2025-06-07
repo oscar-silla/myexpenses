@@ -18,10 +18,10 @@ public class UtilsTest {
 
   @Test
   @DisplayName("Should validate date range when are same dates")
-  void shouldValidateAndThrowDateRange_WhenAreSameDates() {
+  void shouldValidateOrThrowDateRange_WhenAreSameDates() {
     Executable executable =
         () ->
-            Utils.validateAndThrowDateRange(
+            Utils.validateOrThrowDateRange(
                 LocalDate.now(), LocalDate.now(), LoggerFactory.getLogger(UtilsTest.class));
     assertDoesNotThrow(executable);
   }
@@ -31,7 +31,7 @@ public class UtilsTest {
   void shouldValidateDateRange_WhenStartDateIsBeforeThanEndAndThrowDate() {
     Executable executable =
         () ->
-            Utils.validateAndThrowDateRange(
+            Utils.validateOrThrowDateRange(
                 START_DATE, END_DATE, LoggerFactory.getLogger(UtilsTest.class));
     assertDoesNotThrow(executable);
   }
@@ -41,7 +41,7 @@ public class UtilsTest {
   void shouldThrowBadRequestException_WhenStartDateIsAfterThanEndAndThrowDate() {
     Executable executable =
         () ->
-            Utils.validateAndThrowDateRange(
+            Utils.validateOrThrowDateRange(
                 END_DATE, START_DATE, LoggerFactory.getLogger(UtilsTest.class));
     assertThrows(BadRequestException.class, executable);
   }
@@ -51,8 +51,7 @@ public class UtilsTest {
   void shouldThrowBadRequestException_WhenPageNumberIsZero() {
     Executable executable =
         () ->
-            Utils.validateAndThrowPagination(
-                0, PAGE_SIZE, LoggerFactory.getLogger(UtilsTest.class));
+            Utils.validateOrThrowPagination(0, PAGE_SIZE, LoggerFactory.getLogger(UtilsTest.class));
     assertThrows(BadRequestException.class, executable);
   }
 
@@ -61,7 +60,7 @@ public class UtilsTest {
   void shouldThrowBadRequestException_WhenPageSizeIsZero() {
     Executable executable =
         () ->
-            Utils.validateAndThrowPagination(
+            Utils.validateOrThrowPagination(
                 PAGE_NUMBER, 0, LoggerFactory.getLogger(UtilsTest.class));
     assertThrows(BadRequestException.class, executable);
   }
@@ -76,5 +75,19 @@ public class UtilsTest {
   @DisplayName("Should return value when round to two decimals")
   void shouldReturnValue_WhenRoundToTwoDecimals() {
     assertEquals(1.23f, Utils.roundToTwoDecimals(1.23239437394343f));
+  }
+
+  @Test
+  @DisplayName("Should return first day of month when get first day of month")
+  void shouldReturnFirstDayOfMonth_WhenGetFirstDayOfMonth() {
+    assertEquals(LocalDate.now().withDayOfMonth(1), Utils.getFirstDayOfMonth(LocalDate.now()));
+  }
+
+  @Test
+  @DisplayName("Should return last day of month when get last day of month")
+  void shouldReturnLastDayOfMonth_WhenGetLastDayOfMonth() {
+    assertEquals(
+        LocalDate.now().withDayOfMonth(LocalDate.now().lengthOfMonth()),
+        Utils.getLastDayOfMonth(LocalDate.now()));
   }
 }

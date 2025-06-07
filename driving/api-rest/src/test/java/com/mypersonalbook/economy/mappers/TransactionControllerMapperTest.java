@@ -57,16 +57,9 @@ public class TransactionControllerMapperTest {
     assertEquals(PAGE_NUMBER, RESULT.getPagination().getPageNumber());
     assertEquals(PAGE_SIZE, RESULT.getPagination().getPageSize());
     assertEquals(PAGE_TOTAL_RESULTS, RESULT.getPagination().getTotalResults());
-    assertEquals(TRANSACTION_DATE_1, RESULT.getResults().get(0).getDate());
-    assertEquals(TRANSACTION_ID_1, RESULT.getResults().get(0).getExpenses().get(0).getId());
-    assertEquals(
-        EXPENSE_TRANSACTION_AMOUNT, RESULT.getResults().get(0).getExpenses().get(0).getAmount());
-    assertEquals(
-        CATEGORY_NAME_UPPER_CASE,
-        RESULT.getResults().get(0).getExpenses().get(0).getCategory().getName());
-    assertEquals(
-        CATEGORY_COLOR, RESULT.getResults().get(0).getExpenses().get(0).getCategory().getColor());
-    assertEquals(
-        TRANSACTION_DESCRIPTION, RESULT.getResults().get(0).getExpenses().get(0).getDescription());
+    assertEquals(PAGE_RETRIEVED_RESULTS, RESULT.getPagination().getRetrievedResults());
+    assertEquals(TOTAL_REVENUE, RESULT.getSummary().getTotalRevenue());
+    assertEquals(TOTAL_EXPENSE, RESULT.getSummary().getTotalExpense());
+    assertEquals(TOTAL_MONEY, RESULT.getSummary().getTotalMoney());
   }
 }

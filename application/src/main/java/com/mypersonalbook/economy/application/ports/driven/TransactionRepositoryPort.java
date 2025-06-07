@@ -2,6 +2,7 @@ package com.mypersonalbook.economy.application.ports.driven;
 
 import com.mypersonalbook.economy.domain.Transaction;
 import com.mypersonalbook.economy.application.filters.TransactionFilter;
+import com.mypersonalbook.economy.models.response.transaction.TransactionsSummary;
 import org.springframework.data.domain.Page;
 
 import java.util.Optional;
@@ -16,4 +17,6 @@ public interface TransactionRepositoryPort {
   Page<Transaction> find(TransactionFilter transactionFilter);
 
   void modify(Transaction transaction, Transaction transactionToUpdate);
+
+  TransactionsSummary getSummary(TransactionFilter transactionFilter);
 }

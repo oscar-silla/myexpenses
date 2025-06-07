@@ -32,8 +32,9 @@ public class TestConstants {
   public static final String CATEGORY_EXPENSE_TRANSACTION_TYPE_LOWER_CASE = "Expense";
   public static final String CATEGORY_TRANSACTION_TYPE_2 = "REVENUE";
   public static final Integer PAGE_NUMBER = 1;
-  public static final Integer PAGE_SIZE = 10;
-  public static final Integer PAGE_TOTAL_RESULTS = 100;
+  public static final Integer PAGE_SIZE = 4;
+  public static final Integer PAGE_TOTAL_RESULTS = 4;
+  public static final Integer PAGE_RETRIEVED_RESULTS = 4;
   public static final LocalDate START_DATE = LocalDate.now();
   public static final LocalDate END_DATE = LocalDate.now().plusDays(1);
   public static final Float TOTAL_REVENUE = 2.5F;

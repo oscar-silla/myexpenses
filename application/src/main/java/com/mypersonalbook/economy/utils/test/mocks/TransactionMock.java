@@ -83,15 +83,6 @@ public class TransactionMock {
           TRANSACTION_DATE_1,
           CATEGORY_EXPENSE_TRANSACTION_TYPE_UPPER_CASE,
           USER);
-  public static final Transaction EXPENSE_TRANSACTION_WITH_DIFFERENT_CATEGORY =
-      new Transaction(
-          TRANSACTION_ID_1,
-          EXPENSE_TRANSACTION_AMOUNT,
-          EXPENSE_CATEGORY_2,
-          TRANSACTION_DESCRIPTION,
-          TRANSACTION_DATE_1,
-          CATEGORY_EXPENSE_TRANSACTION_TYPE_UPPER_CASE,
-          USER);
   public static final Transaction EXPENSE_TRANSACTION_WITH_NULL_DATE =
       new Transaction(
           TRANSACTION_ID_1,
@@ -113,7 +104,7 @@ public class TransactionMock {
   public static final Transaction REVENUE_TRANSACTION_1 =
       new Transaction(
           TRANSACTION_ID_1,
-          EXPENSE_TRANSACTION_AMOUNT,
+          REVENUE_TRANSACTION_AMOUNT,
           REVENUE_CATEGORY,
           TRANSACTION_DESCRIPTION,
           TRANSACTION_DATE_1,
@@ -122,7 +113,7 @@ public class TransactionMock {
   public static final Transaction REVENUE_TRANSACTION_2 =
       new Transaction(
           TRANSACTION_ID_2,
-          EXPENSE_TRANSACTION_AMOUNT,
+          REVENUE_TRANSACTION_AMOUNT,
           REVENUE_CATEGORY,
           TRANSACTION_DESCRIPTION,
           TRANSACTION_DATE_1,
@@ -143,4 +134,11 @@ public class TransactionMock {
               EXPENSE_TRANSACTION_2,
               EXPENSE_TRANSACTION_3,
               EXPENSE_TRANSACTION_4));
+  public static final Page<Transaction> TRANSACTION_PAGE =
+      new PageImpl<>(
+          List.of(
+              EXPENSE_TRANSACTION_1,
+              EXPENSE_TRANSACTION_2,
+              REVENUE_TRANSACTION_1,
+              REVENUE_TRANSACTION_2));
 }

@@ -124,4 +124,8 @@ public class Transaction {
         && (this.getType().equalsIgnoreCase(EXPENSE_TYPE)
             || this.getType().equalsIgnoreCase(REVENUE_TYPE));
   }
+
+  public boolean isExpenseType() {
+    return this.getType().equals(EXPENSE_TYPE);
+  }
 }

@@ -1,18 +1,13 @@
 package com.mypersonalbook.economy.mappers;
 
 import com.mypersonalbook.economy.domain.Transaction;
-import com.mypersonalbook.economy.domain.User;
-import com.mypersonalbook.economy.models.response.transaction.TransactionDateResponse;
 import com.mypersonalbook.economy.models.response.transaction.TransactionsResponse;
-import openapi.economy.model.TransactionDateResponseType;
-import openapi.economy.model.TransactionDetailResponseType;
-import openapi.economy.model.TransactionRequestBodyType;
-import openapi.economy.model.TransactionResponseType;
-import openapi.economy.model.TransactionsResponseType;
-import openapi.economy.model.TransactionRequestBodyPatchType;
+import com.mypersonalbook.economy.models.response.transaction.TransactionsSummary;
+import openapi.economy.model.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -33,10 +28,28 @@ public interface TransactionControllerMapper {
   List<TransactionDetailResponseType> toTransactionDetailResponseTypes(
       List<Transaction> transactions);
 
-  List<TransactionDateResponseType> toExpenseResponseTypes(
-      List<TransactionDateResponse> transactionDateResponse);
+  SummaryResponseType toTransactionsSummaryResponseType(TransactionsSummary transactionsSummary);
 
-  TransactionsResponseType toTransactionsResponseType(TransactionsResponse transactionsResponse);
+  default TransactionsResponseType toTransactionsResponseType(
+      TransactionsResponse transactionsResponse) {
+    TransactionsResponseType transactionsResponseType = new TransactionsResponseType();
+    transactionsResponseType.setResults(
+        this.toTransactionDetailResponseTypes(transactionsResponse.results().getContent()));
+    transactionsResponseType.setSummary(
+        this.toTransactionsSummaryResponseType(transactionsResponse.summary()));
+    transactionsResponseType.setPagination(
+        this.toPaginationResponseType(transactionsResponse.results()));
+    return transactionsResponseType;
+  }
+
+  default PaginationResponseType toPaginationResponseType(Page<Transaction> transactionPage) {
+    PaginationResponseType paginationResponseType = new PaginationResponseType();
+    paginationResponseType.setPageSize(transactionPage.getSize());
+    paginationResponseType.setPageNumber(transactionPage.getNumber() + 1);
+    paginationResponseType.setRetrievedResults(transactionPage.getContent().size());
+    paginationResponseType.setTotalResults((int) transactionPage.getTotalElements());
+    return paginationResponseType;
+  }
 
   @Named("toUpperCase")
   default String toUpperCase(String string) {

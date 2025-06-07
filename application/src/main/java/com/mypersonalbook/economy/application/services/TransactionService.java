@@ -5,6 +5,7 @@ import com.mypersonalbook.economy.application.exceptions.NotFoundException;
 import com.mypersonalbook.economy.application.filters.TransactionFilter;
 import com.mypersonalbook.economy.application.ports.driven.CategoryRepositoryPort;
 import com.mypersonalbook.economy.application.ports.driven.TransactionRepositoryPort;
+import com.mypersonalbook.economy.models.response.transaction.TransactionsSummary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -45,5 +46,9 @@ public class TransactionService {
 
   public void modify(Transaction transaction, Transaction transactionToUpdate) {
     this.transactionRepository.modify(transaction, transactionToUpdate);
+  }
+
+  public TransactionsSummary getSummary(TransactionFilter transactionFilter) {
+    return this.transactionRepository.getSummary(transactionFilter);
   }
 }

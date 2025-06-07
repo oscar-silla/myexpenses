@@ -5,6 +5,7 @@ import com.mypersonalbook.economy.application.filters.TransactionFilter;
 import com.mypersonalbook.economy.mappers.TransactionRepositoryMapper;
 import com.mypersonalbook.economy.models.TransactionMO;
 import com.mypersonalbook.economy.application.ports.driven.TransactionRepositoryPort;
+import com.mypersonalbook.economy.models.response.transaction.TransactionsSummary;
 import com.mypersonalbook.economy.repositories.TransactionJpaRepository;
 import com.mypersonalbook.economy.specifications.TransactionSpecification;
 import org.springframework.data.domain.Page;
@@ -55,7 +56,7 @@ public class TransactionRepositoryAdapter implements TransactionRepositoryPort {
     Pageable pageable =
         PageRequest.of(
             transactionFilter.paginationFilter().pageNumber() - 1,
-            2000);
+            transactionFilter.paginationFilter().pageSize());
     Page<TransactionMO> expensesMOPage =
         this.transactionJpaRepository.findAll(specifications, pageable);
     return expensesMOPage.map(this.transactionRepositoryMapper::toTransaction);
@@ -67,5 +68,14 @@ public class TransactionRepositoryAdapter implements TransactionRepositoryPort {
     TransactionMO transactionMO =
         this.transactionRepositoryMapper.toTransactionMO(transactionToUpdate);
     this.transactionJpaRepository.save(transactionMO);
+  }
+
+  @Override
+  public TransactionsSummary getSummary(TransactionFilter transactionFilter) {
+    return this.transactionRepositoryMapper.toTransactionsSummary(
+        this.transactionJpaRepository.getTransactionsSummary(
+            transactionFilter.userId(),
+            transactionFilter.startDate(),
+            transactionFilter.endDate()));
   }
 }

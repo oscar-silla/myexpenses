@@ -597,43 +597,23 @@ components:
     TransactionsResponseType:
       type: object
       required:
+        - summary
         - results
         - pagination
       properties:
+        summary:
+          $ref: "#/components/schemas/SummaryResponseType"
         results:
           type: array
           items:
-            $ref: "#/components/schemas/TransactionDateResponseType"
-        summary:
-          $ref: "#/components/schemas/SummaryResponseType"
+            $ref: "#/components/schemas/TransactionDetailResponseType"
         pagination:
           $ref: "#/components/schemas/PaginationResponseType"
-    TransactionDateResponseType:
-      type: object
-      required:
-        - date
-        - expenses
-        - revenues
-        - amount
-      properties:
-        date:
-          type: string
-          format: date
-          example: 2024-01-01
-        expenses:
-          type: array
-          items:
-            $ref: "#/components/schemas/TransactionDetailResponseType"
-        revenues:
-          type: array
-          items:
-            $ref: "#/components/schemas/TransactionDetailResponseType"
-        amount:
-          $ref: "#/components/schemas/TransactionDateAmountResponseType"
     TransactionDetailResponseType:
       type: object
       required:
         - id
+        - type
         - amount
         - category
         - description
@@ -642,6 +622,9 @@ components:
           type: integer
           format: int64
           example: 1
+        type:
+          type: string
+          example: EXPENSE
         amount:
           type: number
           format: float
@@ -717,6 +700,7 @@ components:
       required:
         - pageNumber
         - pageSize
+        - retrievedResults
         - totalResults
       properties:
         pageNumber:
@@ -724,6 +708,10 @@ components:
           format: int32
           example: 1
         pageSize:
+          type: integer
+          format: int32
+          example: 10
+        retrievedResults:
           type: integer
           format: int32
           example: 10

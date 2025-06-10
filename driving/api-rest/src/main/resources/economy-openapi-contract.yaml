@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   title: Economy API
   description: Economy API from my personal book
-  version: 3.3.2
+  version: 3.3.3
 tags:
   - name: Transactions
   - name: Users
@@ -614,6 +614,7 @@ components:
       required:
         - id
         - type
+        - date
         - amount
         - category
         - description
@@ -625,6 +626,10 @@ components:
         type:
           type: string
           example: EXPENSE
+        date:
+          type: string
+          format: date
+          example: 2025-01-01
         amount:
           type: number
           format: float
